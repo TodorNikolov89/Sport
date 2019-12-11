@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace Sport.Domain
+﻿namespace Sport.Domain
 {
+    using Microsoft.AspNetCore.Identity;
+    using System;
+
     public class User : IdentityUser
     {
-        public string DataOFBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
     }
 }

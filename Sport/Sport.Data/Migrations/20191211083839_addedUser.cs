@@ -23,7 +23,7 @@ namespace Sport.Data.Migrations
                 oldMaxLength: 128);
 
             migrationBuilder.AddColumn<string>(
-                name: "DataOFBirth",
+                name: "DateOfBirth",
                 table: "AspNetUsers",
                 nullable: true);
 
@@ -47,7 +47,7 @@ namespace Sport.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "DataOFBirth",
+                name: "DateOfBirth",
                 table: "AspNetUsers");
 
             migrationBuilder.AlterColumn<string>(
