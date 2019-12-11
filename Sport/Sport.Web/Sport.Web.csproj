@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Sport.Data\Sport.Data.csproj" />
     <ProjectReference Include="..\Sport.Domain\Sport.Domain.csproj" />
+    <ProjectReference Include="..\Sport.Models\Sport.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

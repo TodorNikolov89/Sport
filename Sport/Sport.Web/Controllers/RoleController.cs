@@ -2,9 +2,12 @@
 {
     using System.Linq;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Sport.Web.Infrastructure;
 
+    [Authorize(Roles = GlobalConstants.AdministratorRole)]
     [Route("role")]
     public class RoleController : Controller
     {
@@ -34,7 +37,7 @@
         [Route(nameof(Create))]
         public async Task<IActionResult> Create(IdentityRole role)
         {
-          await  roleManager.CreateAsync(role);
+            await roleManager.CreateAsync(role);
             return RedirectToAction(nameof(Index));
         }
     }
