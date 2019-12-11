@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Sport.ViewModels.Identity
+﻿namespace Sport.ViewModels.Identity
 {
+    using System.Collections.Generic;
+
     public class UserWithRolesViewModel
     {
         public string Id { get; set; }
