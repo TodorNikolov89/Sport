@@ -16,11 +16,13 @@
     {
         private readonly SportDbContext db;
         private readonly UserManager<User> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public IdentityController(SportDbContext db, UserManager<User> userManager)
+        public IdentityController(SportDbContext db, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.db = db;
             this.userManager = userManager;
+            this.roleManager = roleManager;
         }
 
         [Route(nameof(All))]
@@ -33,7 +35,7 @@
                 {
                     Id = u.Id,
                     Username = u.UserName,
-                    Email = u.Email,
+                    Email = u.Email
                 })
                 .ToList();
 
@@ -73,6 +75,7 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateUserViewModel model)
         {
+            ViewData["roles"] = roleManager.Roles.ToList();
             if (!ModelState.IsValid)
             {
                 return this.View(model);
@@ -135,6 +138,28 @@
                 AddModelErrors(result);
                 return View(model);
             }
+        }
+
+        [Route(nameof(Delete) + "/{id}")]
+        public IActionResult Delete(string id)
+        {
+            return View("Delete", id);
+        }
+
+     
+        [Route(nameof(Destroy) + "/{id}")]
+        public async Task<IActionResult> Destroy(string id)
+        {
+            var user = await this.userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            await userManager.DeleteAsync(user);
+
+            return RedirectToAction(nameof(All));
         }
 
         private void AddModelErrors(IdentityResult result)

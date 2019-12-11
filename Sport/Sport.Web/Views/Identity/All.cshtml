@@ -12,7 +12,7 @@
 }
 
 <div>
-    <a href="/identity/create" class="btn btn-primary">Add User</a>
+    <a href="/Identity/create" class="btn btn-primary">Add User</a>
 </div>
 <br />
 
@@ -30,6 +30,7 @@
     </tr>
     @foreach (var user in Model)
     {
+
         <tr>
             <th>
                 @user.Username
@@ -39,8 +40,10 @@
             </th>
             <th>
                 <a href="/identity/changepassword/@user.Id" class="btn btn-warning">Change Password</a>
+                <a href="/identity/delete/@user.Id" class="btn btn-danger">Delete</a>
                 <a href="/identity/roles/@user.Id" class="btn btn-default">Role</a>
             </th>
         </tr>
+
     }
 </table>

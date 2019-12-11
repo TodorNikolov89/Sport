@@ -22,23 +22,34 @@
 
                 var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
                 var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
+                var roles = new string[] {GlobalConstants.PlayerRole, GlobalConstants.UmpireRole, GlobalConstants.AdministratorRole };
 
                 Task
                      .Run(async () =>
                      {
-                         var adminName = GlobalConstants.AdministratorRole;
+                         foreach (var role in roles)
+                         {
+                             var roleExist = await roleManager.RoleExistsAsync(role);
 
-                         var roleExists = await roleManager.RoleExistsAsync(adminName);
+                             if (!roleExist)
+                             {
+                                 await roleManager.CreateAsync(new IdentityRole(role));
+                             }
+                         }
+
+                         var roleName = GlobalConstants.AdministratorRole;
+
+                         var roleExists = await roleManager.RoleExistsAsync(roleName);
 
                          if (!roleExists)
                          {
                              await roleManager.CreateAsync(new IdentityRole
                              {
-                                 Name = adminName
+                                 Name = roleName
                              });
                          }
 
-                         var adminUser = await userManager.FindByNameAsync(adminName);
+                         var adminUser = await userManager.FindByNameAsync(roleName);
 
                          if (adminUser == null)
                          {
@@ -50,7 +61,7 @@
 
                              await userManager.CreateAsync(adminUser, "admin12");
 
-                             await userManager.AddToRoleAsync(adminUser, adminName);
+                             await userManager.AddToRoleAsync(adminUser, roleName);
                          }
                      })
                      .Wait();

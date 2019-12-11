@@ -1,0 +1,10 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Are you sure you want to delete this user?</h1>
+<a href="/identity/all" class="btn btn-primary">Back</a>
+
+<a href="/identity/destroy/@Model" class="btn btn-danger">Confirm Delete</a>
+
