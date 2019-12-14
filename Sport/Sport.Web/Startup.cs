@@ -10,6 +10,10 @@ namespace Sport.Web
     using Sport.Data;
     using Sport.Domain;
     using Sport.Web.Infrastructure.Extensions;
+    using Profiles;
+    using AutoMapper;
+    using Sport.Services;
+    using Sport.Services.Implementation;
 
     public class Startup
     {
@@ -39,6 +43,19 @@ namespace Sport.Web
                 .AddEntityFrameworkStores<SportDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddTransient<ITournamentService, TournamentService>();
+
+            //services.AddTransient<IMapper, Mapper>();
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new DomainProfile());
+            });
+
+            var mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddControllersWithViews();
             services.AddRazorPages();

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<AllTournamentsViewModel>
+@{
+    ViewData["Title"] = "All";
+}
+
+<h1>All</h1>
+
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Start Date
+            </th>
+            <th>
+                End Date
+            </th>
+            <th>
+                id
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tournament in Model)
+        {
+        <tr>
+            <th>
+                @tournament.Name
+            </th>
+            <th>
+                @tournament.StartDate
+            </th>
+            <th>
+                @tournament.EndDate
+            </th>
+            <th>
+                @tournament.Id
+            </th>
+            <th>
+                <a href="/tournaments/edit/@tournament.Id" class="btn btn-warning btn-sm">Edit</a>
+                <a href="/tournaments/delete/@tournament.Id" class="btn btn-danger btn-sm">Delete</a>
+                <a href="/tournaments/details/@tournament.Id" class="btn btn-info btn-sm">Details</a>
+            </th>
+        </tr>
+        }
+    </tbody>
+</table>

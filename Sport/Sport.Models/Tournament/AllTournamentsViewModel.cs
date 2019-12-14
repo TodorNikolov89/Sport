@@ -1,12 +1,12 @@
-﻿namespace Sport.Domain
+﻿namespace Sport.ViewModels.Tournament
 {
+    using Sport.Domain;
     using Sport.Domain.Enums.Tournament;
-
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class Tournament
+    public class AllTournamentsViewModel
     {
         [Key]
         public int Id { get; set; }
@@ -25,5 +25,6 @@
 
         public decimal AmmountOfMoney { get; set; }
 
+        public string Description { get; set; }
     }
 }

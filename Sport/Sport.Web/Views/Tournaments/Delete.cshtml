@@ -1,0 +1,11 @@
+﻿@model int
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Are you sure you want to delete this tournament?</h1>
+
+
+<a href="/tournaments/all/" class="btn btn-group-sm">Back</a>
+<a href="/tournaments/destroy/@Model" class="btn btn-danger">Confirm Delete</a>
+

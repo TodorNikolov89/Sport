@@ -6,6 +6,9 @@
 
     public class SportDbContext : IdentityDbContext<User>
     {
+
+        public DbSet<Tournament> Tournaments { get; set; }
+
         public SportDbContext(DbContextOptions<SportDbContext> options)
             : base(options)
         {

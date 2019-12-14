@@ -7,6 +7,8 @@
 
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0" />
@@ -16,9 +18,11 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\Profiles\Profiles.csproj" />
     <ProjectReference Include="..\Sport.Data\Sport.Data.csproj" />
     <ProjectReference Include="..\Sport.Domain\Sport.Domain.csproj" />
     <ProjectReference Include="..\Sport.Models\Sport.ViewModels.csproj" />
+    <ProjectReference Include="..\Sport.Services\Sport.Services.csproj" />
   </ItemGroup>
 
 </Project>

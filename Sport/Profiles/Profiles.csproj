@@ -5,7 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sport.Domain\Sport.Domain.csproj" />
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sport.Models\Sport.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>
