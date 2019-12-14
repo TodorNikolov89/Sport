@@ -6,9 +6,6 @@
     using Microsoft.Extensions.DependencyInjection;
     using Sport.Data;
     using Sport.Domain;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     public static class ApplicationBuilderExtension
@@ -34,6 +31,8 @@
                              if (!roleExist)
                              {
                                  await roleManager.CreateAsync(new IdentityRole(role));
+
+
                              }
                          }
 

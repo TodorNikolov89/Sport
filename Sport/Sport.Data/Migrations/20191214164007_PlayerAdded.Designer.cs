@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sport.Data;
 
 namespace Sport.Data.Migrations
 {
     [DbContext(typeof(SportDbContext))]
-    partial class SportDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191214164007_PlayerAdded")]
+    partial class PlayerAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,6 +190,9 @@ namespace Sport.Data.Migrations
                     b.Property<int>("NumberOfPlayers")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PlayerId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime2");
 
@@ -195,6 +200,8 @@ namespace Sport.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PlayerId");
 
                     b.ToTable("Tournaments");
                 });
@@ -337,6 +344,13 @@ namespace Sport.Data.Migrations
                     b.HasOne("Sport.Domain.User", "User")
                         .WithOne("Player")
                         .HasForeignKey("Sport.Domain.Player", "UserId");
+                });
+
+            modelBuilder.Entity("Sport.Domain.Tournament", b =>
+                {
+                    b.HasOne("Sport.Domain.Player", null)
+                        .WithMany("PlayedTournaments")
+                        .HasForeignKey("PlayerId");
                 });
 
             modelBuilder.Entity("Sport.Domain.User", b =>

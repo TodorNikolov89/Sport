@@ -1,0 +1,35 @@
+﻿@model IEnumerable<User>
+@{
+    ViewData["Title"] = "All";
+}
+
+<h1>All players</h1>
+
+
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var players in Model)
+        {
+            <tr>
+                <th>
+                    @players.Email
+                </th>
+                
+                @*<th>
+                    <a href="/tournaments/edit/@tournament.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="/tournaments/delete/@tournament.Id" class="btn btn-danger btn-sm">Delete</a>
+                    <a href="/tournaments/details/@tournament.Id" class="btn btn-info btn-sm">Details</a>
+                </th>*@
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,6 +1,6 @@
 ﻿namespace Sport.Domain
 {
-    using Sport.Domain.Enums.Tournament;
+    using Domain.Enums.Tournament;
 
     using System;
     using System.Collections.Generic;
