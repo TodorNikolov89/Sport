@@ -22,11 +22,15 @@ namespace Sport.Services.Implementation
             this.userManager = userManager;
         }
 
-        public async Task<IEnumerable<User>> All()
+        public async Task<IEnumerable<AllPlayersViewModel>> All()
         {
-            var result =  await userManager.GetUsersInRoleAsync("Player");
+            var allPlayers = await userManager.GetUsersInRoleAsync("Player");
+
+            var result = mapper.Map<IEnumerable<AllPlayersViewModel>>(allPlayers);
 
             return result;
         }
+
+       
     }
 }

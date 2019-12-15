@@ -1,25 +1,25 @@
-﻿using AutoMapper;
-using Sport.Data;
-using Sport.Domain;
-using Sport.ViewModels.Tournament;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sport.Services.Implementation
+﻿namespace Sport.Services.Implementation
 {
+    using AutoMapper;
+    using Microsoft.AspNetCore.Identity;
+    using Sport.Data;
+    using Sport.Domain;
+    using Sport.ViewModels.Tournament;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class TournamentService : ITournamentService
     {
         private readonly IMapper mapper;
         private readonly SportDbContext context;
+        private readonly UserManager<User> userManager;
 
-        public TournamentService(IMapper mapper, SportDbContext context)
+        public TournamentService(IMapper mapper, SportDbContext context, UserManager<User> userManager)
         {
             this.mapper = mapper;
             this.context = context;
+            this.userManager = userManager;
         }
 
         public IEnumerable<AllTournamentsViewModel> All()
@@ -82,6 +82,11 @@ namespace Sport.Services.Implementation
             tournament = mapper.Map(model, tournament);
             this.context.SaveChanges();
 
+        }
+
+        public async Task Signin(int id)
+        {
+            return;
         }
     }
 }

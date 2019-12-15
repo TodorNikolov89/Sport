@@ -1,6 +1,8 @@
 ﻿namespace Sport.Web.Controllers
 {
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Sport.Domain;
     using Sport.Services;
     using Sport.ViewModels.Tournament;
     using System.Threading.Tasks;
@@ -9,10 +11,12 @@
     public class TournamentsController : Controller
     {
         private readonly ITournamentService tournamentService;
+        private readonly UserManager<User> userManager;
 
-        public TournamentsController(ITournamentService tournamentService)
+        public TournamentsController(ITournamentService tournamentService, UserManager<User> userManager)
         {
             this.tournamentService = tournamentService;
+            this.userManager = userManager;
         }
 
         [Route(nameof(All))]
@@ -87,6 +91,18 @@
             await this.tournamentService.Delete(id);
 
             return RedirectToAction(nameof(All));
+        }
+
+        [Route(nameof(Signin) + "/{id}")]
+        public async Task<IActionResult> Signin(int id)
+        {
+            var user = await userManager.GetUserAsync(HttpContext.User);
+
+            var tournament = this.tournamentService.ById(id);
+
+
+            return this.View();
+
         }
     }
 }

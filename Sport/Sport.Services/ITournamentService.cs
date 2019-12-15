@@ -17,5 +17,7 @@ namespace Sport.Services
 
         Task Delete(int id);
 
+        Task Signin(int id);
+
     }
 }
