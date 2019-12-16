@@ -109,20 +109,20 @@
         {
             var tournament = this.context
                 .Tournaments
+                .Where(t => t.Id == id)
                 .Include(u => u.Users)
                 .FirstOrDefault();
 
+
             if (tournament == null)
             {
-                return;
+                return; // TODO Return message 
             }
 
             if (tournament.Users.Any(u => u.UserId == user.Id))
             {
-                return ;
+                return; // TODO Return message that user is already signed in
             }
-
-
 
             tournament.Users.Add(new UserTournament
             {
@@ -131,9 +131,6 @@
             });
 
             this.context.SaveChanges();
-
-            //var tournament1 = this.context
-            //  .Tournaments.ToList();
         }
     }
 }
