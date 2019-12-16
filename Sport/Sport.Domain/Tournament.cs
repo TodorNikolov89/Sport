@@ -10,6 +10,7 @@
     {
         public Tournament()
         {
+            this.Users = new HashSet<UserTournament>();
         }
 
         [Key]

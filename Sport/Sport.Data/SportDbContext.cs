@@ -10,6 +10,8 @@
 
         public DbSet<Tournament> Tournaments { get; set; }
 
+        public DbSet<UserTournament> UserTournament { get; set; }
+
         public SportDbContext(DbContextOptions<SportDbContext> options)
             : base(options)
         {

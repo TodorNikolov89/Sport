@@ -10,11 +10,11 @@
     {
         [Key]
         public int Id { get; set; }
+
         public string Name { get; set; }
 
         public int NumberOfPlayers { get; set; }
 
-        public ICollection<User> Players { get; set; }
 
         public DateTime? StartDate { get; set; }
 
