@@ -2,6 +2,7 @@
 {
     using AutoMapper;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
     using Sport.Data;
     using Sport.Domain;
     using Sport.ViewModels.Tournament;
@@ -25,33 +26,34 @@
 
         public IEnumerable<AllTournamentsViewModel> All()
         {
-            //return this.context
-            //    .Tournaments
-            //    .Select(t => new AllTournamentsViewModel
-            //    {
-            //        Id = t.Id,
-            //        Name = t.Name,
-            //        StartDate = t.StartDate,
-            //        EndDate = t.EndDate,
-            //        NumberOfPlayers = t.NumberOfPlayers,
-            //        AmmountOfMoney = t.AmmountOfMoney,
-            //        Players = t.Players.Select(p => new UserViewModel
-            //        {
-            //            DateOfBirth = p.DateOfBirth,
-            //            FirstName = p.FirstName,
-            //            LastName = p.LastName,
 
-            //        })
-            //        .ToList()
-            //    })
-            //    .ToList();
+            var result = this.context
+                .Tournaments
+                .Select(t => new AllTournamentsViewModel
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    StartDate = t.StartDate,
+                    EndDate = t.EndDate,
+                    NumberOfPlayers = t.NumberOfPlayers,
+                    AmmountOfMoney = t.AmmountOfMoney,
+                    Players = t.Users.Select(p => new UserViewModel
+                    {
+                        DateOfBirth = p.User.DateOfBirth,
+                        FirstName = p.User.FirstName,
+                        LastName = p.User.LastName,
+                        Email = p.User.Email
 
-
-            var allTournaments = this.context.Tournaments.ToList();
-
-            var result = mapper.Map<List<AllTournamentsViewModel>>(allTournaments);
+                    }).ToList()
+                })
+                .ToList();
 
             return result;
+            //var allTournaments = this.context.Tournaments.ToList();
+
+            //var result = mapper.Map<List<AllTournamentsViewModel>>(allTournaments);
+
+            //return result;
         }
 
         public TournamentFormModel ById(int id)
@@ -107,19 +109,31 @@
         {
             var tournament = this.context
                 .Tournaments
-                .Find(id);
+                .Include(u => u.Users)
+                .FirstOrDefault();
 
             if (tournament == null)
             {
                 return;
             }
 
-            //tournament.Players.Add(user);
+            if (tournament.Users.Any(u => u.UserId == user.Id))
+            {
+                return ;
+            }
+
+
+
+            tournament.Users.Add(new UserTournament
+            {
+                UserId = user.Id,
+                TournamentId = tournament.Id
+            });
 
             this.context.SaveChanges();
 
-            var tournament1 = this.context
-              .Tournaments.ToList();
+            //var tournament1 = this.context
+            //  .Tournaments.ToList();
         }
     }
 }

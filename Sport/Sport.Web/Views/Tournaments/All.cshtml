@@ -37,7 +37,9 @@
             <th>
                 @tournament.EndDate
             </th>
-            
+            <th>
+                @tournament.Players.Count/@tournament.NumberOfPlayers
+            </th>
             <th>
                 <a href="/tournaments/signin/@tournament.Id" class="btn btn-warning btn-sm">Sign in</a>
             </th>
