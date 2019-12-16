@@ -1,4 +1,5 @@
-﻿using Sport.ViewModels.Tournament;
+﻿using Sport.Domain;
+using Sport.ViewModels.Tournament;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -17,7 +18,6 @@ namespace Sport.Services
 
         Task Delete(int id);
 
-        Task Signin(int id);
-
+        void Signin(int id, User user);
     }
 }

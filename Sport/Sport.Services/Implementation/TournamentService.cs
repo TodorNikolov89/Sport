@@ -5,6 +5,7 @@
     using Sport.Data;
     using Sport.Domain;
     using Sport.ViewModels.Tournament;
+    using Sport.ViewModels.User;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -32,7 +33,25 @@
                     Name = t.Name,
                     StartDate = t.StartDate,
                     EndDate = t.EndDate,
-                });
+                    NumberOfPlayers = t.NumberOfPlayers,
+                    AmmountOfMoney = t.AmmountOfMoney,
+                    Players = t.Players.Select(p => new UserViewModel
+                    {
+                        DateOfBirth = p.DateOfBirth,
+                        FirstName = p.FirstName,
+                        LastName = p.LastName,
+
+                    })
+                    .ToList()
+                })
+                .ToList();
+
+
+            //var allTournaments = this.context.Tournaments.ToList();
+
+            //var result = mapper.Map<List<AllTournamentsViewModel>>(allTournaments);
+
+          //  return result;
         }
 
         public TournamentFormModel ById(int id)
@@ -84,9 +103,23 @@
 
         }
 
-        public async Task Signin(int id)
+        public void Signin(int id, User user)
         {
-            return;
+            var tournament = this.context
+                .Tournaments
+                .Find(id);
+
+            if (tournament == null)
+            {
+                return;
+            }
+
+            tournament.Players.Add(user);
+
+            this.context.SaveChanges();
+
+            var tournament1 = this.context
+              .Tournaments.ToList();
         }
     }
 }

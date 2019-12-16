@@ -2,6 +2,7 @@
 {
     using Sport.Domain;
     using Sport.Domain.Enums.Tournament;
+    using Sport.ViewModels.User;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -15,8 +16,8 @@
 
         public int NumberOfPlayers { get; set; }
 
-        public ICollection<User> Players { get; set; }
-
+        public ICollection<UserViewModel> Players { get; set; }
+        
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }

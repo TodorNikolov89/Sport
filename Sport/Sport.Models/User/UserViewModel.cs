@@ -1,9 +1,8 @@
-﻿namespace Sport.Domain
+﻿namespace Sport.ViewModels.User
 {
-    using Microsoft.AspNetCore.Identity;
     using System;
-
-    public class User : IdentityUser
+    using Sport.Domain;
+    public class UserViewModel
     {
         public DateTime? DateOfBirth { get; set; }
 
@@ -13,7 +12,6 @@
 
         public int PlayerId { get; set; }
         public Player Player { get; set; }
-
 
     }
 }

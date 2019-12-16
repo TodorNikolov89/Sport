@@ -98,11 +98,9 @@
         {
             var user = await userManager.GetUserAsync(HttpContext.User);
 
-            var tournament = this.tournamentService.ById(id);
-
+            this.tournamentService.Signin(id, user);
 
             return this.View();
-
         }
     }
 }

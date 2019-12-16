@@ -10,8 +10,8 @@ using Sport.Data;
 namespace Sport.Data.Migrations
 {
     [DbContext(typeof(SportDbContext))]
-    [Migration("20191214164133_PlayerPlayerdtournamentsRemoved")]
-    partial class PlayerPlayerdtournamentsRemoved
+    [Migration("20191216193044_newMig")]
+    partial class newMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -16,8 +16,6 @@
 
         public ICollection<User> Players { get; set; }
 
-        public int SiginPlayers => this.Players.Count;
-
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }

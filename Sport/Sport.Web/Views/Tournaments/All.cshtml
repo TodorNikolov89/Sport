@@ -4,7 +4,7 @@
 }
 
 <h1>All</h1>
-
+<a class="btn btn-primary" asp-controller="tournaments" asp-action="Create">Create</a>
 
 <table class="table table-bordered table-hover">
     <thead>
@@ -18,7 +18,10 @@
             <th>
                 End Date
             </th>
-            
+            <th>
+                Signed in players
+            </th>
+
         </tr>
     </thead>
     <tbody>
@@ -33,6 +36,9 @@
             </th>
             <th>
                 @tournament.EndDate
+            </th>
+            <th>
+                @tournament.Players.Count /@tournament.NumberOfPlayers
             </th>
             <th>
                 <a href="/tournaments/signin/@tournament.Id" class="btn btn-warning btn-sm">Sign in</a>
