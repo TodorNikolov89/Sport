@@ -6,9 +6,7 @@
 
     public class AllPlayersViewModel
     {
-
         public string Email { get; set; }
-
 
     }
 }

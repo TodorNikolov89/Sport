@@ -10,7 +10,6 @@
     {
         public Tournament()
         {
-            this.Players = new HashSet<User>();
         }
 
         [Key]
@@ -20,10 +19,8 @@
 
         public int NumberOfPlayers { get; set; }
 
-        public ICollection<User> Players { get; set; }
-
-        public int NumberOfSignedPlayers => this.Players.Count;
-
+        public ICollection<UserTournament> Users { get; set; }
+        
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }

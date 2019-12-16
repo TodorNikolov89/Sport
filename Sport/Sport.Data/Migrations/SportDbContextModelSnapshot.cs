@@ -150,25 +150,6 @@ namespace Sport.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Sport.Domain.Player", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
-
-                    b.ToTable("Players");
-                });
-
             modelBuilder.Entity("Sport.Domain.Tournament", b =>
                 {
                     b.Property<int>("Id")
@@ -250,14 +231,8 @@ namespace Sport.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PlayerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TournamentId")
-                        .HasColumnType("int");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -276,9 +251,22 @@ namespace Sport.Data.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("TournamentId");
-
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Sport.Domain.UserTournament", b =>
+                {
+                    b.Property<int>("TournamentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("TournamentId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserTournament");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -332,18 +320,19 @@ namespace Sport.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Sport.Domain.Player", b =>
+            modelBuilder.Entity("Sport.Domain.UserTournament", b =>
                 {
-                    b.HasOne("Sport.Domain.User", "User")
-                        .WithOne("Player")
-                        .HasForeignKey("Sport.Domain.Player", "UserId");
-                });
+                    b.HasOne("Sport.Domain.Tournament", "Tournament")
+                        .WithMany("Users")
+                        .HasForeignKey("TournamentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity("Sport.Domain.User", b =>
-                {
-                    b.HasOne("Sport.Domain.Tournament", null)
-                        .WithMany("Players")
-                        .HasForeignKey("TournamentId");
+                    b.HasOne("Sport.Domain.User", "User")
+                        .WithMany("Tournaments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

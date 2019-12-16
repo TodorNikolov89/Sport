@@ -25,33 +25,33 @@
 
         public IEnumerable<AllTournamentsViewModel> All()
         {
-            return this.context
-                .Tournaments
-                .Select(t => new AllTournamentsViewModel
-                {
-                    Id = t.Id,
-                    Name = t.Name,
-                    StartDate = t.StartDate,
-                    EndDate = t.EndDate,
-                    NumberOfPlayers = t.NumberOfPlayers,
-                    AmmountOfMoney = t.AmmountOfMoney,
-                    Players = t.Players.Select(p => new UserViewModel
-                    {
-                        DateOfBirth = p.DateOfBirth,
-                        FirstName = p.FirstName,
-                        LastName = p.LastName,
+            //return this.context
+            //    .Tournaments
+            //    .Select(t => new AllTournamentsViewModel
+            //    {
+            //        Id = t.Id,
+            //        Name = t.Name,
+            //        StartDate = t.StartDate,
+            //        EndDate = t.EndDate,
+            //        NumberOfPlayers = t.NumberOfPlayers,
+            //        AmmountOfMoney = t.AmmountOfMoney,
+            //        Players = t.Players.Select(p => new UserViewModel
+            //        {
+            //            DateOfBirth = p.DateOfBirth,
+            //            FirstName = p.FirstName,
+            //            LastName = p.LastName,
 
-                    })
-                    .ToList()
-                })
-                .ToList();
+            //        })
+            //        .ToList()
+            //    })
+            //    .ToList();
 
 
-            //var allTournaments = this.context.Tournaments.ToList();
+            var allTournaments = this.context.Tournaments.ToList();
 
-            //var result = mapper.Map<List<AllTournamentsViewModel>>(allTournaments);
+            var result = mapper.Map<List<AllTournamentsViewModel>>(allTournaments);
 
-          //  return result;
+            return result;
         }
 
         public TournamentFormModel ById(int id)
@@ -114,7 +114,7 @@
                 return;
             }
 
-            tournament.Players.Add(user);
+            //tournament.Players.Add(user);
 
             this.context.SaveChanges();
 

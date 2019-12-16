@@ -10,8 +10,6 @@
 
         public DbSet<Tournament> Tournaments { get; set; }
 
-        public DbSet<Player> Players { get; set; }
-
         public SportDbContext(DbContextOptions<SportDbContext> options)
             : base(options)
         {
@@ -19,19 +17,28 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            PlayerConfiguration(builder);
+
+            UserTournamentsConfiguration(builder);
             base.OnModelCreating(builder);
         }
 
-        
-
-        private void PlayerConfiguration(ModelBuilder builder)
+        private void UserTournamentsConfiguration(ModelBuilder builder)
         {
             builder
-                .Entity<Player>()
-                .HasOne(u => u.User)
-                .WithOne(p => p.Player)
-                .HasForeignKey<Player>(fk => fk.UserId);
+                .Entity<UserTournament>()
+                .HasKey(pk => new { pk.TournamentId, pk.UserId });
+            builder
+                .Entity<UserTournament>()
+                .HasOne(t => t.Tournament)
+                .WithMany(u => u.Users)
+                .HasForeignKey(fk => fk.TournamentId);
+            builder
+              .Entity<UserTournament>()
+              .HasOne(t => t.User)
+              .WithMany(u => u.Tournaments)
+              .HasForeignKey(fk => fk.UserId);
         }
+
+
     }
 }
