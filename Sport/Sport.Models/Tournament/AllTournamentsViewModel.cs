@@ -22,6 +22,8 @@
 
         public DateTime? EndDate { get; set; }
 
+        public string Place { get; set; }
+
         public TournamentType Type { get; set; }
 
         public decimal AmmountOfMoney { get; set; }

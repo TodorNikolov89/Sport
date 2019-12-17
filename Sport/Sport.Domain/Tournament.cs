@@ -28,6 +28,8 @@
 
         public TournamentType Type { get; set; }
 
+        public string Place { get; set; }
+
         public decimal AmmountOfMoney { get; set; }
 
     }

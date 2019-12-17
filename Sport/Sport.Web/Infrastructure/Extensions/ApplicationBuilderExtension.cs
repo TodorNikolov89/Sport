@@ -31,8 +31,6 @@
                              if (!roleExist)
                              {
                                  await roleManager.CreateAsync(new IdentityRole(role));
-
-
                              }
                          }
 

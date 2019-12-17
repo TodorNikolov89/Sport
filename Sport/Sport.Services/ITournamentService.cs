@@ -1,4 +1,5 @@
 ﻿using Sport.Domain;
+using Sport.ViewModels.Player;
 using Sport.ViewModels.Tournament;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,6 @@ namespace Sport.Services
         Task Delete(int id);
 
         void Signin(int id, User user);
+        IEnumerable<PlayerViewModel> GetTournamentPlayers(int id);
     }
 }

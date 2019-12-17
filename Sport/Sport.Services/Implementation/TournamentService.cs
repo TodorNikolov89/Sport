@@ -3,13 +3,17 @@
     using AutoMapper;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
-    using Sport.Data;
-    using Sport.Domain;
-    using Sport.ViewModels.Tournament;
-    using Sport.ViewModels.User;
+    
+    using Data;
+    using Domain;
+    using ViewModels.Tournament;
+    using ViewModels.User;
+    using ViewModels.Player;
+
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+  
 
     public class TournamentService : ITournamentService
     {
@@ -37,6 +41,7 @@
                     EndDate = t.EndDate,
                     NumberOfPlayers = t.NumberOfPlayers,
                     AmmountOfMoney = t.AmmountOfMoney,
+                    Place = t.Place,
                     Players = t.Users.Select(p => new UserViewModel
                     {
                         DateOfBirth = p.User.DateOfBirth,
@@ -105,6 +110,11 @@
 
         }
 
+        public IEnumerable<PlayerViewModel> GetTournamentPlayers(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Signin(int id, User user)
         {
             var tournament = this.context
@@ -126,7 +136,10 @@
 
             tournament.Users.Add(new UserTournament
             {
+                User = user,
                 UserId = user.Id,
+                
+                Tournament = tournament,
                 TournamentId = tournament.Id
             });
 

@@ -19,7 +19,10 @@
                 End Date
             </th>
             <th>
-                Signed in players
+                Players
+            </th>
+            <th>
+                Place
             </th>
         </tr>
     </thead>
@@ -40,7 +43,11 @@
                 @tournament.Players.Count/@tournament.NumberOfPlayers
             </th>
             <th>
-                <a href="/tournaments/signin/@tournament.Id" class="btn btn-warning btn-sm">Sign in</a>
+                @tournament.Place
+            </th>
+            <th>
+                <a href="/tournaments/signin/@tournament.Id" class="form-text">Sign in</a>
+                <a href="/tournaments/TournamentPlayers/@tournament.Id" class="form-text">Signed Players</a>
             </th>
             @if (User.IsInRole(GlobalConstants.AdministratorRole))
             {

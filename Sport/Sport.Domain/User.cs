@@ -19,5 +19,6 @@
         public ICollection<UserTournament> Tournaments { get; set; }
 
 
+
     }
 }

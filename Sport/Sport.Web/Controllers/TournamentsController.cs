@@ -102,5 +102,11 @@
 
             return this.View();
         }
+
+        //TODO finish the method
+        //public async Task<IActionResult> TournamentPlayers(int id)
+        //{
+        //    this.tournamentService.GetTournamentPlayers(id);
+        //}
     }
 }
