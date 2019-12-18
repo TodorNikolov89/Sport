@@ -117,7 +117,7 @@
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            this.tournamentService.Signout(id, userId);
+            await this.tournamentService.Signout(id, userId);
 
             return this.View();
         }
