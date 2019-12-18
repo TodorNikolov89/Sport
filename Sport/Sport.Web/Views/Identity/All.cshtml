@@ -19,19 +19,24 @@
 <table class="table table-bordered table-hover">
     <tr>
         <th>
+            Name
+        </th>
+        <th>
             Username
         </th>
         <th>
             E-mail
         </th>
         <th>
-
+            Actions
         </th>
     </tr>
     @foreach (var user in Model)
     {
-
         <tr>
+            <th>
+                @user.FirstName @user.LastName
+            </th>
             <th>
                 @user.Username
             </th>

@@ -222,7 +222,7 @@ namespace Sport.Data.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int?>("Loses")
+                    b.Property<int>("Loses")
                         .HasColumnType("int");
 
                     b.Property<string>("NormalizedEmail")
@@ -242,7 +242,7 @@ namespace Sport.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("Points")
+                    b.Property<int>("Points")
                         .HasColumnType("int");
 
                     b.Property<int>("Rank")
@@ -261,7 +261,7 @@ namespace Sport.Data.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<int?>("Win")
+                    b.Property<int>("Win")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
