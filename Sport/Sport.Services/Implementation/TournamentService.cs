@@ -3,7 +3,7 @@
     using AutoMapper;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
-    
+
     using Data;
     using Domain;
     using ViewModels.Tournament;
@@ -13,7 +13,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-  
+    using System.Security.Claims;
 
     public class TournamentService : ITournamentService
     {
@@ -44,6 +44,7 @@
                     Place = t.Place,
                     Players = t.Users.Select(p => new UserViewModel
                     {
+                        Id = p.User.Id,
                         DateOfBirth = p.User.DateOfBirth,
                         FirstName = p.User.FirstName,
                         LastName = p.User.LastName,
@@ -106,13 +107,20 @@
             }
 
             tournament = mapper.Map(model, tournament);
-            this.context.SaveChanges();
 
+            this.context.SaveChanges();
         }
 
         public IEnumerable<PlayerViewModel> GetTournamentPlayers(int id)
         {
-            throw new System.NotImplementedException();
+            var users = this.context
+                .Users
+                .Where(t => t.Tournaments.Any(a => a.TournamentId == id))
+                .ToList();
+
+            var result = mapper.Map<IEnumerable<PlayerViewModel>>(users);
+
+            return result;
         }
 
         public void Signin(int id, User user)
@@ -138,11 +146,26 @@
             {
                 User = user,
                 UserId = user.Id,
-                
+
                 Tournament = tournament,
                 TournamentId = tournament.Id
             });
 
+            this.context.SaveChanges();
+        }
+
+        public void Signout(int id, string userId)
+        {
+            var tournament = this.context
+                .Tournaments
+                .Where(t => t.Id == id)
+                .Include(u => u.Users)
+                .FirstOrDefault();
+
+            UserTournament ut = tournament.Users
+                .FirstOrDefault(x => x.UserId == userId);
+
+            tournament.Users.Remove(ut);
             this.context.SaveChanges();
         }
     }

@@ -1,0 +1,28 @@
+﻿@model IEnumerable<PlayerViewModel>
+
+@{
+    ViewData["Title"] = "TournamentPlayers";
+}
+
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Email
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var player in Model)
+        {
+            <tr>
+                <th>
+                    @player.Email
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>

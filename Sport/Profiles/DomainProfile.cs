@@ -16,6 +16,7 @@
             CreateMap<User, AllPlayersViewModel>().ReverseMap();
             CreateMap<Tournament, AllTournamentsViewModel>();
             CreateMap<User, UserViewModel>();
+            CreateMap<User, PlayerViewModel>().ReverseMap();
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿@model IEnumerable<AllTournamentsViewModel>
+@using Microsoft.AspNet.Identity;
 @{
-    ViewData["Title"] = "All";
+    ViewData["Title"] = "All Tournaments";
 }
 
-<h1>All</h1>
+<h1>@ViewData["Title"]</h1>
 <a class="btn btn-primary" asp-controller="tournaments" asp-action="Create">Create</a>
 
 <table class="table table-bordered table-hover">
@@ -29,35 +30,42 @@
     <tbody>
         @foreach (var tournament in Model)
         {
-        <tr>
-            <th>
-                @tournament.Name
-            </th>
-            <th>
-                @tournament.StartDate
-            </th>
-            <th>
-                @tournament.EndDate
-            </th>
-            <th>
-                @tournament.Players.Count/@tournament.NumberOfPlayers
-            </th>
-            <th>
-                @tournament.Place
-            </th>
-            <th>
-                <a href="/tournaments/signin/@tournament.Id" class="form-text">Sign in</a>
-                <a href="/tournaments/TournamentPlayers/@tournament.Id" class="form-text">Signed Players</a>
-            </th>
-            @if (User.IsInRole(GlobalConstants.AdministratorRole))
-            {
+            <tr>
                 <th>
-                    <a href="/tournaments/edit/@tournament.Id" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="/tournaments/delete/@tournament.Id" class="btn btn-danger btn-sm">Delete</a>
-                    <a href="/tournaments/details/@tournament.Id" class="btn btn-info btn-sm">Details</a>
+                    @tournament.Name
                 </th>
-            }
-        </tr>
+                <th>
+                    @tournament.StartDate
+                </th>
+                <th>
+                    @tournament.EndDate
+                </th>
+                <th>
+                    @tournament.Players.Count/@tournament.NumberOfPlayers
+                </th>
+                <th>
+                    @tournament.Place
+                </th>
+                <th>
+                    @if (!tournament.Players.Any(p => p.Id == User.Identity.GetUserId()))
+                    {
+                        <a href="/tournaments/signin/@tournament.Id" class="form-text">Sign in</a>
+                    }
+                    else
+                    {
+                        <a href="/tournaments/signout/@tournament.Id" class="form-text">Sign out</a>
+                    }
+                    <a href="/tournaments/TournamentPlayers/@tournament.Id" class="form-text">Signed Players</a>
+                </th>
+                @if (User.IsInRole(GlobalConstants.AdministratorRole))
+                {
+                    <th>
+                        <a href="/tournaments/edit/@tournament.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="/tournaments/delete/@tournament.Id" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="/tournaments/details/@tournament.Id" class="btn btn-info btn-sm">Details</a>
+                    </th>
+                }
+            </tr>
         }
     </tbody>
 </table>

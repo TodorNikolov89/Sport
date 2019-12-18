@@ -20,6 +20,9 @@ namespace Sport.Services
         Task Delete(int id);
 
         void Signin(int id, User user);
+
+        void Signout(int id, string userId);
+
         IEnumerable<PlayerViewModel> GetTournamentPlayers(int id);
     }
 }

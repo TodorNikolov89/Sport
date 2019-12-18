@@ -2,7 +2,7 @@
 {
     public class PlayerViewModel
     {
-        public string Name { get; set; }
+        public string Email { get; set; }
 
         //TODO Add TournamentRanking (Place), Points, 
     }

@@ -20,15 +20,15 @@
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
-            UserTournamentsConfiguration(builder);
+            UserTournamentConfiguration(builder);
             base.OnModelCreating(builder);
         }
 
-        private void UserTournamentsConfiguration(ModelBuilder builder)
+        private void UserTournamentConfiguration(ModelBuilder builder)
         {
             builder
-                .Entity<UserTournament>()
-                .HasKey(pk => new { pk.TournamentId, pk.UserId });
+             .Entity<UserTournament>()
+             .HasKey(pk => new { pk.TournamentId, pk.UserId });
             builder
                 .Entity<UserTournament>()
                 .HasOne(t => t.Tournament)
@@ -39,8 +39,7 @@
               .HasOne(t => t.User)
               .WithMany(u => u.Tournaments)
               .HasForeignKey(fk => fk.UserId);
+
         }
-
-
     }
 }

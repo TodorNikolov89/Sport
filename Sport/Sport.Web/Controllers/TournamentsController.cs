@@ -5,6 +5,7 @@
     using Sport.Domain;
     using Sport.Services;
     using Sport.ViewModels.Tournament;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     [Route("tournaments")]
@@ -46,7 +47,6 @@
             tournamentService.Create(model);
 
             return RedirectToAction(nameof(All));
-
         }
 
         [Route(nameof(Edit) + "/{id}")]
@@ -104,9 +104,22 @@
         }
 
         //TODO finish the method
-        //public async Task<IActionResult> TournamentPlayers(int id)
-        //{
-        //    this.tournamentService.GetTournamentPlayers(id);
-        //}
+        [Route(nameof(TournamentPlayers) + "/{id}")]
+        public async Task<IActionResult> TournamentPlayers(int id)
+        {
+            var result = this.tournamentService.GetTournamentPlayers(id);
+
+            return this.View(result);
+        }
+
+        [Route(nameof(Signout) + "/{id}")]
+        public async Task<IActionResult> Signout(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            this.tournamentService.Signout(id, userId);
+
+            return this.View();
+        }
     }
 }

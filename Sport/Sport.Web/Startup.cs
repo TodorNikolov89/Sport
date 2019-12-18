@@ -46,6 +46,7 @@ namespace Sport.Web
             services.AddTransient<ITournamentService, TournamentService>();
             services.AddTransient<IPlayerService, PlayerService>();
             //services.AddTransient<IMapper, Mapper>();
+           
 
             var config = new MapperConfiguration(cfg =>
             {
