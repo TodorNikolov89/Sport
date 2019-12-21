@@ -7,13 +7,16 @@ namespace Sport.Web
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using Sport.Data;
-    using Sport.Domain;
-    using Sport.Web.Infrastructure.Extensions;
-    using Profiles;
     using AutoMapper;
-    using Sport.Services;
-    using Sport.Services.Implementation;
+
+    using Data;
+    using Domain;
+    using Profiles;
+    using Services;
+    using Services.Implementation;
+    using Web.Infrastructure.Extensions;   
+  
+    
 
     public class Startup
     {
@@ -24,7 +27,7 @@ namespace Sport.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<SportDbContext>(options =>
@@ -33,7 +36,6 @@ namespace Sport.Web
 
             services.AddIdentity<User, IdentityRole>(options =>
              {
-                 //options.SignIn.RequireConfirmedAccount = true;
                  options.Password.RequireUppercase = false;
                  options.Password.RequireLowercase = false;
                  options.Password.RequireNonAlphanumeric = false;
@@ -62,7 +64,7 @@ namespace Sport.Web
             services.AddRazorPages();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseDatabaseMigration();
@@ -75,7 +77,6 @@ namespace Sport.Web
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();

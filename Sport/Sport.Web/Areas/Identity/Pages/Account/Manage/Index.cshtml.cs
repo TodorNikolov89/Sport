@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Sport.Domain;
-
-namespace Sport.Web.Areas.Identity.Pages.Account.Manage
+﻿namespace Sport.Web.Areas.Identity.Pages.Account.Manage
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Domain;
+
     public partial class IndexModel : PageModel
     {
         private readonly UserManager<User> _userManager;
@@ -25,6 +23,10 @@ namespace Sport.Web.Areas.Identity.Pages.Account.Manage
 
         public string Username { get; set; }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
         [TempData]
         public string StatusMessage { get; set; }
 
@@ -36,6 +38,11 @@ namespace Sport.Web.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            public string FirstName { get; set; }
+
+            public string LastName { get; set; }
+
         }
 
         private async Task LoadAsync(User user)
@@ -44,10 +51,12 @@ namespace Sport.Web.Areas.Identity.Pages.Account.Manage
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
             Username = userName;
+            FirstName = user.FirstName;
+            LastName = user.LastName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
             };
         }
 
