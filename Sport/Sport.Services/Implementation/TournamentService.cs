@@ -13,7 +13,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Security.Claims;
 
     public class TournamentService : ITournamentService
     {
@@ -123,7 +122,7 @@
             return result;
         }
 
-        public void Signin(int id, User user)
+        public async Task Signin(int id, User user)
         {
             var tournament = this.context
                 .Tournaments
@@ -151,10 +150,10 @@
                 TournamentId = tournament.Id
             });
 
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
         }
 
-        public void Signout(int id, string userId)
+        public async Task Signout(int id, string userId)
         {
             var tournament = this.context
                 .Tournaments
@@ -166,7 +165,7 @@
                 .FirstOrDefault(x => x.UserId == userId);
 
             tournament.Users.Remove(ut);
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
         }
     }
 }

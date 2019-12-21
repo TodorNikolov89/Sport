@@ -12,23 +12,47 @@
         <tr>
             <th>
                 Name
-            </th>            
+            </th>
+            <th>
+                Win/Loses
+            </th>
+            <th>
+                Points
+            </th>
+            <th>
+                Town
+            </th>
+            <th>
+                Current rank
+            </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var players in Model)
+        @foreach (var player in Model)
         {
-            <tr>
-                <th>
-                    @players.Email
-                </th>
-                
-                @*<th>
-                    <a href="/tournaments/edit/@tournament.Id" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="/tournaments/delete/@tournament.Id" class="btn btn-danger btn-sm">Delete</a>
-                    <a href="/tournaments/details/@tournament.Id" class="btn btn-info btn-sm">Details</a>
-                </th>*@
-            </tr>
+        <tr>
+            <th>
+                @player.FirstName @player.LastName
+            </th>
+            <th>
+                @player.Win/@player.Loses
+            </th>
+            <th>
+                @player.Points
+            </th>
+            <th>
+                @player.Town
+            </th>
+            <th>
+                @player.Rank
+            </th>
+
+            @*<th>
+            <a href="/tournaments/edit/@tournament.Id" class="btn btn-warning btn-sm">Edit</a>
+            <a href="/tournaments/delete/@tournament.Id" class="btn btn-danger btn-sm">Delete</a>
+            <a href="/tournaments/details/@tournament.Id" class="btn btn-info btn-sm">Details</a>
+        </th>*@
+        </tr>
         }
     </tbody>
 </table>

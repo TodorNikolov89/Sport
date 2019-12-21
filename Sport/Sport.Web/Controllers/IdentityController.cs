@@ -35,7 +35,9 @@
                 {
                     Id = u.Id,
                     Username = u.UserName,
-                    Email = u.Email
+                    Email = u.Email,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName
                 })
                 .ToList();
 
