@@ -11,10 +11,10 @@
 <table class="table table-bordered">
     <tr>
         <td>
-           Role Id
+            Role Id
         </td>
         <td>
-           Role Name
+            Role Name
         </td>
     </tr>
     <tbody>
@@ -26,6 +26,9 @@
                 </td>
                 <td>
                     @role.Name
+                </td>
+                <td>
+                    <a href="/roles/delete/@role.Id" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
         }

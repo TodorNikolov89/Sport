@@ -41,7 +41,26 @@
             return RedirectToAction(nameof(All));
         }
 
+        [Route(nameof(Delete) + "/{id}")]
+        public IActionResult Delete(string id)
+        {
+            return this.View(nameof(Delete), id);
+        }
 
+        
+        [Route(nameof(Destroy) + "/{id}")]
+        public async Task<IActionResult> Destroy(string id)
+        {
+            var currentRole = await roleManager.FindByIdAsync(id);
+
+            if (currentRole == null)
+            {
+                return NotFound();
+            }
+
+            await roleManager.DeleteAsync(currentRole);
+            return RedirectToAction(nameof(All));
+        }
 
     }
 }

@@ -1,0 +1,9 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Are you sure you want to delete this role?</h1>
+
+<a href="/roles/all/" class="btn btn-group-sm">Back</a>
+<a href="/roles/destroy/@Model" class="btn btn-danger">Confirm Delete</a>
