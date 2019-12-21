@@ -19,7 +19,7 @@
 
                 var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
                 var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
-                var roles = new string[] {GlobalConstants.PlayerRole, GlobalConstants.UmpireRole, GlobalConstants.AdministratorRole };
+                var roles = new string[] { GlobalConstants.PlayerRole, GlobalConstants.UmpireRole, GlobalConstants.AdministratorRole };
 
                 Task
                      .Run(async () =>
@@ -53,7 +53,9 @@
                              adminUser = new User
                              {
                                  Email = "admin@abv.bg",
-                                 UserName = "admin@abv.bg"
+                                 UserName = "admin@abv.bg",
+                                 FirstName = "Todor",
+                                 LastName = "Nikolov"
                              };
 
                              await userManager.CreateAsync(adminUser, "admin12");

@@ -39,14 +39,11 @@
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
 
+            
             public string FirstName { get; set; }
 
             public string LastName { get; set; }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 45ec4bc9001c82fa1dd2371b6b609eebaa622495
         }
 
         private async Task LoadAsync(User user)
@@ -61,11 +58,6 @@
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
-<<<<<<< HEAD
-=======
-                FirstName = user.FirstName,
-                LastName = user.LastName
->>>>>>> 45ec4bc9001c82fa1dd2371b6b609eebaa622495
             };
         }
 
