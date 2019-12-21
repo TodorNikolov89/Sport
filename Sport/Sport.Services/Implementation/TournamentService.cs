@@ -27,6 +27,8 @@
             this.userManager = userManager;
         }
 
+
+        //TODO mapper!!!
         public IEnumerable<AllTournamentsViewModel> All()
         {
 
@@ -54,11 +56,6 @@
                 .ToList();
 
             return result;
-            //var allTournaments = this.context.Tournaments.ToList();
-
-            //var result = mapper.Map<List<AllTournamentsViewModel>>(allTournaments);
-
-            //return result;
         }
 
         public TournamentFormModel ById(int id)
@@ -74,13 +71,24 @@
         }
 
 
-        public void Create(TournamentFormModel model)
+        public void Create(TournamentFormModel model, string id)
         {
             var tournament = mapper.Map<Tournament>(model);
+
+            var user = userManager
+                .Users
+                .Where(u => u.Id == id)
+                .FirstOrDefault();
+
+            if (user == null)
+            {
+                return;
+            }
 
             context.Tournaments.Add(tournament);
             context.SaveChanges();
         }
+
 
         public async Task Delete(int id)
         {
@@ -154,7 +162,7 @@
             }
             else
             {
-                return;//TODO return message "List of players is full"
+                return; //TODO return message "List of players is full"
             }
 
 

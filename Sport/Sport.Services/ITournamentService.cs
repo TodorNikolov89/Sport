@@ -11,7 +11,7 @@ namespace Sport.Services
     {
         IEnumerable<AllTournamentsViewModel> All();
 
-        void Create(TournamentFormModel model);
+        void Create(TournamentFormModel model, string id);
 
         Task Edit(TournamentFormModel model);
 

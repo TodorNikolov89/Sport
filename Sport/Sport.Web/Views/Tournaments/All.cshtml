@@ -48,26 +48,30 @@
                 </th>
                 <th>
                     @if (!tournament.Players.Any(p => p.Id == User.Identity.GetUserId())
-                      && tournament.Players.Count() < tournament.NumberOfPlayers)
+                        && tournament.Players.Count() < tournament.NumberOfPlayers)
                     {
                         <a href="/tournaments/signin/@tournament.Id" class="form-text">Sign in</a>
                     }
-                    else if(tournament.Players.Any(p => p.Id == User.Identity.GetUserId())
+                    else if (tournament.Players.Any(p => p.Id == User.Identity.GetUserId())
                       && tournament.Players.Count() <= tournament.NumberOfPlayers)
                     {
                         <a href="/tournaments/signout/@tournament.Id" class="form-text">Sign out</a>
                     }
                     <a href="/tournaments/TournamentPlayers/@tournament.Id" class="form-text">Signed Players</a>
                 </th>
+                <th>
+                    <a href="/tournaments/start/@tournament.Id" class="btn btn-warning btn-sm">Start</a>
+                </th>
+
                 @if (User.IsInRole(GlobalConstants.AdministratorRole))
                 {
                     <th>
-                        <a href="/tournaments/edit/@tournament.Id" class="btn btn-warning btn-sm">Edit</a>
-                        <a href="/tournaments/delete/@tournament.Id" class="btn btn-danger btn-sm">Delete</a>
-                        <a href="/tournaments/details/@tournament.Id" class="btn btn-info btn-sm">Details</a>
+                        <a href="/tournaments/edit/@tournament.Id" class="form-text">Edit</a>
+                        <a href="/tournaments/delete/@tournament.Id" class="form-tex">Delete</a>
+                        <a href="/tournaments/details/@tournament.Id" class="form-tex">Details</a>
                     </th>
                 }
             </tr>
         }
     </tbody>
-</table>
+</table>    

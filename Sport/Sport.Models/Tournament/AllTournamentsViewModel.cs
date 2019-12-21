@@ -1,6 +1,5 @@
 ﻿namespace Sport.ViewModels.Tournament
 {
-    using Sport.Domain;
     using Sport.Domain.Enums.Tournament;
     using Sport.ViewModels.User;
     using System;
@@ -17,7 +16,7 @@
         public int NumberOfPlayers { get; set; }
 
         public ICollection<UserViewModel> Players { get; set; }
-        
+
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }

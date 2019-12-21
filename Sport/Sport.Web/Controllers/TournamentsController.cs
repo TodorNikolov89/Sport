@@ -39,12 +39,14 @@
         [ValidateAntiForgeryToken]
         public IActionResult Create(TournamentFormModel model)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            tournamentService.Create(model);
+            tournamentService.Create(model, userId);
 
             return RedirectToAction(nameof(All));
         }

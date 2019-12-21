@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sport.Data;
 
 namespace Sport.Data.Migrations
 {
     [DbContext(typeof(SportDbContext))]
-    partial class SportDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191221161200_AddedCreetedTournamentsInUser")]
+    partial class AddedCreetedTournamentsInUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -160,9 +162,6 @@ namespace Sport.Data.Migrations
                     b.Property<decimal>("AmmountOfMoney")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("CreatorId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
@@ -184,7 +183,12 @@ namespace Sport.Data.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Tournaments");
                 });
@@ -344,6 +348,13 @@ namespace Sport.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Sport.Domain.Tournament", b =>
+                {
+                    b.HasOne("Sport.Domain.User", null)
+                        .WithMany("CreatedTournaments")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Sport.Domain.UserTournament", b =>
