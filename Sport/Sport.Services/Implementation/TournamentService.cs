@@ -141,14 +141,22 @@
                 return; // TODO Return message that user is already signed in
             }
 
-            tournament.Users.Add(new UserTournament
+            if (tournament.Users.Count() < tournament.NumberOfPlayers)
             {
-                User = user,
-                UserId = user.Id,
+                tournament.Users.Add(new UserTournament
+                {
+                    User = user,
+                    UserId = user.Id,
 
-                Tournament = tournament,
-                TournamentId = tournament.Id
-            });
+                    Tournament = tournament,
+                    TournamentId = tournament.Id
+                });
+            }
+            else
+            {
+                return;//TODO return message "List of players is full"
+            }
+
 
             await this.context.SaveChangesAsync();
         }

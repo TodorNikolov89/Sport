@@ -47,11 +47,13 @@
                     @tournament.Place
                 </th>
                 <th>
-                    @if (!tournament.Players.Any(p => p.Id == User.Identity.GetUserId()))
+                    @if (!tournament.Players.Any(p => p.Id == User.Identity.GetUserId())
+                      && tournament.Players.Count() < tournament.NumberOfPlayers)
                     {
                         <a href="/tournaments/signin/@tournament.Id" class="form-text">Sign in</a>
                     }
-                    else
+                    else if(tournament.Players.Any(p => p.Id == User.Identity.GetUserId())
+                      && tournament.Players.Count() <= tournament.NumberOfPlayers)
                     {
                         <a href="/tournaments/signout/@tournament.Id" class="form-text">Sign out</a>
                     }

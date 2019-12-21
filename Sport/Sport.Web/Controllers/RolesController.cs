@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Sport.Domain;
     using Sport.Web.Infrastructure;
 
     [Authorize(Roles = GlobalConstants.AdministratorRole)]

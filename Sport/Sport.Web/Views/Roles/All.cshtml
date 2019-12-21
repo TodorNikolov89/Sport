@@ -8,13 +8,13 @@
 
 <a class="btn btn-primary" asp-action="Create">Create</a>
 <br />
-<table class="table table-bordered">
+<table class="table table-bordered" style="width:400px">
     <tr>
         <td>
-            Role Id
+            Role Name
         </td>
         <td>
-            Role Name
+            Actions
         </td>
     </tr>
     <tbody>
@@ -22,15 +22,16 @@
         {
             <tr>
                 <td>
-                    @role.Id
-                </td>
-                <td>
                     @role.Name
                 </td>
-                <td>
-                    <a href="/roles/delete/@role.Id" class="btn btn-danger btn-sm">Delete</a>
-                </td>
+                @if (User.IsInRole(GlobalConstants.AdministratorRole))
+                {
+                    <td>
+                        <a href="/roles/delete/@role.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                }
             </tr>
         }
     </tbody>
 </table>
+

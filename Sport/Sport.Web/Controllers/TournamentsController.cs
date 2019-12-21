@@ -98,12 +98,12 @@
         {
             var user = await userManager.GetUserAsync(HttpContext.User);
 
-            this.tournamentService.Signin(id, user);
+           await this.tournamentService.Signin(id, user);
 
             return this.View();
         }
 
-        //TODO finish the method
+        
         [Route(nameof(TournamentPlayers) + "/{id}")]
         public async Task<IActionResult> TournamentPlayers(int id)
         {
