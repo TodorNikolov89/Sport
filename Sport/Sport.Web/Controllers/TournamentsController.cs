@@ -128,7 +128,9 @@
         {
             var players = this.tournamentService.GetPlayers(id);
 
-            return this.View(nameof(GetDraw), players);
+            return this.View();
         }
+
+
     }
 }
