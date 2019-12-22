@@ -87,7 +87,6 @@
         }
 
         [Route(nameof(Destroy) + "/{id}")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Destroy(int id)
         {
             await this.tournamentService.Delete(id);
@@ -127,9 +126,9 @@
         [Route(nameof(GetDraw) + "/{id}")]
         public IActionResult GetDraw(int id)
         {
-            
+            var players = this.tournamentService.GetPlayers(id);
 
-            return this.View();
+            return this.View(nameof(GetDraw), players);
         }
     }
 }

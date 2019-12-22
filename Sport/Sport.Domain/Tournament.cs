@@ -10,7 +10,7 @@
     {
         public Tournament()
         {
-            this.Users = new HashSet<UserTournament>();
+            this.Players = new HashSet<UserTournament>();
             this.IsStarted = false;
         }
 
@@ -24,7 +24,7 @@
         [Required]
         public int NumberOfPlayers { get; set; }
 
-        public ICollection<UserTournament> Users { get; set; }
+        public ICollection<UserTournament> Players { get; set; }
 
         [Required]
         public DateTime? StartDate { get; set; }

@@ -32,7 +32,7 @@
             builder
                 .Entity<UserTournament>()
                 .HasOne(t => t.Tournament)
-                .WithMany(u => u.Users)
+                .WithMany(u => u.Players)
                 .HasForeignKey(fk => fk.TournamentId);
             builder
               .Entity<UserTournament>()

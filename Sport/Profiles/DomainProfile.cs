@@ -5,7 +5,6 @@
     using Sport.ViewModels.Player;
     using Sport.ViewModels.Tournament;
     using Sport.ViewModels.User;
-    using System.Collections.Generic;
 
     public class DomainProfile : Profile
     {

@@ -24,5 +24,7 @@ namespace Sport.Services
         Task Signout(int id, string userId);
 
         IEnumerable<PlayerViewModel> GetTournamentPlayers(int id);
+
+        IEnumerable<PlayerViewModel> GetPlayers(int id);
     }
 }

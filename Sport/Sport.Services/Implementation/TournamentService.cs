@@ -43,7 +43,7 @@
                     NumberOfPlayers = t.NumberOfPlayers,
                     AmmountOfMoney = t.AmmountOfMoney,
                     Place = t.Place,
-                    Players = t.Users.Select(p => new UserViewModel
+                    Players = t.Players.Select(p => new UserViewModel
                     {
                         Id = p.User.Id,
                         DateOfBirth = p.User.DateOfBirth,
@@ -118,6 +118,21 @@
             this.context.SaveChanges();
         }
 
+        public IEnumerable<PlayerViewModel> GetPlayers(int id)
+        {
+            var dbPlayers = this.context
+                .Tournaments
+                .Where(t => t.Id == id)
+                .SelectMany(p => p.Players)
+                .Select(p => p.User)
+                .ToList();
+
+            var players = mapper.Map<IEnumerable<PlayerViewModel>>(dbPlayers);
+
+
+            return players;
+        }
+
         public IEnumerable<PlayerViewModel> GetTournamentPlayers(int id)
         {
             var users = this.context
@@ -135,7 +150,7 @@
             var tournament = this.context
                 .Tournaments
                 .Where(t => t.Id == id)
-                .Include(u => u.Users)
+                .Include(u => u.Players)
                 .FirstOrDefault();
 
 
@@ -144,14 +159,14 @@
                 return; // TODO Return message 
             }
 
-            if (tournament.Users.Any(u => u.UserId == user.Id))
+            if (tournament.Players.Any(u => u.UserId == user.Id))
             {
                 return; // TODO Return message that user is already signed in
             }
 
-            if (tournament.Users.Count() < tournament.NumberOfPlayers)
+            if (tournament.Players.Count() < tournament.NumberOfPlayers)
             {
-                tournament.Users.Add(new UserTournament
+                tournament.Players.Add(new UserTournament
                 {
                     User = user,
                     UserId = user.Id,
@@ -174,13 +189,13 @@
             var tournament = this.context
                 .Tournaments
                 .Where(t => t.Id == id)
-                .Include(u => u.Users)
+                .Include(u => u.Players)
                 .FirstOrDefault();
 
-            UserTournament ut = tournament.Users
+            UserTournament ut = tournament.Players
                 .FirstOrDefault(x => x.UserId == userId);
 
-            tournament.Users.Remove(ut);
+            tournament.Players.Remove(ut);
             await this.context.SaveChangesAsync();
         }
     }
