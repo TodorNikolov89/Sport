@@ -11,6 +11,7 @@
         public Tournament()
         {
             this.Users = new HashSet<UserTournament>();
+            this.IsStarted = false;
         }
 
         [Key]
@@ -32,10 +33,12 @@
 
         [Required]
         public TournamentType Type { get; set; }
-       
+
         public string Place { get; set; }
 
         public decimal AmmountOfMoney { get; set; }
+
+        public bool IsStarted { get; set; }
 
     }
 }
