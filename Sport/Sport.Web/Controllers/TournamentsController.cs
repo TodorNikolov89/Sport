@@ -100,12 +100,12 @@
         {
             var user = await userManager.GetUserAsync(HttpContext.User);
 
-           await this.tournamentService.Signin(id, user);
+            await this.tournamentService.Signin(id, user);
 
             return this.View();
         }
 
-        
+
         [Route(nameof(TournamentPlayers) + "/{id}")]
         public async Task<IActionResult> TournamentPlayers(int id)
         {
@@ -124,6 +124,12 @@
             return this.View();
         }
 
-        
+        [Route(nameof(GetDraw) + "/{id}")]
+        public IActionResult GetDraw(int id)
+        {
+            
+
+            return this.View();
+        }
     }
 }
