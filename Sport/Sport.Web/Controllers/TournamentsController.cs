@@ -130,7 +130,7 @@
         [Route(nameof(GetDraw) + "/{id}")]
         public IActionResult GetDraw(int id)
         {
-            var players = this.tournamentService.GetPlayers(id);
+            var players = this.tournamentService.GetDrawPlayers(id);
 
             return this.View();
         }

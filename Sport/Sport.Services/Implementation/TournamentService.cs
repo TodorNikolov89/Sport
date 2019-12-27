@@ -118,7 +118,7 @@
             this.context.SaveChanges();
         }
 
-        public IEnumerable<PlayerViewModel> GetPlayers(int id)
+        public IEnumerable<PlayerViewModel> GetDrawPlayers(int id)
         {
             var dbPlayers = this.context
                 .Tournaments

@@ -25,6 +25,6 @@ namespace Sport.Services
 
         IEnumerable<PlayerViewModel> GetTournamentPlayers(int id);
 
-        IEnumerable<PlayerViewModel> GetPlayers(int id);
+        IEnumerable<PlayerViewModel> GetDrawPlayers(int id);
     }
 }
