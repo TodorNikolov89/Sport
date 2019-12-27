@@ -1,10 +1,12 @@
 ﻿namespace Sport.Web.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Sport.Domain;
     using Sport.Services;
     using Sport.ViewModels.Tournament;
+    using Sport.Web.Infrastructure;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -94,6 +96,7 @@
             return RedirectToAction(nameof(All));
         }
 
+        [Authorize(Roles = GlobalConstants.PlayerRole)]
         [Route(nameof(Signin) + "/{id}")]
         public async Task<IActionResult> Signin(int id)
         {
@@ -113,6 +116,7 @@
             return this.View(result);
         }
 
+        [Authorize(Roles = GlobalConstants.PlayerRole)]
         [Route(nameof(Signout) + "/{id}")]
         public async Task<IActionResult> Signout(int id)
         {

@@ -14,8 +14,7 @@ namespace Sport.Web
     using Profiles;
     using Services;
     using Services.Implementation;
-    using Web.Infrastructure.Extensions;   
-  
+    using Web.Infrastructure.Extensions;    
     
 
     public class Startup
