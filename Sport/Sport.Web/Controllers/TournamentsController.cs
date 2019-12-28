@@ -96,7 +96,7 @@
             return RedirectToAction(nameof(All));
         }
 
-        [Authorize(Roles = GlobalConstants.PlayerRole)]
+        [Authorize(Roles = GlobalConstants.AdministratorRole + "," + GlobalConstants.PlayerRole)]
         [Route(nameof(Signin) + "/{id}")]
         public async Task<IActionResult> Signin(int id)
         {
@@ -116,7 +116,7 @@
             return this.View(result);
         }
 
-        [Authorize(Roles = GlobalConstants.PlayerRole)]
+        [Authorize(Roles = "Player, Administrator")]
         [Route(nameof(Signout) + "/{id}")]
         public async Task<IActionResult> Signout(int id)
         {
