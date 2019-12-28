@@ -1,11 +1,13 @@
 ﻿namespace Sport.Web.Controllers
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Sport.Domain;
+    using Sport.ViewModels.Role;
     using Sport.Web.Infrastructure;
 
     [Authorize(Roles = GlobalConstants.AdministratorRole)]
@@ -13,11 +15,14 @@
     public class RolesController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly UserManager<User> userManager;
 
-        public RolesController(RoleManager<IdentityRole> roleManager)
+        public RolesController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
             this.roleManager = roleManager;
+            this.userManager = userManager;
         }
+
 
         [Route(nameof(All))]
         public IActionResult All()
@@ -48,7 +53,7 @@
             return this.View(nameof(Delete), id);
         }
 
-        
+
         [Route(nameof(Destroy) + "/{id}")]
         public async Task<IActionResult> Destroy(string id)
         {

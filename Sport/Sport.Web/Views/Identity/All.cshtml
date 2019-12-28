@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ListUserViewModel>
 
 @{
-    ViewData["Title"] = "All";
+    ViewData["Title"] = "All Users";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -11,9 +11,9 @@
     <h2 class="text-success">@TempData["SuccessMessage"]</h2>
 }
 
-<div>
+@*<div>
     <a href="/Identity/create" class="btn btn-primary">Add User</a>
-</div>
+</div>*@
 <br />
 
 <table class="table table-bordered table-hover">

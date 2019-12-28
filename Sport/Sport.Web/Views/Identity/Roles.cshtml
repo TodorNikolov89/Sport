@@ -1,10 +1,12 @@
 ﻿@model UserWithRolesViewModel
+@using Microsoft.AspNetCore.Identity;
 
 @{
     ViewData["Title"] = "Roles";
 }
 
 <h1>Roles for user @Model.Email</h1>
+
 
 
 @if (!Model.Roles.Any())
@@ -18,4 +20,11 @@
         <li>@role</li>
     }
 </ul>
+
+<div class="card-footer">
+    <a asp-controller="identity" asp-action="ManageUserRoles" asp-route-userId="@Model.Id"
+       class="btn btn-primary">
+        Manage Roles
+    </a>
+</div>
 
