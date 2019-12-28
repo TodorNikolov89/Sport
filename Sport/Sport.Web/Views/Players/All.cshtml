@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<AllPlayersViewModel>
+@using Microsoft.AspNet.Identity
 @{
     ViewData["Title"] = "All";
 }
@@ -30,29 +31,53 @@
     <tbody>
         @foreach (var player in Model)
         {
-        <tr>
-            <th>
-                @player.FirstName @player.LastName
-            </th>
-            <th>
-                @player.Win/@player.Loses
-            </th>
-            <th>
-                @player.Points
-            </th>
-            <th>
-                @player.Town
-            </th>
-            <th>
-                @player.Rank
-            </th>
-
-            @*<th>
-            <a href="/tournaments/edit/@tournament.Id" class="btn btn-warning btn-sm">Edit</a>
-            <a href="/tournaments/delete/@tournament.Id" class="btn btn-danger btn-sm">Delete</a>
-            <a href="/tournaments/details/@tournament.Id" class="btn btn-info btn-sm">Details</a>
-        </th>*@
-        </tr>
+            @if (player.Id.Equals(User.Identity.GetUserId()))
+            {
+                <tr bgcolor="#b2b2b2">
+                    <th>
+                        @player.FirstName @player.LastName
+                    </th>
+                    <th>
+                        @player.Win/@player.Loses
+                    </th>
+                    <th>
+                        @player.Points
+                    </th>
+                    <th>
+                        @player.Town
+                    </th>
+                    <th>
+                        @player.Rank
+                    </th>
+                </tr>
+            }
+            else
+            {
+                <tr >
+                    <th>
+                        @player.FirstName @player.LastName
+                    </th>
+                    <th>
+                        @player.Win/@player.Loses
+                    </th>
+                    <th>
+                        @player.Points
+                    </th>
+                    <th>
+                        @player.Town
+                    </th>
+                    <th>
+                        @player.Rank
+                    </th>
+                </tr>
+            }
         }
     </tbody>
 </table>
+
+
+@*<th>
+        <a href="/tournaments/edit/@tournament.Id" class="btn btn-warning btn-sm">Edit</a>
+        <a href="/tournaments/delete/@tournament.Id" class="btn btn-danger btn-sm">Delete</a>
+        <a href="/tournaments/details/@tournament.Id" class="btn btn-info btn-sm">Details</a>
+    </th>*@

@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<ListUserViewModel>
+@using Microsoft.AspNet.Identity;
 
 @{
     ViewData["Title"] = "All Users";
@@ -12,8 +13,8 @@
 }
 
 @*<div>
-    <a href="/Identity/create" class="btn btn-primary">Add User</a>
-</div>*@
+        <a href="/Identity/create" class="btn btn-primary">Add User</a>
+    </div>*@
 <br />
 
 <table class="table table-bordered table-hover">
@@ -33,22 +34,45 @@
     </tr>
     @foreach (var user in Model)
     {
-        <tr>
-            <th>
-                @user.FirstName @user.LastName
-            </th>
-            <th>
-                @user.Username
-            </th>
-            <th>
-                @user.Email
-            </th>
-            <th>
-                <a href="/identity/changepassword/@user.Id" class="btn btn-warning">Change Password</a>
-                <a href="/identity/delete/@user.Id" class="btn btn-danger">Delete</a>
-                <a href="/identity/roles/@user.Id" class="btn btn-default">Role</a>
-            </th>
-        </tr>
+        @if (user.Id.Equals(User.Identity.GetUserId()))
+        {
+            <tr bgcolor="#b2b2b2">
+                <th>
+                    @user.FirstName @user.LastName
+                </th>
+                <th>
+                    @user.Username
+                </th>
+                <th>
+                    @user.Email
+                </th>
+                <th>
+                    <a href="/identity/changepassword/@user.Id" class="btn btn-warning">Change Password</a>
+                    <a href="/identity/delete/@user.Id" class="btn btn-danger">Delete</a>
+                    <a href="/identity/roles/@user.Id" class="btn btn-default">Role</a>
+                </th>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <th>
+                    @user.FirstName @user.LastName
+                </th>
+                <th>
+                    @user.Username
+                </th>
+                <th>
+                    @user.Email
+                </th>
+                <th>
+                    <a href="/identity/changepassword/@user.Id" class="btn btn-warning">Change Password</a>
+                    <a href="/identity/delete/@user.Id" class="btn btn-danger">Delete</a>
+                    <a href="/identity/roles/@user.Id" class="btn btn-default">Role</a>
+                </th>
+            </tr>
+        }
+
 
     }
 </table>
