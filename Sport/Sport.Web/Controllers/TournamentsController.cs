@@ -3,12 +3,13 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Sport.Domain;
-    using Sport.Services;
-    using Sport.ViewModels.Tournament;
-    using Sport.Web.Infrastructure;
     using System.Security.Claims;
     using System.Threading.Tasks;
+
+    using Domain;
+    using Services;
+    using ViewModels.Tournament;
+    using Infrastructure;
 
     [Route("tournaments")]
     public class TournamentsController : Controller
