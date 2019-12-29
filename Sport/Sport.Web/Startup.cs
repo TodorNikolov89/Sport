@@ -14,8 +14,8 @@ namespace Sport.Web
     using Profiles;
     using Services;
     using Services.Implementation;
-    using Web.Infrastructure.Extensions;    
-    
+    using Web.Infrastructure.Extensions;
+
 
     public class Startup
     {
@@ -25,7 +25,6 @@ namespace Sport.Web
         }
 
         public IConfiguration Configuration { get; }
-
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -47,7 +46,7 @@ namespace Sport.Web
             services.AddTransient<ITournamentService, TournamentService>();
             services.AddTransient<IPlayerService, PlayerService>();
             //services.AddTransient<IMapper, Mapper>();
-           
+
 
             var config = new MapperConfiguration(cfg =>
             {
