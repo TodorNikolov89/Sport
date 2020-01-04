@@ -1,17 +1,20 @@
-﻿namespace Sport.ViewModels.Player
+﻿
+namespace Sport.ViewModels.User
 {
-    public class PlayerViewModel
+    using System;
+
+    public class UserDrawViewModel
     {
+
         public string Id { get; set; }
 
-        public string Email { get; set; }
-
+        public DateTime? DateOfBirth { get; set; }
+       
         public string FirstName { get; set; }
 
+        
         public string LastName { get; set; }
-
-        public string FullName => FirstName + " " + LastName;
-
+        
         public int Win { get; set; }
 
         public int Loses { get; set; }

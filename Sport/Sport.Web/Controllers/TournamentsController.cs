@@ -32,12 +32,14 @@
 
 
         [Route(nameof(Create))]
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         [Route(nameof(Create))]
         [ValidateAntiForgeryToken]
         public IActionResult Create(TournamentFormModel model)
@@ -103,7 +105,7 @@
         {
             var user = await userManager.GetUserAsync(HttpContext.User);
 
-            await this.tournamentService.Signin(id, user);
+            this.tournamentService.Signin(id, user);
 
             return this.View();
         }
@@ -133,7 +135,16 @@
         {
             var players = this.tournamentService.GetDrawPlayers(id);
 
-            return this.View();
+            return this.View(players);
+        }
+
+        [Route(nameof(Start) + "/{id}")]
+        [Authorize]
+        public IActionResult Start(int id)
+        {
+            this.tournamentService.Start(id);
+
+            return RedirectToAction(nameof(All));
         }
     }
 }

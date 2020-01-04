@@ -1,8 +1,1080 @@
-﻿@model IEnumerable<PlayerViewModel>
+﻿@model IEnumerable<MatchesViewModel>
 
 @{
     ViewData["Title"] = "Tournament Draw";
 }
 
-<h1>@ViewData["Title"]</h1>
+<link rel="stylesheet" type="text/css" href="~/css/DrawTable.css">
 
+
+<div id="scoresDrawTableContent" class="scores-draw-table-content">
+    <div class="scores-draw-table-wrapper">
+        <table id="scoresDrawTable" class="scores-draw-table">
+            <thead>
+                <tr>
+                    <th>
+                        <span>R32</span>
+                    </th>
+                    <th>
+                        <span>R16</span>
+                    </th>
+                    <th>
+                        <span>QF</span>
+                    </th>
+                    <th>
+                        <span>SF</span>
+                    </th>
+                    <th>
+                        <span>F</span>
+                    </th>
+                    <th>
+                        <span>Winner</span>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="scores-draw-entry-box">
+                            <table class="scores-draw-entry-box-table">
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span>
+
+                                            </span>
+
+                                        </td>
+                                        <td>
+                                            <a @*href="/en/players/john-isner/i186/overview"*@ class="scores-draw-entry-box-players-item">
+                                               
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <a @*href="/en/players/john-isner/i186/overview"*@ class="scores-draw-entry-box-players-item">
+                                               
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td rowspan="1" class="bye-bracket">
+                        <a data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 40px;">
+                            <span>
+
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 40px;">
+                            <div class="scores-draw-entry-box">
+                                <a @*href="/en/players/john-isner/i186/overview"*@ class="scores-draw-entry-box-players-item" >
+                                
+                                </a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class="not-in-system scores-draw-entry-box-score">
+
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td rowspan="2" class="">
+                        <a @*href="/en/players/fedex-head-2-head/taylor-fritz-vs-john-isner/FB98/I186"*@ data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 79px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 79px;">
+                            <div class="scores-draw-entry-box">
+                                <a @*href="/en/players/taylor-fritz/fb98/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Taylor Fritz">
+                                
+                                </a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score" @*href="/en/scores/2019/301/MS008/match-stats?isLive=False"*@>
+                                    76<sup>3</sup> 76<sup>5</sup>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td rowspan="4" class="">
+                        <a @*href="/en/players/fedex-head-2-head/cameron-norrie-vs-taylor-fritz/N771/FB98"*@ data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 158px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 158px;">
+                            <div class="scores-draw-entry-box">
+                                <a @*href="/en/players/cameron-norrie/n771/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Cameron Norrie">Cameron Norrie</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score" @*href="/en/scores/2019/301/MS004/match-stats?isLive=False"*@>
+                                    76<sup>3</sup> 63
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td rowspan="8" class="">
+                        <a @*href="/en/players/fedex-head-2-head/cameron-norrie-vs-jan-lennard-struff/N771/SL28"*@ data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 316px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 316px;">
+                            <div class="scores-draw-entry-box">
+                                <a @*href="/en/players/cameron-norrie/n771/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Cameron Norrie">Cameron Norrie</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score" @*href="/en/scores/2019/301/MS002/match-stats?isLive=False"*@>
+                                    75 46 63
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td rowspan="16" class="">
+                        <a @*href="/en/players/fedex-head-2-head/tennys-sandgren-vs-cameron-norrie/SL08/N771"*@ data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 632px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 632px;">
+                            <div class="scores-draw-entry-box">
+                                <a @*href="/en/players/tennys-sandgren/sl08/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Tennys Sandgren">Tennys Sandgren</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score" @*href="/en/scores/2019/301/MS001/match-stats?isLive=False"*@>
+                                    64 62
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <div class="scores-draw-entry-box">
+                            <table class="scores-draw-entry-box-table">
+                                <tbody>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Marius Copil">
+                                                Marius Copil
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Taylor Fritz">
+                                                Taylor Fritz
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td rowspan="1" class="">
+                        <a data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 39.5px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 39.5px;">
+                            <div class="scores-draw-entry-box">
+                                <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Taylor Fritz">Taylor Fritz</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score">
+                                    46 63 64
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <div class="scores-draw-entry-box">
+                            <table class="scores-draw-entry-box-table">
+                                <tbody>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>
+                                            <span>
+
+                                            </span>
+
+                                        </td>
+                                        <td>
+                                            <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Cameron Norrie">
+
+                                                Cameron Norrie
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Benoit Paire">
+
+                                                Benoit Paire
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td rowspan="1" class="">
+                        <a data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 39.5px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 39.5px;">
+                            <div class="scores-draw-entry-box">
+                                <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Cameron Norrie">Cameron Norrie</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score">
+                                    63 62
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td rowspan="2" class="">
+                        <a data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 79px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 79px;">
+                            <div class="scores-draw-entry-box">
+                                <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Cameron Norrie">Cameron Norrie</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score">
+                                    76<sup>5</sup> 64
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <div class="scores-draw-entry-box">
+                            <table class="scores-draw-entry-box-table">
+                                <tbody>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Joao Sousa">
+                                                Joao Sousa
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>
+                                            <span>
+
+                                            </span>
+
+                                        </td>
+                                        <td>
+                                            <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Denis Shapovalov">
+                                                Denis Shapovalov
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td rowspan="1" class="">
+                        <a data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 39.5px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 39.5px;">
+                            <div class="scores-draw-entry-box">
+                                <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Joao Sousa">Joao Sousa</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score">
+                                    46 64 64
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <div class="scores-draw-entry-box">
+                            <table class="scores-draw-entry-box-table">
+                                <tbody>
+                                    <tr>
+                                        <td>9</td>
+                                        <td>
+                                            <span>
+
+                                            </span>
+
+                                        </td>
+                                        <td>
+                                            <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Pablo Carreno Busta">
+                                                Pablo Carreno Busta
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            Bye
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td rowspan="1" class="bye-bracket">
+                        <a data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 39.5px;">
+                            <span>
+
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 39.5px;">
+                            <div class="scores-draw-entry-box">
+                                <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Pablo Carreno Busta">Pablo Carreno Busta</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class="not-in-system scores-draw-entry-box-score">
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td rowspan="2" class="">
+                        <a data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 79px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 79px;">
+                            <div class="scores-draw-entry-box">
+                                <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Pablo Carreno Busta">Pablo Carreno Busta</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score">
+                                    11 (RET)
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td rowspan="4" class="">
+                        <a data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 158px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 158px;">
+                            <div class="scores-draw-entry-box">
+                                <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Jan-Lennard Struff">Jan-Lennard Struff</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score">
+                                    76<sup>5</sup> 67<sup>6</sup> 76<sup>7</sup>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <div class="scores-draw-entry-box">
+                            <table class="scores-draw-entry-box-table">
+                                <tbody>
+                                    <tr>
+                                        <td>11</td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <a @*href="/en/players/robin-haase/h756/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Robin Haase">
+                                                Robin Haase
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>12</td>
+                                        <td>
+                                            <span>
+                                                
+                                            </span>
+
+                                        </td>
+                                        <td>
+                                            <a @*href="/en/players/david-ferrer/f401/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="David Ferrer">
+                                                David Ferrer
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td rowspan="1" class="">
+                        <a @*href="/en/players/fedex-head-2-head/david-ferrer-vs-robin-haase/F401/H756"*@ data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 39.5px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 39.5px;">
+                            <div class="scores-draw-entry-box">
+                                <a @*href="/en/players/david-ferrer/f401/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="David Ferrer">David Ferrer</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score" @*href="/en/scores/2019/301/MS021/match-stats?isLive=False"*@>
+                                    62 61
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <div class="scores-draw-entry-box">
+                            <table class="scores-draw-entry-box-table">
+                                <tbody>
+                                    <tr>
+                                        <td>13</td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <a @*href="/en/players/jan-lennard-struff/sl28/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Jan-Lennard Struff">
+                                                Jan-Lennard Struff
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>14</td>
+                                        <td>
+                                            <span>
+
+                                            </span>
+
+                                        </td>
+                                        <td>
+                                            <a @*href="/en/players/laslo-djere/db63/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Laslo Djere">
+                                                Laslo Djere
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td rowspan="1" class="">
+                        <a @*href="/en/players/fedex-head-2-head/jan-lennard-struff-vs-laslo-djere/SL28/DB63"*@ data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 39.5px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 39.5px;">
+                            <div class="scores-draw-entry-box">
+                                <a @*href="/en/players/jan-lennard-struff/sl28/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Jan-Lennard Struff">Jan-Lennard Struff</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score" @*href="/en/scores/2019/301/MS022/match-stats?isLive=False"*@>
+                                    76<sup>5</sup> 20 (RET)
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td rowspan="2" class="">
+                        <a @*href="/en/players/fedex-head-2-head/jan-lennard-struff-vs-rubin-statham/SL28/SF89"*@ data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 79px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 79px;">
+                            <div class="scores-draw-entry-box">
+                                <a @*href="/en/players/jan-lennard-struff/sl28/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Jan-Lennard Struff">Jan-Lennard Struff</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score" @*href="/en/scores/2019/301/MS011/match-stats?isLive=False"*@>
+                                    62 61
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <div class="scores-draw-entry-box">
+                            <table class="scores-draw-entry-box-table">
+                                <tbody>
+                                    <tr>
+                                        <td>15</td>
+                                        <td>
+                                            <span>
+
+                                            </span>
+
+                                        </td>
+                                        <td>
+                                            <a @*href="/en/players/rubin-statham/sf89/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Rubin Statham">
+                                                Rubin Statham
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>16</td>
+                                        <td>
+                                            <span>
+                                                (6)
+                                            </span>
+
+                                        </td>
+                                        <td>
+                                            <a @*href="/en/players/hyeon-chung/ch27/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Hyeon Chung">
+                                                Hyeon Chung
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td rowspan="1" class="">
+                        <a @*href="/en/players/fedex-head-2-head/rubin-statham-vs-hyeon-chung/SF89/CH27"*@ data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 39.5px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 39.5px;">
+                            <div class="scores-draw-entry-box">
+                                <a @*href="/en/players/rubin-statham/sf89/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Rubin Statham">Rubin Statham</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score" @*href="/en/scores/2019/301/MS023/match-stats?isLive=False"*@>
+                                    75 63
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <div class="scores-draw-entry-box">
+                            <table class="scores-draw-entry-box-table">
+                                <tbody>
+                                    <tr>
+                                        <td>17</td>
+                                        <td>
+                                            <span>
+
+                                            </span>
+
+                                        </td>
+                                        <td>
+                                            <a @*href="/en/players/john-isner/i186/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="John Isner">
+                                                John Isner
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>18</td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            Bye
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td rowspan="1" class="bye-bracket">
+                        <a data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 39.5px;">
+                            <span>
+
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 39.5px;">
+                            <div class="scores-draw-entry-box">
+                                <a @*href="/en/players/john-isner/i186/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="John Isner">John Isner</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class="not-in-system scores-draw-entry-box-score">
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td rowspan="2" class="">
+                        <a @*href="/en/players/fedex-head-2-head/taylor-fritz-vs-john-isner/FB98/I186"*@ data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 79px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 79px;">
+                            <div class="scores-draw-entry-box">
+                                <a @*href="/en/players/taylor-fritz/fb98/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Taylor Fritz">Taylor Fritz</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score" @*href="/en/scores/2019/301/MS008/match-stats?isLive=False"*@>
+                                    76<sup>3</sup> 76<sup>5</sup>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td rowspan="4" class="">
+                        <a @*href="/en/players/fedex-head-2-head/cameron-norrie-vs-taylor-fritz/N771/FB98"*@ data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 158px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 158px;">
+                            <div class="scores-draw-entry-box">
+                                <a @*href="/en/players/cameron-norrie/n771/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Cameron Norrie">Cameron Norrie</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score" @*href="/en/scores/2019/301/MS004/match-stats?isLive=False"*@>
+                                    76<sup>3</sup> 63
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td rowspan="8" class="">
+                        <a @*href="/en/players/fedex-head-2-head/cameron-norrie-vs-jan-lennard-struff/N771/SL28"*@ data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 316px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 316px;">
+                            <div class="scores-draw-entry-box">
+                                <a @*href="/en/players/cameron-norrie/n771/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Cameron Norrie">Cameron Norrie</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score" @*href="/en/scores/2019/301/MS002/match-stats?isLive=False"*@>
+                                    75 46 63
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <div class="scores-draw-entry-box">
+                            <table class="scores-draw-entry-box-table">
+                                <tbody>
+                                    <tr>
+                                        <td>19</td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Marius Copil">
+                                                Marius Copil
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>20</td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Taylor Fritz">
+                                                Taylor Fritz
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td rowspan="1" class="">
+                        <a data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 39.5px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 39.5px;">
+                            <div class="scores-draw-entry-box">
+                                <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Taylor Fritz">Taylor Fritz</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score">
+                                    46 63 64
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <div class="scores-draw-entry-box">
+                            <table class="scores-draw-entry-box-table">
+                                <tbody>
+                                    <tr>
+                                        <td>21</td>
+                                        <td>
+                                            <span>
+
+                                            </span>
+
+                                        </td>
+                                        <td>
+                                            <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Cameron Norrie">
+
+                                                Cameron Norrie
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>22</td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Benoit Paire">
+
+                                                Benoit Paire
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td rowspan="1" class="">
+                        <a data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 39.5px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 39.5px;">
+                            <div class="scores-draw-entry-box">
+                                <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Cameron Norrie">Cameron Norrie</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score">
+                                    63 62
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td rowspan="2" class="">
+                        <a data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 79px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 79px;">
+                            <div class="scores-draw-entry-box">
+                                <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Cameron Norrie">Cameron Norrie</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score">
+                                    76<sup>5</sup> 64
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <div class="scores-draw-entry-box">
+                            <table class="scores-draw-entry-box-table">
+                                <tbody>
+                                    <tr>
+                                        <td>23</td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Joao Sousa">
+                                                Joao Sousa
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>24</td>
+                                        <td>
+                                            <span>
+
+                                            </span>
+
+                                        </td>
+                                        <td>
+                                            <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Denis Shapovalov">
+                                                Denis Shapovalov
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td rowspan="1" class="">
+                        <a data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 39.5px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 39.5px;">
+                            <div class="scores-draw-entry-box">
+                                <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Joao Sousa">Joao Sousa</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score">
+                                    46 64 64
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <div class="scores-draw-entry-box">
+                            <table class="scores-draw-entry-box-table">
+                                <tbody>
+                                    <tr>
+                                        <td>25</td>
+                                        <td>
+                                            <span>
+
+                                            </span>
+
+                                        </td>
+                                        <td>
+                                            <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Pablo Carreno Busta">
+                                                Pablo Carreno Busta
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>26</td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            Bye
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td rowspan="1" class="bye-bracket">
+                        <a data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 39.5px;">
+                            <span>
+
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 39.5px;">
+                            <div class="scores-draw-entry-box">
+                                <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Pablo Carreno Busta">Pablo Carreno Busta</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class="not-in-system scores-draw-entry-box-score">
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td rowspan="2" class="">
+                        <a data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 79px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 79px;">
+                            <div class="scores-draw-entry-box">
+                                <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Pablo Carreno Busta">Pablo Carreno Busta</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score">
+                                    11 (RET)
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td rowspan="4" class="">
+                        <a data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 158px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 158px;">
+                            <div class="scores-draw-entry-box">
+                                <a class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Jan-Lennard Struff">Jan-Lennard Struff</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score">
+                                    76<sup>5</sup> 67<sup>6</sup> 76<sup>7</sup>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <div class="scores-draw-entry-box">
+                            <table class="scores-draw-entry-box-table">
+                                <tbody>
+                                    <tr>
+                                        <td>27</td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <a @*href="/en/players/robin-haase/h756/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Robin Haase">
+                                                Robin Haase
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>28</td>
+                                        <td>
+                                            <span>
+                                                
+                                            </span>
+
+                                        </td>
+                                        <td>
+                                            <a @*href="/en/players/david-ferrer/f401/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="David Ferrer">
+                                                David Ferrer
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td rowspan="1" class="">
+                        <a @*href="/en/players/fedex-head-2-head/david-ferrer-vs-robin-haase/F401/H756"*@ data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 39.5px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 39.5px;">
+                            <div class="scores-draw-entry-box">
+                                <a @*href="/en/players/david-ferrer/f401/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="David Ferrer">David Ferrer</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score" @*href="/en/scores/2019/301/MS021/match-stats?isLive=False"*@>
+                                    62 61
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <div class="scores-draw-entry-box">
+                            <table class="scores-draw-entry-box-table">
+                                <tbody>
+                                    <tr>
+                                        <td>29</td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <a @*href="/en/players/jan-lennard-struff/sl28/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Jan-Lennard Struff">
+                                                Jan-Lennard Struff
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>30</td>
+                                        <td>
+                                            <span>
+
+                                            </span>
+
+                                        </td>
+                                        <td>
+                                            <a @*href="/en/players/laslo-djere/db63/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Laslo Djere">
+                                                Laslo Djere
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td rowspan="1" class="">
+                        <a @*href="/en/players/fedex-head-2-head/jan-lennard-struff-vs-laslo-djere/SL28/DB63"*@ data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 39.5px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 39.5px;">
+                            <div class="scores-draw-entry-box">
+                                <a @*href="/en/players/jan-lennard-struff/sl28/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Jan-Lennard Struff">Jan-Lennard Struff</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score" @*href="/en/scores/2019/301/MS022/match-stats?isLive=False"*@>
+                                    76<sup>5</sup> 20 (RET)
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td rowspan="2" class="">
+                        <a @*href="/en/players/fedex-head-2-head/jan-lennard-struff-vs-rubin-statham/SL28/SF89"*@ data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 79px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 79px;">
+                            <div class="scores-draw-entry-box">
+                                <a @*href="/en/players/jan-lennard-struff/sl28/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Jan-Lennard Struff">Jan-Lennard Struff</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score" @*href="/en/scores/2019/301/MS011/match-stats?isLive=False"*@>
+                                    62 61
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <div class="scores-draw-entry-box">
+                            <table class="scores-draw-entry-box-table">
+                                <tbody>
+                                    <tr>
+                                        <td>31</td>
+                                        <td>
+                                            <span>
+
+                                            </span>
+
+                                        </td>
+                                        <td>
+                                            <a @*href="/en/players/rubin-statham/sf89/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Rubin Statham">
+                                                Rubin Statham
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>32</td>
+                                        <td>
+                                            <span>
+                                                (6)
+                                            </span>
+
+                                        </td>
+                                        <td>
+                                            <a @*href="/en/players/hyeon-chung/ch27/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Hyeon Chung">
+                                                Hyeon Chung
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td rowspan="1" class="">
+                        <a @*href="/en/players/fedex-head-2-head/rubin-statham-vs-hyeon-chung/SF89/CH27"*@ data-ga-category="" data-ga-action="Click" data-ga-label="H2h" data-use-ga="true" class="scores-draw-h2h-link" style="height: 39.5px;">
+                            <span>
+                                H<br>2<br>h
+                            </span>
+                        </a>
+                        <div class="scores-draw-entry-box-wrapper" style="height: 39.5px;">
+                            <div class="scores-draw-entry-box">
+                                <a @*href="/en/players/rubin-statham/sf89/overview"*@ class="scores-draw-entry-box-players-item" data-ga-action="Click" data-ga-label="Rubin Statham">Rubin Statham</a>
+                                <a data-override-transition="" data-ga-category="" data-ga-action="Click" data-ga-label="" data-use-ga="true" class=" scores-draw-entry-box-score" @*href="/en/scores/2019/301/MS023/match-stats?isLive=False"*@>
+                                    75 63
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

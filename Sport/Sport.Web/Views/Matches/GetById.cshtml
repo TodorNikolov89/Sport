@@ -1,0 +1,79 @@
+﻿@model Match
+@using Microsoft.AspNet.Identity;
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Player Name
+            </th>
+            <th>
+                Games
+            </th>
+            <th>
+                Sets
+            </th>
+            <th>
+                Points
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <th>
+                @Model.FirstPlayer.FirstName
+            </th>
+            <th>
+                @Model.FirstPlayerGames
+            </th>
+            <th>
+                @Model.FirstPlayerSets
+            </th>
+            <th>
+                @Model.FirstPlayerPoints
+            </th>
+        </tr>
+        <tr>
+            <th>
+                @Model.SecondPlayer.FirstName
+            </th>
+            <th>
+                @Model.SecondPlayerGames
+            </th>
+            <th>
+                @Model.SecondPlayerSets
+            </th>
+            <th>
+                @Model.SecondPlayerPoints
+            </th>
+        </tr>
+
+    </tbody>
+</table>
+
+
+
+@if (User.Identity.GetUserId() == Model.UmpireId)
+{
+    <section>
+        <span>
+            @Model.FirstPlayerPoints  /  @Model.SecondPlayerPoints
+        </span>
+    </section>
+
+    <section>
+        <button id="firstPlayerPoints">Add First Player Point</button>
+        <button id="SecondPlayerPoints">Add Second Player Point</button>
+    </section>
+
+
+}
+

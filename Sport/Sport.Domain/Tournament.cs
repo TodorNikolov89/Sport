@@ -11,6 +11,7 @@
         public Tournament()
         {
             this.Players = new HashSet<UserTournament>();
+            this.Matches = new HashSet<Match>();
             this.IsStarted = false;
         }
 
@@ -39,6 +40,8 @@
         public decimal AmmountOfMoney { get; set; }
 
         public bool IsStarted { get; set; }
+
+        public ICollection<Match> Matches { get; set; }
 
     }
 }

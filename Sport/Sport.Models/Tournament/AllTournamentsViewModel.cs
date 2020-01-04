@@ -28,5 +28,8 @@
         public decimal AmmountOfMoney { get; set; }
 
         public string Description { get; set; }
+
+
+        public bool IsStarted { get; set; }
     }
 }

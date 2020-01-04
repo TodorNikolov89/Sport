@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<PlayerViewModel>
-
+@using Microsoft.AspNet.Identity
 @{
     ViewData["Title"] = "TournamentPlayers";
 }
@@ -18,11 +18,22 @@
     <tbody>
         @foreach (var player in Model)
         {
-            <tr>
-                <th>
-                    @player.Email
-                </th>
-            </tr>
+            @if (player.Id.Equals(User.Identity.GetUserId()))
+            {
+                <tr bgcolor="#b2b2b2">
+                    <th>
+                        @player.Email
+                    </th>
+                </tr>
+            }
+            else
+            {
+                <tr >
+                    <th>
+                        @player.Email
+                    </th>
+                </tr>
+            }
         }
     </tbody>
 </table>

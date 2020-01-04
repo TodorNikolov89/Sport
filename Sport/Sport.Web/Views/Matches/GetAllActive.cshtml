@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Match>
+@{
+    ViewData["Title"] = "GetAllActive";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                First Player
+            </th>
+            <th>
+                Second Player
+            </th>
+            <th>
+                Details
+            </th>
+            <th>
+                Tournament
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var match in Model)
+        {
+            <tr>
+                <th>
+                    @match.FirstPlayer.FirstName  
+                </th>
+                <th>
+                    @match.SecondPlayer.FirstName
+                </th>
+                <th>
+                    @match.Tournament.Name
+                </th>
+                <th>
+                    <a href="/matches/GetById/@match.Id" class="btn btn-warning btn-sm">View Details</a>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@*<th>
+        <a href="/tournaments/edit/@tournament.Id" class="btn btn-warning btn-sm">Edit</a>
+        <a href="/tournaments/delete/@tournament.Id" class="btn btn-danger btn-sm">Delete</a>
+        <a href="/tournaments/details/@tournament.Id" class="btn btn-info btn-sm">Details</a>
+    </th>*@

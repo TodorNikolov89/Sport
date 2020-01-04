@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sport.Data;
 
 namespace Sport.Data.Migrations
 {
     [DbContext(typeof(SportDbContext))]
-    partial class SportDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200103092634_newadd")]
+    partial class newadd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,38 +159,41 @@ namespace Sport.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("FirstPlayerGames")
+                    b.Property<int>("FirstPlayerGames")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstPlayerId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstPlayerPoints")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FirstPlayerSets")
+                    b.Property<int>("FirstPlayerSets")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FirstPlayerTieBreakPoints")
+                    b.Property<int>("FirstPlayerTieBreakPoints")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<string>("FirstUserId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("SecondPlayerGames")
+                    b.Property<int>("SecondPlayerGames")
                         .HasColumnType("int");
 
                     b.Property<string>("SecondPlayerId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecondPlayerPoints")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SecondPlayerSets")
+                    b.Property<int>("SecondPlayerSets")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SecondPlayerTieBreakPoints")
+                    b.Property<int>("SecondPlayerTieBreakPoints")
                         .HasColumnType("int");
+
+                    b.Property<string>("SecondUserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("TournamentId")
                         .HasColumnType("int");
@@ -198,9 +203,9 @@ namespace Sport.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FirstPlayerId");
+                    b.HasIndex("FirstUserId");
 
-                    b.HasIndex("SecondPlayerId");
+                    b.HasIndex("SecondUserId");
 
                     b.HasIndex("TournamentId");
 
@@ -407,13 +412,13 @@ namespace Sport.Data.Migrations
 
             modelBuilder.Entity("Sport.Domain.Match", b =>
                 {
-                    b.HasOne("Sport.Domain.User", "FirstPlayer")
+                    b.HasOne("Sport.Domain.User", "FirstUser")
                         .WithMany()
-                        .HasForeignKey("FirstPlayerId");
+                        .HasForeignKey("FirstUserId");
 
-                    b.HasOne("Sport.Domain.User", "SecondPlayer")
+                    b.HasOne("Sport.Domain.User", "SecondUser")
                         .WithMany()
-                        .HasForeignKey("SecondPlayerId");
+                        .HasForeignKey("SecondUserId");
 
                     b.HasOne("Sport.Domain.Tournament", "Tournament")
                         .WithMany("Matches")

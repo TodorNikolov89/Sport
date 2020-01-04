@@ -9,6 +9,7 @@
     using ViewModels.Tournament;
     using ViewModels.User;
     using ViewModels.Player;
+    using ViewModels.Match;
 
     using System.Collections.Generic;
     using System.Linq;
@@ -43,6 +44,7 @@
                     NumberOfPlayers = t.NumberOfPlayers,
                     AmmountOfMoney = t.AmmountOfMoney,
                     Place = t.Place,
+                    IsStarted = t.IsStarted,
                     Players = t.Players.Select(p => new UserViewModel
                     {
                         Id = p.User.Id,
@@ -118,19 +120,20 @@
             this.context.SaveChanges();
         }
 
-        public IEnumerable<PlayerViewModel> GetDrawPlayers(int id)
+        public IEnumerable<MatchesViewModel> GetDrawPlayers(int id)
         {
-            var dbPlayers = this.context
-                .Tournaments
-                .Where(t => t.Id == id)
-                .SelectMany(p => p.Players)
-                .Select(p => p.User)
-                .ToList();
+            var matches = this.context
+                  .Tournaments
+                  .Where(t => t.Id == id)
+                  .SelectMany(u => u.Matches)
+                  .Include(u => u.FirstPlayer)
+                  .Include(u => u.SecondPlayer)
+                  .Include(u => u.Tournament)
+                  .ToList();
 
-            var players = mapper.Map<IEnumerable<PlayerViewModel>>(dbPlayers);
+            var result = mapper.Map<IEnumerable<MatchesViewModel>>(matches);
 
-
-            return players;
+            return result;
         }
 
         public IEnumerable<PlayerViewModel> GetTournamentPlayers(int id)
@@ -145,13 +148,13 @@
             return result;
         }
 
-        public async Task Signin(int id, User user)
+        public void Signin(int id, User user)
         {
             var tournament = this.context
                 .Tournaments
-                .Where(t => t.Id == id)
                 .Include(u => u.Players)
-                .FirstOrDefault();
+                .ThenInclude(x => x.User)
+                .FirstOrDefault(t => t.Id == id);
 
 
             if (tournament == null)
@@ -180,8 +183,8 @@
                 return; //TODO return message "List of players is full"
             }
 
+            this.context.SaveChanges();
 
-            await this.context.SaveChangesAsync();
         }
 
         public async Task Signout(int id, string userId)
@@ -197,6 +200,55 @@
 
             tournament.Players.Remove(ut);
             await this.context.SaveChangesAsync();
+        }
+
+        public void Start(int id)
+        {
+            var tournament = this.context
+                 .Tournaments
+                 .Include(u => u.Players)
+                 .ThenInclude(x => x.User)
+                 .FirstOrDefault(t => t.Id == id);
+
+            var players = tournament
+                .Players
+                .Select(p => p.User)
+                .ToList();
+
+            //TODO Add some sorting to PLAYERS
+           
+            if (!tournament.Matches.Any())
+            {
+                
+                for (int i = 0; i < players.Count - 1; i += 2)
+                {
+                    tournament.Matches.Add(new Match
+                    {
+                        FirstPlayer = players[i],
+                        FirstPlayerId = players[i].Id,
+                        FirstPlayerPoints = "0",
+                        FirstPlayerGames = 0,
+                        FirstPlayerSets = 0,
+                        FirstPlayerTieBreakPoints = 0,
+
+                        SecondPlayer = players[i + 1],
+                        SecondPlayerId = players[i + 1].Id,
+
+                        SecondPlayerPoints = "0",
+                        SecondPlayerGames = 0,
+                        SecondPlayerSets = 0,
+                        SecondPlayerTieBreakPoints = 0,
+
+                        Tournament = tournament,
+                        TournamentId = tournament.Id                        
+
+                    });
+                }
+
+                tournament.IsStarted = true;
+                this.context.SaveChanges();
+            }
+           
         }
     }
 }

@@ -2,8 +2,7 @@
 {
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-    using Sport.Domain;
-    using System;
+    using Domain;
 
     public class SportDbContext : IdentityDbContext<User>
     {
@@ -11,6 +10,8 @@
         public DbSet<Tournament> Tournaments { get; set; }
 
         public DbSet<UserTournament> UserTournament { get; set; }
+
+        public DbSet<Match> Matches { get; set; }
 
         public SportDbContext(DbContextOptions<SportDbContext> options)
             : base(options)
@@ -21,7 +22,16 @@
         {
 
             UserTournamentConfiguration(builder);
+            MatchConfiguration(builder);
             base.OnModelCreating(builder);
+        }
+
+        private void MatchConfiguration(ModelBuilder builder)
+        {
+            builder
+                .Entity<Match>()
+                .HasOne(t => t.Tournament)
+                .WithMany(m => m.Matches);
         }
 
         private void UserTournamentConfiguration(ModelBuilder builder)
@@ -29,6 +39,7 @@
             builder
              .Entity<UserTournament>()
              .HasKey(pk => new { pk.TournamentId, pk.UserId });
+
             builder
                 .Entity<UserTournament>()
                 .HasOne(t => t.Tournament)

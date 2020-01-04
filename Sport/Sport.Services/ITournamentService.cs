@@ -1,12 +1,13 @@
-﻿using Sport.Domain;
-using Sport.ViewModels.Player;
-using Sport.ViewModels.Tournament;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Sport.Services
+﻿namespace Sport.Services
 {
+    using Domain;
+    using ViewModels.Player;
+    using ViewModels.Tournament;
+    using ViewModels.Match;
+
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
     public interface ITournamentService
     {
         IEnumerable<AllTournamentsViewModel> All();
@@ -19,12 +20,14 @@ namespace Sport.Services
 
         Task Delete(int id);
 
-        Task Signin(int id, User user);
+        void Signin(int id, User user);
 
         Task Signout(int id, string userId);
 
         IEnumerable<PlayerViewModel> GetTournamentPlayers(int id);
 
-        IEnumerable<PlayerViewModel> GetDrawPlayers(int id);
+        IEnumerable<MatchesViewModel> GetDrawPlayers(int id);
+
+        void Start(int id);
     }
 }

@@ -34,19 +34,23 @@
                              }
                          }
 
-                         var roleName = GlobalConstants.AdministratorRole;
+                         var adminRoleName = GlobalConstants.AdministratorRole;
+                         var playerRoleName = GlobalConstants.PlayerRole;
 
-                         var roleExists = await roleManager.RoleExistsAsync(roleName);
+
+                         var roleExists = await roleManager.RoleExistsAsync(adminRoleName);
 
                          if (!roleExists)
                          {
                              await roleManager.CreateAsync(new IdentityRole
                              {
-                                 Name = roleName
+                                 Name = adminRoleName
                              });
                          }
 
-                         var adminUser = await userManager.FindByNameAsync(roleName);
+
+
+                         var adminUser = await userManager.FindByNameAsync(adminRoleName);
 
                          if (adminUser == null)
                          {
@@ -58,9 +62,11 @@
                                  LastName = "Nikolov"
                              };
 
+                             
                              await userManager.CreateAsync(adminUser, "admin12");
 
-                             await userManager.AddToRoleAsync(adminUser, roleName);
+                             await userManager.AddToRoleAsync(adminUser, playerRoleName);
+                             await userManager.AddToRoleAsync(adminUser, adminRoleName);
                          }
                      })
                      .Wait();

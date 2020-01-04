@@ -14,7 +14,7 @@ namespace Sport.Web
     using Profiles;
     using Services;
     using Services.Implementation;
-    using Web.Infrastructure.Extensions;
+    using Infrastructure.Extensions;
 
 
     public class Startup
@@ -45,6 +45,7 @@ namespace Sport.Web
 
             services.AddTransient<ITournamentService, TournamentService>();
             services.AddTransient<IPlayerService, PlayerService>();
+            services.AddTransient<IMatchService, MatchService>();
             //services.AddTransient<IMapper, Mapper>();
 
 

@@ -1,14 +1,14 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
-using Sport.Data;
-using Sport.Domain;
-using Sport.ViewModels.Player;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Sport.Services.Implementation
+﻿namespace Sport.Services.Implementation
 {
+    using AutoMapper;
+    using Microsoft.AspNetCore.Identity;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    using Data;
+    using Domain;
+    using ViewModels.Player;
+
     public class PlayerService : IPlayerService
     {
         private readonly IMapper mapper;
@@ -29,8 +29,6 @@ namespace Sport.Services.Implementation
             var result = mapper.Map<IEnumerable<AllPlayersViewModel>>(allPlayers);
 
             return result;
-        }
-
-       
+        }       
     }
 }
