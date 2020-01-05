@@ -1,5 +1,9 @@
-﻿@model Match
-@using Microsoft.AspNet.Identity;
+﻿@model MatchScoreViewModel
+
+@using System.Web.Mvc.Ajax
+@using System.Web.Mvc
+@using Microsoft.AspNet.Identity
+
 @{
     ViewData["Title"] = "Details";
 }
@@ -7,6 +11,16 @@
 <h1>@ViewData["Title"]</h1>
 
 
+<link rel="stylesheet" type="text/css" href="~/css/Score.css">
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+<form asp-controller="Matches" asp-action="ChangeResult"
+      data-ajax-method="POST"
+      data-ajax="true">
+</form>
 
 <table class="table table-bordered table-hover">
     <thead>
@@ -63,17 +77,66 @@
 
 @if (User.Identity.GetUserId() == Model.UmpireId)
 {
-    <section>
-        <span>
-            @Model.FirstPlayerPoints  /  @Model.SecondPlayerPoints
+    <section class="sectionScore">
+        <span id="span1" class="span" align="center">
+            @Model.FirstPlayerPoints   
+        </span>
+
+        <span class="span"> / </span="span">
+
+        <span id="span2" class="span">
+            @Model.SecondPlayerPoints
         </span>
     </section>
 
-    <section>
-        <button id="firstPlayerPoints">Add First Player Point</button>
-        <button id="SecondPlayerPoints">Add Second Player Point</button>
+    <section class="section">
+        <button class="button" id="firstPlayerPoints">Add First Player Point</button>
+        <button class="button" id="secondPlayerPoints">Add Second Player Point</button>
     </section>
-
-
 }
 
+
+<script type="text/javascript">
+    $("#firstPlayerPoints").click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: '@Html.Raw(Url.Action("ChangeResult", "Matches"))', 
+            data: {
+                buttonId : "firstPlayerPoints",
+                matchId : @Model.Id, 
+                firstPlayerPoints: @Model.FirstPlayerPoints,
+                secondPlayerPoints : @Model.SecondPlayerPoints,
+            },
+            dataType: "json",
+            success: function (msg) {
+                $("#span1").html(msg.firstPlayerPoints)
+            },
+            error: function () {
+                alert('error');
+            }
+        });
+    });
+
+    $("#secondPlayerPoints").click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: '@Html.Raw(Url.Action("ChangeResult", "Matches"))', 
+            data: {
+                buttonId : "secondPlayerPoints",
+                matchId : @Model.Id, 
+                firstPlayerPoints: @Model.FirstPlayerPoints,
+                secondPlayerPoints : @Model.SecondPlayerPoints,
+            },
+            dataType: "json",
+            success: function (msg) {
+                $("#span1").html(msg.firstPlayerPoints)
+            },
+            error: function () {
+                alert('error');
+            }
+        });
+    });
+
+</script>
