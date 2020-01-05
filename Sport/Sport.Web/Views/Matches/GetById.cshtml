@@ -79,10 +79,10 @@
 {
     <section class="sectionScore">
         <span id="span1" class="span" align="center">
-            @Model.FirstPlayerPoints   
+            @Model.FirstPlayerPoints
         </span>
 
-        <span class="span"> / </span="span">
+        <span class="span"> / </span>
 
         <span id="span2" class="span">
             @Model.SecondPlayerPoints
@@ -97,37 +97,22 @@
 
 
 <script type="text/javascript">
-    $("#firstPlayerPoints").click(function (e) {
+   $(".button").click(function (e) {
         e.preventDefault();
         $.ajax({
             type: "POST",
-            url: '@Html.Raw(Url.Action("ChangeResult", "Matches"))', 
+            url: '@Html.Raw(Url.Action("ChangeResult", "Matches"))',
             data: {
-                buttonId : "firstPlayerPoints",
-                matchId : @Model.Id, 
-                firstPlayerPoints: @Model.FirstPlayerPoints,
-                secondPlayerPoints : @Model.SecondPlayerPoints,
-            },
-            dataType: "json",
-            success: function (msg) {
-                $("#span1").html(msg.firstPlayerPoints)
-            },
-            error: function () {
-                alert('error');
-            }
-        });
-    });
-
-    $("#secondPlayerPoints").click(function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: "POST",
-            url: '@Html.Raw(Url.Action("ChangeResult", "Matches"))', 
-            data: {
-                buttonId : "secondPlayerPoints",
-                matchId : @Model.Id, 
-                firstPlayerPoints: @Model.FirstPlayerPoints,
-                secondPlayerPoints : @Model.SecondPlayerPoints,
+                        buttonId: this.id,
+                        matchId : @Model.Id,
+                        firstPlayerPoints: @Model.FirstPlayerPoints,
+                        firstPlayerGames : @Model.FirstPlayerGames,
+                        firstPlayerSets: @Model.FirstPlayerSets,
+                        firstPlayerTieBreakPoints :@Model.FirstPlayerTieBreakPoints,
+                        secondPlayerPoints : @Model.SecondPlayerPoints,
+                        secondPlayerGames: @Model.SecondPlayerGames,
+                        secondPlayerSets : @Model.SecondPlayerSets,
+                        secondPlayerTieBreakPoints:@Model.SecondPlayerTieBreakPoints,
             },
             dataType: "json",
             success: function (msg) {

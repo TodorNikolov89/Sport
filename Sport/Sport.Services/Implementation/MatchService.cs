@@ -47,5 +47,15 @@
 
             return match;
         }
+
+        public MatchScoreViewModel Result(string buttonId, int matchId, string firstPlayerPoints, int firstPlayerGames, int firstPlayerSets, int firstPlayerTieBreakPoints, string secondPlayerPoints, int secondPlayerGames, int secondPlayerSets, int secondPlayerTieBreakPoints)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public MatchScoreViewModel Result(MatchScoreViewModel model)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

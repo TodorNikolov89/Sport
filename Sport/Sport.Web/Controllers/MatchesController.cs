@@ -41,17 +41,32 @@
 
         [Route(nameof(ChangeResult))]
         [HttpPost]
-        public MatchScoreViewModel ChangeResult(string buttonId, int matchId, string firstPlayerPoints, string secondPlayerPoints)
+        public MatchScoreViewModel ChangeResult(
+            string buttonId,
+            int matchId,
+            string firstPlayerPoints,
+            int firstPlayerGames,
+            int firstPlayerSets,
+            int firstPlayerTieBreakPoints,
+            string secondPlayerPoints,
+            int secondPlayerGames,
+            int secondPlayerSets,
+            int secondPlayerTieBreakPoints)
         {
-            var match = this.context.Matches.FirstOrDefault(m => m.Id == matchId);
 
-            match.FirstPlayerPoints = "001";
-            match.SecondPlayerPoints = "411";
-            context.SaveChanges();
+            var result = matchService.Result(
+                buttonId,
+                matchId,
+                firstPlayerPoints,
+                firstPlayerGames,
+                firstPlayerSets,
+                firstPlayerTieBreakPoints,
+                secondPlayerPoints,
+                secondPlayerGames,
+                secondPlayerSets,
+                secondPlayerTieBreakPoints);
 
-            var mod = mapper.Map<MatchScoreViewModel>(match);
-
-            return mod;
+            return result;
         }
     }
 }
