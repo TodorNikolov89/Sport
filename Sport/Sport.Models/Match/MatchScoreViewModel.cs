@@ -33,5 +33,11 @@
         public int? SecondPlayerSets { get; set; }
 
         public int? SecondPlayerTieBreakPoints { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public bool IsFinished { get; set; }
+
+        public bool IsTieBreak { get; set; }
     }
 }

@@ -29,13 +29,16 @@
                 Player Name
             </th>
             <th>
-                Games
-            </th>
-            <th>
                 Sets
             </th>
             <th>
+                Games
+            </th>
+            <th>
                 Points
+            </th>
+            <th>
+                TieBreak
             </th>
         </tr>
     </thead>
@@ -45,30 +48,39 @@
             <th>
                 @Model.FirstPlayer.FirstName
             </th>
-            <th id="gamesFirstPlayer">
-                @Model.FirstPlayerGames
-            </th>
             <th id="setsFirstPlayer">
                 @Model.FirstPlayerSets
+            </th>
+            <th id="gamesFirstPlayer">
+                @Model.FirstPlayerGames
             </th>
             <th id="pointsFirstPlayer">
                 @Model.FirstPlayerPoints
             </th>
+
+            <th id="tieBreakPointsFirstPlayer">
+                @Model.FirstPlayerTieBreakPoints
+            </th>
+
         </tr>
         <tr>
             <th>
                 @Model.SecondPlayer.FirstName
             </th>
-            <th id="gamesSecondPlayer">
-                @Model.SecondPlayerGames
-            </th>
             <th id="setsSecondPlayer">
                 @Model.SecondPlayerSets
+            </th>
+            <th id="gamesSecondPlayer">
+                @Model.SecondPlayerGames
             </th>
             <th id="pointsSecondPlayer">
                 @Model.SecondPlayerPoints
             </th>
+            <th id="tieBreakPointsSecondPlayer">
+                @Model.SecondPlayerTieBreakPoints
+            </th>
         </tr>
+
     </tbody>
 </table>
 
@@ -89,8 +101,8 @@
     </section>
 
     <section class="section">
-        <button class="button" id="firstPlayerPoint">Add First Player Point</button>
-        <button class="button" id="secondPlayerPoint">Add Second Player Point</button>
+        <button class="button" id="AddButtonIdFirstPlayer">Add First Player Point</button>
+        <button class="button" id="AddButtonIdSecondPlayer">Add Second Player Point</button>
     </section>
 }
 
@@ -104,25 +116,28 @@
             data: {
                         buttonId: this.id,
                         matchId : @Model.Id,
-                        firstPlayerPoints: @Model.FirstPlayerPoints,
+
+                        @*firstPlayerPoints: @Model.FirstPlayerPoints,
                         firstPlayerGames : @Model.FirstPlayerGames,
                         firstPlayerSets: @Model.FirstPlayerSets,
                         firstPlayerTieBreakPoints :@Model.FirstPlayerTieBreakPoints,
                         secondPlayerPoints : @Model.SecondPlayerPoints,
                         secondPlayerGames: @Model.SecondPlayerGames,
                         secondPlayerSets : @Model.SecondPlayerSets,
-                        secondPlayerTieBreakPoints:@Model.SecondPlayerTieBreakPoints,
+                        secondPlayerTieBreakPoints:@Model.SecondPlayerTieBreakPoints,*@
             },
             dataType: "json",
             success: function (msg) {
-                $("#spanPointsFirstPlayer").html(msg.firstPlayerPoints),
-                $("#pointsFirstPlayer").html(msg.firstPlayerPoints),
-                $("#gamesFirstPlayer").html(msg.firstPlayerGames),
-                $("#setsFirstPlayer").html(msg.firstPlayerSets),
-                $("#spanPointsSecondPlayer").html(msg.secondPlayerPoints),
-                $("#pointsSecondPlayer").html(msg.secondPlayerPoints),
-                $("#gamesSecondPlayer").html(msg.secondPlayerGames),
-                $("#setsSecondPlayer").html(msg.secondPlayerSets)
+                    $("#spanPointsFirstPlayer").html(msg.firstPlayerPoints),
+                    $("#pointsFirstPlayer").html(msg.firstPlayerPoints),
+                    $("#gamesFirstPlayer").html(msg.firstPlayerGames),
+                    $("#setsFirstPlayer").html(msg.firstPlayerSets),
+                    $("#spanPointsSecondPlayer").html(msg.secondPlayerPoints),
+                    $("#pointsSecondPlayer").html(msg.secondPlayerPoints),
+                    $("#gamesSecondPlayer").html(msg.secondPlayerGames),
+                    $("#setsSecondPlayer").html(msg.secondPlayerSets),
+                    $("#tieBreakPointsFirstPlayer").html(msg.firstPlayerTieBreakPoints),
+                    $("#tieBreakPointsFirstPlayer").html(msg.secondPlayerTieBreakPoints)
             },
             error: function () {
                 alert('error');

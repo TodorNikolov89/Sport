@@ -37,6 +37,10 @@
 
         public bool IsActive { get; set; }
 
+        public bool IsFinished { get; set; }
+
+        public bool IsTieBreak { get; set; }
+
         //TODO Add Foot Faults, Double Faults
 
     }

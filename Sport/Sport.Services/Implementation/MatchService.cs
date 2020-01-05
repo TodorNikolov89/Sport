@@ -10,16 +10,16 @@
     using System.Threading.Tasks;
     using AutoMapper;
 
-
     public class MatchService : IMatchService
     {
         private readonly SportDbContext context;
         private readonly IMapper mapper;
-        private static readonly string firstPlayerPoint = "firstPlayerPoint";
-        private static readonly string secondPlayerPoint = "secondPlayerPoint";
+        private static readonly string AddButtonIdFirstPlayer = "AddButtonIdFirstPlayer";
+        private static readonly string AddButtonIdSecondPlayer = "AddButtonIdSecondPlayer";
         private static readonly string[] pointsArr = new[] { "0", "15", "30", "40", "Ad" };
         private static int firstButtonClickCounter = 0;
         private static int secondButtonClickCounter = 0;
+
 
         public MatchService(SportDbContext context, IMapper mapper)
         {
@@ -54,104 +54,232 @@
             return match;
         }
 
-        public async Task<MatchScoreViewModel> Result(
-            string buttonId,
-            int matchId,
-            string firstPlayerPoints,
-            int firstPlayerGames,
-            int firstPlayerSets,
-            int firstPlayerTieBreakPoints,
-            string secondPlayerPoints,
-            int secondPlayerGames,
-            int secondPlayerSets,
-            int secondPlayerTieBreakPoints)
-        {
+        //public async Task<MatchScoreViewModel> Result(
+        //    string buttonId,
+        //    int matchId,
+        //    string firstPlayerPoints,
+        //    int firstPlayerGames,
+        //    int firstPlayerSets,
+        //    int firstPlayerTieBreakPoints,
+        //    string secondPlayerPoints,
+        //    int secondPlayerGames,
+        //    int secondPlayerSets,
+        //    int secondPlayerTieBreakPoints)
+        //{
 
+        //    var match = await context.Matches.FirstOrDefaultAsync(m => m.Id == matchId);
+
+        //    //TODO 1 = 15, 2 = 30, 3 = 40, 4 = Ad, 5
+
+        //    if (buttonId.Equals(AddButtonIdFirstPlayer))
+        //    {
+        //        firstButtonClickCounter++;
+
+        //        if (firstButtonClickCounter > 3 && secondButtonClickCounter <= 2)
+        //        {
+        //            SetBothPlayersPointsToZero();
+
+        //            match.FirstPlayerGames++;
+        //            match.FirstPlayerPoints = pointsArr[firstButtonClickCounter];
+        //        }
+        //        else if (firstButtonClickCounter == 5 && secondButtonClickCounter == 3)
+        //        {
+        //            SetBothPlayersPointsToZero();
+
+        //            match.FirstPlayerGames++;
+
+        //            UpdateResult(match);
+        //        }
+        //        else if (firstButtonClickCounter == 4 && secondButtonClickCounter == 4)
+        //        {
+        //            firstButtonClickCounter = 3;
+        //            secondButtonClickCounter = 3;
+
+        //            UpdateResult(match);
+        //        }
+        //        else if (firstButtonClickCounter == 4 && secondButtonClickCounter == 3)
+        //        {
+        //            match.FirstPlayerPoints = pointsArr[firstButtonClickCounter];
+        //        }
+        //        else if (firstButtonClickCounter == 3 && secondButtonClickCounter == 3)
+        //        {
+        //            match.FirstPlayerPoints = pointsArr[firstButtonClickCounter];
+        //        }
+        //        else
+        //        {
+        //            match.FirstPlayerPoints = pointsArr[firstButtonClickCounter];
+        //        }
+        //    }
+
+
+
+        //    await this.context.SaveChangesAsync();
+
+        //    var result = mapper.Map<MatchScoreViewModel>(match);
+        //    return result;
+        //}
+
+
+        public async Task<MatchScoreViewModel> Result(string buttonId, int matchId)
+        {
             var match = await context.Matches.FirstOrDefaultAsync(m => m.Id == matchId);
 
-            //TODO 1 = 15, 2 = 30, 3 = 40, 4 = Ad, 5
+            string buttonName = string.Empty;
+            string playerToUpdatePoints = string.Empty;
+            int? playerToUpdateGames = 0;
+            int? anotherPlayerGames = 0;
+            int? playerToUpdateSets = 0;
+            string anotherPlayerPoints = string.Empty;
+            int playerToUpdateCounter = 0;
+            int anotherPlayerCounter = 0;
 
-            if (buttonId.Equals(firstPlayerPoint))
+            if (buttonId.Equals(AddButtonIdFirstPlayer) && match.IsTieBreak == false)
             {
+                playerToUpdatePoints = match.FirstPlayerPoints;
+                playerToUpdateGames = match.FirstPlayerGames;
+                anotherPlayerGames = match.SecondPlayerGames;
+                playerToUpdateSets = match.FirstPlayerSets;
+                anotherPlayerPoints = match.SecondPlayerPoints;
+
                 firstButtonClickCounter++;
 
-                if (firstButtonClickCounter > 3 && secondButtonClickCounter <= 2)
-                {
-                    SetBothPlayersPointsToZero();
+                playerToUpdateCounter = firstButtonClickCounter;
+                anotherPlayerCounter = secondButtonClickCounter;
 
-                    match.FirstPlayerGames++;
-                    match.FirstPlayerPoints = pointsArr[firstButtonClickCounter];
-                }
-                else if (firstButtonClickCounter == 5 && secondButtonClickCounter == 3)
-                {
-                    SetBothPlayersPointsToZero();
 
-                    match.FirstPlayerGames++;
-
-                    UpdateResult(match);
-                }
-                else if (firstButtonClickCounter == 4 && secondButtonClickCounter == 4)
-                {
-                    firstButtonClickCounter = 3;
-                    secondButtonClickCounter = 3;
-
-                    UpdateResult(match);
-                }
-                else if (firstButtonClickCounter == 4 && secondButtonClickCounter == 3)
-                {
-                    match.FirstPlayerPoints = pointsArr[firstButtonClickCounter];
-                }
-                else if (firstButtonClickCounter == 3 && secondButtonClickCounter == 3)
-                {
-                    match.FirstPlayerPoints = pointsArr[firstButtonClickCounter];
-                }
-                else
-                {
-                    match.FirstPlayerPoints = pointsArr[firstButtonClickCounter];
-                }
             }
-
-            if (buttonId.Equals(secondPlayerPoint))
+            else if (buttonId.Equals(AddButtonIdSecondPlayer) && match.IsTieBreak == false)
             {
+                playerToUpdatePoints = match.SecondPlayerPoints;
+                playerToUpdateGames = match.SecondPlayerGames;
+                anotherPlayerGames = match.FirstPlayerGames;
+                playerToUpdateSets = match.SecondPlayerSets;
+                anotherPlayerPoints = match.FirstPlayerPoints;
+
                 secondButtonClickCounter++;
 
-                if (secondButtonClickCounter > 3 && firstButtonClickCounter <= 2)
+                playerToUpdateCounter = secondButtonClickCounter;
+                anotherPlayerCounter = firstButtonClickCounter;
+            }
+
+            //TODO 1 = 15, 2 = 30, 3 = 40, 4 = Ad, 5           
+
+            if (!match.IsTieBreak)
+            {
+                if (playerToUpdateCounter > 3 && anotherPlayerCounter <= 2)
                 {
                     SetBothPlayersPointsToZero();
 
-                    match.SecondPlayerGames++;
-                    match.SecondPlayerPoints = pointsArr[secondButtonClickCounter];
+                    // match.FirstPlayerGames++;
+                    playerToUpdateGames++;
+
+                    //////////////////
+                    if (playerToUpdateGames == 6 && anotherPlayerGames < 5)
+                    {
+                        playerToUpdateSets++;
+                        playerToUpdateGames = 0;
+
+                        if (playerToUpdateSets == 2)
+                        {
+                            //TODO logic in view
+                            match.IsFinished = true;
+                        }
+                    }
+                    else if (playerToUpdateGames > 6 && anotherPlayerGames == 5)
+                    {
+                        playerToUpdateSets++;
+                        playerToUpdateGames = 0;
+
+                        if (playerToUpdateSets == 2)
+                        {
+                            match.IsFinished = true;
+                            SetBothPlayersPointsToZero();
+                        }
+                    }
+                    else if (playerToUpdateGames == 6 && anotherPlayerGames == 6)
+                    {
+                        match.IsTieBreak = true;
+                    }
+                    //////////////////
+                    ///
+                    playerToUpdatePoints = pointsArr[firstButtonClickCounter];
+                    anotherPlayerPoints = pointsArr[secondButtonClickCounter];
                 }
-                else if (secondButtonClickCounter == 5 && firstButtonClickCounter == 3)
+                else if (playerToUpdateCounter == 5 && anotherPlayerCounter == 3)
                 {
                     SetBothPlayersPointsToZero();
 
-                    match.SecondPlayerGames++;
+                    playerToUpdateGames++;
 
-                    UpdateResult(match);
+                    //////////////////
+                    if (playerToUpdateGames == 6 && anotherPlayerGames < 5)
+                    {
+                        playerToUpdateSets++;
+                        playerToUpdateGames = 0;
+
+                        if (playerToUpdateSets == 2)
+                        {
+                            //TODO logic in view
+                            match.IsFinished = true;
+                        }
+                    }
+                    else if (playerToUpdateGames > 6 && anotherPlayerGames == 5)
+                    {
+                        playerToUpdateSets++;
+                        playerToUpdateGames = 0;
+
+                        if (playerToUpdateSets == 2)
+                        {
+                            match.IsFinished = true;
+                        }
+                    }
+                    else if (playerToUpdateGames == 6 && anotherPlayerGames == 6)
+                    {
+                        match.IsTieBreak = true;
+                    }
+                    //////////////////
+                    playerToUpdatePoints = pointsArr[firstButtonClickCounter];
+                    anotherPlayerPoints = pointsArr[secondButtonClickCounter];
                 }
-                else if (secondButtonClickCounter == 4 && firstButtonClickCounter == 4)
+                else if (playerToUpdateCounter == 4 && anotherPlayerCounter == 4)
                 {
                     firstButtonClickCounter = 3;
                     secondButtonClickCounter = 3;
 
-                    UpdateResult(match);
+                    playerToUpdateCounter = 3;
+                    anotherPlayerCounter = 3;
+
+                    playerToUpdatePoints = pointsArr[playerToUpdateCounter];
+                    anotherPlayerPoints = pointsArr[anotherPlayerCounter];
                 }
-                else if (secondButtonClickCounter == 4 && firstButtonClickCounter == 3)
+                else if (playerToUpdateCounter == 4 && anotherPlayerCounter == 3)
                 {
-                    match.SecondPlayerPoints = pointsArr[secondButtonClickCounter];
+                    playerToUpdatePoints = pointsArr[playerToUpdateCounter];
                 }
-                else if (secondButtonClickCounter == 3 && firstButtonClickCounter == 3)
+                else if (playerToUpdateCounter == 3 && anotherPlayerCounter == 3)
                 {
-                    match.SecondPlayerPoints = pointsArr[secondButtonClickCounter];
+                    playerToUpdatePoints = pointsArr[playerToUpdateCounter];
                 }
                 else
                 {
-                    match.SecondPlayerPoints = pointsArr[secondButtonClickCounter];
+                    playerToUpdatePoints = pointsArr[playerToUpdateCounter];
                 }
             }
 
-
+            if (buttonId.Equals(AddButtonIdFirstPlayer))
+            {
+                match.FirstPlayerPoints = playerToUpdatePoints;
+                match.FirstPlayerGames = playerToUpdateGames;
+                match.FirstPlayerSets = playerToUpdateSets;
+                match.SecondPlayerPoints = anotherPlayerPoints;
+            }
+            else if (buttonId.Equals(AddButtonIdSecondPlayer))
+            {
+                match.SecondPlayerPoints = playerToUpdatePoints;
+                match.SecondPlayerGames = playerToUpdateGames;
+                match.SecondPlayerSets = playerToUpdateSets;
+                match.FirstPlayerPoints = anotherPlayerPoints;
+            }
 
             await this.context.SaveChangesAsync();
 
@@ -159,16 +287,11 @@
             return result;
         }
 
-        private static void UpdateResult(Match match)
-        {
-            match.FirstPlayerPoints = pointsArr[firstButtonClickCounter];
-            match.SecondPlayerPoints = pointsArr[secondButtonClickCounter];
-        }
-
         private static void SetBothPlayersPointsToZero()
         {
             firstButtonClickCounter = 0;
             secondButtonClickCounter = 0;
         }
+
     }
 }

@@ -37,34 +37,14 @@
         {
             var result = await matchService.GetAllActive();
             return View(result);
-        }
+        }        
+
 
         [Route(nameof(ChangeResult))]
         [HttpPost]
-        public Task<MatchScoreViewModel> ChangeResult(
-            string buttonId,
-            int matchId,
-            string firstPlayerPoints,
-            int firstPlayerGames,
-            int firstPlayerSets,
-            int firstPlayerTieBreakPoints,
-            string secondPlayerPoints,
-            int secondPlayerGames,
-            int secondPlayerSets,
-            int secondPlayerTieBreakPoints)
+        public Task<MatchScoreViewModel> ChangeResult(string buttonId, int matchId)
         {
-
-            var result = matchService.Result(
-                buttonId,
-                matchId,
-                firstPlayerPoints,
-                firstPlayerGames,
-                firstPlayerSets,
-                firstPlayerTieBreakPoints,
-                secondPlayerPoints,
-                secondPlayerGames,
-                secondPlayerSets,
-                secondPlayerTieBreakPoints);
+            var result = matchService.Result(buttonId, matchId);
 
             return result;
         }

@@ -10,7 +10,8 @@
         MatchScoreViewModel GetMatch(int id);
 
         Task<IEnumerable<Match>> GetAllActive();
-        Task<MatchScoreViewModel> Result(string buttonId, int matchId, string firstPlayerPoints, int firstPlayerGames, int firstPlayerSets, int firstPlayerTieBreakPoints, string secondPlayerPoints, int secondPlayerGames, int secondPlayerSets, int secondPlayerTieBreakPoints);
-      
+
+        Task<MatchScoreViewModel> Result(string buttonId, int matchId);
+
     }
 }
