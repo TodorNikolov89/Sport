@@ -45,13 +45,13 @@
             <th>
                 @Model.FirstPlayer.FirstName
             </th>
-            <th>
+            <th id="gamesFirstPlayer">
                 @Model.FirstPlayerGames
             </th>
-            <th>
+            <th id="setsFirstPlayer">
                 @Model.FirstPlayerSets
             </th>
-            <th>
+            <th id="pointsFirstPlayer">
                 @Model.FirstPlayerPoints
             </th>
         </tr>
@@ -59,17 +59,16 @@
             <th>
                 @Model.SecondPlayer.FirstName
             </th>
-            <th>
+            <th id="gamesSecondPlayer">
                 @Model.SecondPlayerGames
             </th>
-            <th>
+            <th id="setsSecondPlayer">
                 @Model.SecondPlayerSets
             </th>
-            <th>
+            <th id="pointsSecondPlayer">
                 @Model.SecondPlayerPoints
             </th>
         </tr>
-
     </tbody>
 </table>
 
@@ -78,20 +77,20 @@
 @if (User.Identity.GetUserId() == Model.UmpireId)
 {
     <section class="sectionScore">
-        <span id="span1" class="span" align="center">
+        <span id="spanPointsFirstPlayer" class="span" align="center">
             @Model.FirstPlayerPoints
         </span>
 
         <span class="span"> / </span>
 
-        <span id="span2" class="span">
+        <span id="spanPointsSecondPlayer" class="span">
             @Model.SecondPlayerPoints
         </span>
     </section>
 
     <section class="section">
-        <button class="button" id="firstPlayerPoints">Add First Player Point</button>
-        <button class="button" id="secondPlayerPoints">Add Second Player Point</button>
+        <button class="button" id="firstPlayerPoint">Add First Player Point</button>
+        <button class="button" id="secondPlayerPoint">Add Second Player Point</button>
     </section>
 }
 
@@ -116,7 +115,14 @@
             },
             dataType: "json",
             success: function (msg) {
-                $("#span1").html(msg.firstPlayerPoints)
+                $("#spanPointsFirstPlayer").html(msg.firstPlayerPoints),
+                $("#pointsFirstPlayer").html(msg.firstPlayerPoints),
+                $("#gamesFirstPlayer").html(msg.firstPlayerGames),
+                $("#setsFirstPlayer").html(msg.firstPlayerSets),
+                $("#spanPointsSecondPlayer").html(msg.secondPlayerPoints),
+                $("#pointsSecondPlayer").html(msg.secondPlayerPoints),
+                $("#gamesSecondPlayer").html(msg.secondPlayerGames),
+                $("#setsSecondPlayer").html(msg.secondPlayerSets)
             },
             error: function () {
                 alert('error');

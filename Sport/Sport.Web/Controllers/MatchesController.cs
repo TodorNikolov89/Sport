@@ -41,7 +41,7 @@
 
         [Route(nameof(ChangeResult))]
         [HttpPost]
-        public MatchScoreViewModel ChangeResult(
+        public Task<MatchScoreViewModel> ChangeResult(
             string buttonId,
             int matchId,
             string firstPlayerPoints,
