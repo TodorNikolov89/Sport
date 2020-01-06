@@ -20,19 +20,19 @@
 
         public string FirstPlayerPoints { get; set; }
 
-        public int? FirstPlayerGames { get; set; }
+        public int FirstPlayerGames { get; set; }
 
-        public int? FirstPlayerSets { get; set; }
+        public int FirstPlayerSets { get; set; }
 
-        public int? FirstPlayerTieBreakPoints { get; set; }
+        public int FirstPlayerTieBreakPoints { get; set; }
 
         public string SecondPlayerPoints { get; set; }
 
-        public int? SecondPlayerGames { get; set; }
+        public int SecondPlayerGames { get; set; }
 
-        public int? SecondPlayerSets { get; set; }
+        public int SecondPlayerSets { get; set; }
 
-        public int? SecondPlayerTieBreakPoints { get; set; }
+        public int SecondPlayerTieBreakPoints { get; set; }
 
         public bool IsActive { get; set; }
 
