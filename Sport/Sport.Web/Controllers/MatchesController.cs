@@ -4,7 +4,6 @@
     using Microsoft.AspNetCore.Mvc;
     using Services;
     using Sport.Data;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using ViewModels.Match;

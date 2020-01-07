@@ -44,22 +44,22 @@
     </thead>
 
     <tbody>
-        <tr>
+        @*<tr>
             <th>
-                @Model.FirstPlayer.FirstName
+                @Model.
             </th>
             <th id="setsFirstPlayer">
-                @Model.FirstPlayerSets
+                @Model.MatchResult.FirstPlayerSets
             </th>
             <th id="gamesFirstPlayer">
-                @Model.FirstPlayerGames
+                @Model.MatchResult.FirstPlayerGames
             </th>
             <th id="pointsFirstPlayer">
-                @Model.FirstPlayerPoints
+                @Model.MatchResult.FirstPlayerPoints
             </th>
 
             <th id="tieBreakPointsFirstPlayer">
-                @Model.FirstPlayerTieBreakPoints
+                @Model.MatchResult.FirstPlayerTieBreakPoints
             </th>
 
         </tr>
@@ -68,35 +68,35 @@
                 @Model.SecondPlayer.FirstName
             </th>
             <th id="setsSecondPlayer">
-                @Model.SecondPlayerSets
+                @Model.MatchResult.SecondPlayerSets
             </th>
             <th id="gamesSecondPlayer">
-                @Model.SecondPlayerGames
+                @Model.MatchResult.SecondPlayerGames
             </th>
             <th id="pointsSecondPlayer">
-                @Model.SecondPlayerPoints
+                @Model.MatchResult.SecondPlayerPoints
             </th>
             <th id="tieBreakPointsSecondPlayer">
-                @Model.SecondPlayerTieBreakPoints
+                @Model.MatchResult.SecondPlayerTieBreakPoints
             </th>
-        </tr>
+        </tr>*@
 
     </tbody>
 </table>
 
 
 
-@if (User.Identity.GetUserId() == Model.UmpireId)
+@if (User.Identity.GetUserId() == Model. UmpireId)
 {
     <section class="sectionScore">
         <span id="spanPointsFirstPlayer" class="span" align="center">
-            @Model.FirstPlayerPoints
+            @Model.MatchResult.FirstPlayerPoints
         </span>
 
         <span class="span"> / </span>
 
         <span id="spanPointsSecondPlayer" class="span">
-            @Model.SecondPlayerPoints
+            @Model.MatchResult.SecondPlayerPoints
         </span>
     </section>
 

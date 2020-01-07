@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sport.Data;
 
 namespace Sport.Data.Migrations
 {
     [DbContext(typeof(SportDbContext))]
-    partial class SportDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200107171314_RemovedProperties")]
+    partial class RemovedProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -160,10 +162,10 @@ namespace Sport.Data.Migrations
                     b.Property<int>("FirsPlayerGames")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsGameFinished")
-                        .HasColumnType("bit");
+                    b.Property<int>("PlayerId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("PlayerId")
+                    b.Property<string>("PlayerId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("SeconPlayerGames")
@@ -174,7 +176,7 @@ namespace Sport.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlayerId");
+                    b.HasIndex("PlayerId1");
 
                     b.HasIndex("SetId");
 
@@ -282,10 +284,10 @@ namespace Sport.Data.Migrations
                     b.Property<int>("FirsPlayerSets")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsSetFinished")
-                        .HasColumnType("bit");
+                    b.Property<int>("PlayerId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("PlayerId")
+                    b.Property<string>("PlayerId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("ResultId")
@@ -296,7 +298,7 @@ namespace Sport.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlayerId");
+                    b.HasIndex("PlayerId1");
 
                     b.HasIndex("ResultId");
 
@@ -503,7 +505,7 @@ namespace Sport.Data.Migrations
                 {
                     b.HasOne("Sport.Domain.User", "Player")
                         .WithMany("Games")
-                        .HasForeignKey("PlayerId");
+                        .HasForeignKey("PlayerId1");
 
                     b.HasOne("Sport.Domain.Set", "Set")
                         .WithMany("Games")
@@ -552,7 +554,7 @@ namespace Sport.Data.Migrations
                 {
                     b.HasOne("Sport.Domain.User", "Player")
                         .WithMany("Sets")
-                        .HasForeignKey("PlayerId");
+                        .HasForeignKey("PlayerId1");
 
                     b.HasOne("Sport.Domain.Result", null)
                         .WithMany("Sets")

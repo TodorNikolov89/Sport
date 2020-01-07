@@ -216,31 +216,42 @@
                 .ToList();
 
             //TODO Add some sorting to PLAYERS
-           
+
             if (!tournament.Matches.Any())
             {
-                
+
                 for (int i = 0; i < players.Count - 1; i += 2)
                 {
                     tournament.Matches.Add(new Match
                     {
                         FirstPlayer = players[i],
                         FirstPlayerId = players[i].Id,
-                        FirstPlayerPoints = "0",
-                        FirstPlayerGames = 0,
-                        FirstPlayerSets = 0,
-                        FirstPlayerTieBreakPoints = 0,
 
                         SecondPlayer = players[i + 1],
                         SecondPlayerId = players[i + 1].Id,
 
-                        SecondPlayerPoints = "0",
-                        SecondPlayerGames = 0,
-                        SecondPlayerSets = 0,
-                        SecondPlayerTieBreakPoints = 0,
-
                         Tournament = tournament,
-                        TournamentId = tournament.Id                        
+                        TournamentId = tournament.Id,
+
+                        MatchResult = new Result()
+                        {
+                            Sets = new List<Set>()
+                            {
+                                new Set()
+                                {
+                                   Games = new List<Game>()
+                                        {
+                                            new Game()
+                                            {
+                                                Points = new List<Point>()
+                                                {
+                                                    new Point()
+                                                }
+                                            }
+                                        }
+                                }
+                            }
+                        }
 
                     });
                 }
@@ -248,7 +259,7 @@
                 tournament.IsStarted = true;
                 this.context.SaveChanges();
             }
-           
+
         }
     }
 }

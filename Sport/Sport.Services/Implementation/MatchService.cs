@@ -16,8 +16,8 @@
         private readonly SportDbContext context;
         private readonly IMapper mapper;
         private static readonly string[] pointsArr = new[] { "0", "15", "30", "40", "Ad" };
-        private static int playerToUpdateCounter = 0;
-        private static int anotherPlayerCounter = 0;
+        private static int playerToUpdatePoints = 0;
+        private static int anotherPlayerPoints = 0;
 
 
         public MatchService(SportDbContext context, IMapper mapper)
@@ -34,6 +34,7 @@
                 .Include(m => m.FirstPlayer)
                 .Include(m => m.SecondPlayer)
                 .Include(m => m.Tournament)
+                .Include(m => m.MatchResult)
                 .ToListAsync();
 
             return matches;
@@ -46,6 +47,7 @@
                 .Include(m => m.FirstPlayer)
                 .Include(m => m.SecondPlayer)
                 .Include(m => m.Tournament)
+                .Include(m => m.MatchResult)
                 .FirstOrDefault(m => m.Id == id);
 
             var match = mapper.Map<MatchScoreViewModel>(dbMatch);
@@ -56,162 +58,139 @@
 
         public async Task<MatchScoreViewModel> Result(string buttonId, int matchId)
         {
-            var match = await context.Matches.FirstOrDefaultAsync(m => m.Id == matchId);
+            Set set = null;
+            Game game = null;
 
-            int playerToUpdateGames = 0;
-            int anotherPlayerGames = 0;
-            int playerToUpdateSets = 0;
-            int anotherPlayerSets = 0;
+            var match = await this.context
+                .Matches
+                .Include(m => m.FirstPlayer)
+                .Include(m => m.SecondPlayer)
+                .Include(m => m.Umpire)
+                .Include(m => m.MatchResult)
+                .ThenInclude(mr => mr.Sets)
+                .FirstOrDefaultAsync(m => m.Id == matchId);
+
+
+            set = match.MatchResult.Sets.LastOrDefault();
+
+            if (set.IsSetFinished)
+            {
+                set = new Set()
+                {
+                    Games = new List<Game>()
+                    {
+                        new Game()
+                        {
+                            Points = new List<Point>()
+                            {
+                                new Point()
+                            }
+                        }
+                    }
+                };
+
+                match.MatchResult.Sets.Add(set);
+            }
+
+            var point = set.Games.LastOrDefault().LastPoint;
+
+            var lastGame = set.LastGame;
+
+            if (lastGame.IsGameFinished)
+            {
+                game = new Game();
+            }
 
 
             if (buttonId.Equals("firstButtonId"))
             {
-                if (!match.IsTieBreak)
-                {
-                    playerToUpdateCounter = Array.IndexOf(pointsArr, match.FirstPlayerPoints);
-                    anotherPlayerCounter = Array.IndexOf(pointsArr, match.SecondPlayerPoints);
-                }
-                else
-                {
-                    playerToUpdateCounter = match.FirstPlayerTieBreakPoints;
-                    anotherPlayerCounter = match.SecondPlayerTieBreakPoints;
-                }
-
-                playerToUpdateGames = match.FirstPlayerGames;
-                anotherPlayerGames = match.SecondPlayerGames;
-
-                playerToUpdateSets = match.FirstPlayerSets;
-                anotherPlayerSets = match.SecondPlayerSets;
-
-                playerToUpdateCounter++;
+                game.FirsPlayerPoints++;
             }
 
             if (buttonId.Equals("secondButtonId"))
             {
-                if (!match.IsTieBreak)
-                {
-                    playerToUpdateCounter = Array.IndexOf(pointsArr, match.SecondPlayerPoints);
-                    anotherPlayerCounter = Array.IndexOf(pointsArr, match.FirstPlayerPoints);
-                }
-                else
-                {
-                    playerToUpdateCounter = match.SecondPlayerTieBreakPoints;
-                    anotherPlayerCounter = match.FirstPlayerTieBreakPoints;
-                }
-
-
-                playerToUpdateGames = match.SecondPlayerGames;
-                anotherPlayerGames = match.FirstPlayerGames;
-
-                playerToUpdateSets = match.SecondPlayerSets;
-                anotherPlayerSets = match.FirstPlayerSets;
-
-                playerToUpdateCounter++;
+                game.SecondPlayerPoints++;
             }
-
-
 
             if (!match.IsFinished)
             {
-                if (!match.IsTieBreak)
+                if (((game.FirsPlayerPoints - 2 >= game.SecondPlayerPoints) && game.SecondPlayerPoints >= 3)
+                || (game.FirsPlayerPoints == 4 && game.SecondPlayerPoints <= 2))
                 {
-                    if (((playerToUpdateCounter - 2 >= anotherPlayerCounter) && anotherPlayerCounter >= 3)
-                    || (playerToUpdateCounter == 4 && anotherPlayerCounter <= 2))
+                    lastGame.Points.Add(point);
+                    lastGame.Player = match.FirstPlayer;
+                    lastGame.PlayerId = match.FirstPlayerId;
+                    lastGame.IsGameFinished = true;
+
+
+
+                    GetCountersZero();
+
+                    if ((playerToUpdateGames >= 6 && anotherPlayerGames <= 4)
+                        || playerToUpdateGames == 7 && anotherPlayerGames == 5)
                     {
-                        playerToUpdateGames++;
+                        playerToUpdateSets++;
 
-                        GetCountersZero();
-
-                        if ((playerToUpdateGames >= 6 && anotherPlayerGames <= 4)
-                            || playerToUpdateGames == 7 && anotherPlayerGames == 5)
+                        if (playerToUpdateSets == 2)
                         {
-                            playerToUpdateSets++;
-
-                            if (playerToUpdateSets == 2)
-                            {
-                                match.IsFinished = true;
-                                match.IsActive = false;
-                            }
-
+                            match.IsFinished = true;
+                            match.IsActive = false;
                         }
-                        else if (playerToUpdateGames == 6 && anotherPlayerGames == 6)
-                        {
-                            match.IsTieBreak = true;
 
-                            match.SecondPlayerPoints = pointsArr[0];
-                            match.FirstPlayerPoints = pointsArr[0];
-
-                            match.FirstPlayerGames = playerToUpdateGames;
-                            match.SecondPlayerGames = anotherPlayerGames;
-
-                        }
-                        //TODO Check sets
                     }
-                    else if (playerToUpdateCounter == 4 && anotherPlayerCounter == 4)
+                    else if (playerToUpdateGames == 6 && anotherPlayerGames == 6)
                     {
-                        playerToUpdateCounter = 3;
-                        anotherPlayerCounter = 3;
+                        match.MatchResult.IsTieBreak = true;
+
+                        //match.MatchResult.SecondPlayerPoints = 0;
+                        //match.MatchResult.FirstPlayerPoints = 0;
+
+                        //match.MatchResult.FirstPlayerGames = playerToUpdateGames;
+                        //match.MatchResult.SecondPlayerGames = anotherPlayerGames;
+
                     }
+
                 }
-                else if ((playerToUpdateCounter >= 7 && anotherPlayerCounter <= 5)
-                        || (playerToUpdateCounter - 2 == anotherPlayerCounter && anotherPlayerCounter > 5))
+                else if (playerToUpdatePoints == 4 && anotherPlayerPoints == 4)
                 {
-
-                    playerToUpdateSets++;
-
-                    if (playerToUpdateSets == 2)
-                    {
-                        match.IsFinished = true;
-                        match.IsActive = false;
-                    }
-
-                    playerToUpdateCounter = 0;
-                    anotherPlayerCounter = 0;
-
-                    playerToUpdateGames = 0;
-                    anotherPlayerGames = 0;
-
-                    match.FirstPlayerGames = playerToUpdateGames;
-                    match.SecondPlayerGames = anotherPlayerGames;
-
-                    match.FirstPlayerTieBreakPoints = playerToUpdateGames;
-                    match.SecondPlayerTieBreakPoints = anotherPlayerGames;
-
-                    match.IsTieBreak = false;
+                    playerToUpdatePoints = 3;
+                    anotherPlayerPoints = 3;
                 }
+
+
 
 
                 if (buttonId.Equals("firstButtonId"))
                 {
-                    if (match.IsTieBreak)
+                    if (match.MatchResult.IsTieBreak)
                     {
-                        match.FirstPlayerTieBreakPoints = playerToUpdateCounter;
+                        match.MatchResult.FirstPlayerTieBreakPoints = playerToUpdatePoints;
                     }
                     else
                     {
-                        match.FirstPlayerPoints = pointsArr[playerToUpdateCounter];
-                        match.FirstPlayerGames = playerToUpdateGames;
-                        match.SecondPlayerPoints = pointsArr[anotherPlayerCounter];
+                        //match.MatchResult.FirstPlayerPoints = playerToUpdateCounter;
+                        //match.MatchResult.FirstPlayerGames = playerToUpdateGames;
+                        //match.MatchResult.SecondPlayerPoints = anotherPlayerCounter;
                     }
 
-                    match.FirstPlayerSets = playerToUpdateSets;
+                    //match.MatchResult.FirstPlayerSets = playerToUpdateSets;
 
                 }
                 else if (buttonId.Equals("secondButtonId"))
                 {
 
-                    if (match.IsTieBreak)
+                    if (match.MatchResult.IsTieBreak)
                     {
-                        match.SecondPlayerTieBreakPoints = playerToUpdateCounter;
+                        match.MatchResult.SecondPlayerTieBreakPoints = playerToUpdatePoints;
                     }
                     else
                     {
-                        match.SecondPlayerPoints = pointsArr[playerToUpdateCounter];
-                        match.SecondPlayerGames = playerToUpdateGames;
-                        match.FirstPlayerPoints = pointsArr[anotherPlayerCounter];
+                        //match.MatchResult.SecondPlayerPoints = playerToUpdateCounter;
+                        //match.MatchResult.SecondPlayerGames = playerToUpdateGames;
+                        //match.MatchResult.FirstPlayerPoints = anotherPlayerCounter;
                     }
 
-                    match.SecondPlayerSets = playerToUpdateSets;
+                    //match.MatchResult.SecondPlayerSets = playerToUpdateSets;
 
                 }
             }
@@ -225,8 +204,8 @@
 
         private static void GetCountersZero()
         {
-            playerToUpdateCounter = 0;
-            anotherPlayerCounter = 0;
+            playerToUpdatePoints = 0;
+            anotherPlayerPoints = 0;
         }
 
     }

@@ -37,5 +37,10 @@
 
         public int Rank { get; set; }
 
+
+        public ICollection<Game> Games { get; set; }
+
+        public ICollection<Set> Sets { get; set; }
+
     }
 }
