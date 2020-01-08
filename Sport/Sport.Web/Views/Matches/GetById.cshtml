@@ -1,7 +1,6 @@
 ﻿@model MatchScoreViewModel
 
-@using System.Web.Mvc.Ajax
-@using System.Web.Mvc
+
 @using Microsoft.AspNet.Identity
 
 @{
@@ -116,29 +115,11 @@
             data: {
                         buttonId: this.id,
                         matchId : @Model.Id,
-
-                        @*firstPlayerPoints: @Model.FirstPlayerPoints,
-                        firstPlayerGames : @Model.FirstPlayerGames,
-                        firstPlayerSets: @Model.FirstPlayerSets,
-                        firstPlayerTieBreakPoints :@Model.FirstPlayerTieBreakPoints,
-                        secondPlayerPoints : @Model.SecondPlayerPoints,
-                        secondPlayerGames: @Model.SecondPlayerGames,
-                        secondPlayerSets : @Model.SecondPlayerSets,
-                        secondPlayerTieBreakPoints:@Model.SecondPlayerTieBreakPoints,*@
+                        
             },
             dataType: "json",
             success: function (msg) {
-                    $("#spanPointsFirstPlayer").html(msg.firstPlayerPoints),
-                    $("#pointsFirstPlayer").html(msg.firstPlayerPoints),
-                    $("#gamesFirstPlayer").html(msg.firstPlayerGames),
-                    $("#setsFirstPlayer").html(msg.firstPlayerSets),
-                    $("#spanPointsSecondPlayer").html(msg.secondPlayerPoints),
-                    $("#pointsSecondPlayer").html(msg.secondPlayerPoints),
-                    $("#gamesSecondPlayer").html(msg.secondPlayerGames),
-                    $("#setsSecondPlayer").html(msg.secondPlayerSets),
-                    $("#tieBreakPointsFirstPlayer").html(msg.firstPlayerTieBreakPoints),
-                    $("#tieBreakPointsSecondPlayer").html(msg.secondPlayerTieBreakPoints)
-            },
+                     alert('OK');
             error: function () {
                 alert('error');
             }

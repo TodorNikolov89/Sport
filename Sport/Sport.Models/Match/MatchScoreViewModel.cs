@@ -1,7 +1,9 @@
 ﻿namespace Sport.ViewModels.Match
 {
-    using Result;
-    using Sport.ViewModels.User;
+    using User;
+    using Set;
+
+    using System.Collections.Generic;
 
     public class MatchScoreViewModel
     {
@@ -16,11 +18,15 @@
         public string UmpireId { get; set; }
         public UserDrawViewModel Umpire { get; set; }
 
-        public int MatchResultId { get; set; }
-        public ResultViewModel MatchResult { get; set; }
+        public ICollection<SetViewModel> Sets { get; set; }
+
+        public int FirstPlayerSets { get; set; }
+
+        public int SecondPlayerSets { get; set; }
 
         public bool IsActive { get; set; }
 
         public bool IsFinished { get; set; }
+
     }
 }

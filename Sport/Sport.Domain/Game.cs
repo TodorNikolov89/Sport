@@ -31,6 +31,7 @@
         public Set Set { get; set; }
 
         public bool IsFirstPoint { get; set; }
+
         public bool IsGameFinished { get; set; }
 
 

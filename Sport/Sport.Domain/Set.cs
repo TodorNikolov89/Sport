@@ -29,9 +29,11 @@
 
         public Match Match { get; set; }
 
+        public TieBreak TieBreak { get; set; }
+
         public bool IsSetFinished { get; set; }
 
-        public bool IsTieBreak { get; set; }
+        public bool HasTieBreak { get; set; }
 
         public int FirstPlayerGames { get; set; }
 
@@ -40,6 +42,8 @@
         public int FirsPlayerTieBreakPoints { get; set; }
 
         public int SecondPlayerTieBreakPoints { get; set; }
+
+
 
     }
 }

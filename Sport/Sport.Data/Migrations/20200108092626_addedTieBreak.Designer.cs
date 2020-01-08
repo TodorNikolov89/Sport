@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sport.Data;
 
 namespace Sport.Data.Migrations
 {
     [DbContext(typeof(SportDbContext))]
-    partial class SportDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200108092626_addedTieBreak")]
+    partial class addedTieBreak
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,9 +246,14 @@ namespace Sport.Data.Migrations
                     b.Property<int>("SecondPlayerPoints")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TieBreakId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GameId");
+
+                    b.HasIndex("TieBreakId");
 
                     b.ToTable("Points");
                 });
@@ -306,30 +313,7 @@ namespace Sport.Data.Migrations
                     b.HasIndex("SetId")
                         .IsUnique();
 
-                    b.ToTable("TieBreaks");
-                });
-
-            modelBuilder.Entity("Sport.Domain.TieBreakPoint", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("FirstPlayerPoint")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SecondPlayerpoint")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TieBreakId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TieBreakId");
-
-                    b.ToTable("TieBreakPoints");
+                    b.ToTable("TieBreak");
                 });
 
             modelBuilder.Entity("Sport.Domain.Tournament", b =>
@@ -569,6 +553,10 @@ namespace Sport.Data.Migrations
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Sport.Domain.TieBreak", null)
+                        .WithMany("TieBreakPoints")
+                        .HasForeignKey("TieBreakId");
                 });
 
             modelBuilder.Entity("Sport.Domain.Set", b =>
@@ -589,15 +577,6 @@ namespace Sport.Data.Migrations
                     b.HasOne("Sport.Domain.Set", "Set")
                         .WithOne("TieBreak")
                         .HasForeignKey("Sport.Domain.TieBreak", "SetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Sport.Domain.TieBreakPoint", b =>
-                {
-                    b.HasOne("Sport.Domain.TieBreak", "TieBreak")
-                        .WithMany("TieBreakPoints")
-                        .HasForeignKey("TieBreakId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -36,14 +36,15 @@
         {
             var result = await matchService.GetAllActive();
             return View(result);
-        }        
+        }
 
 
         [Route(nameof(ChangeResult))]
         [HttpPost]
-        public Task<MatchScoreViewModel> ChangeResult(string buttonId, int matchId)
+        public async Task<MatchScoreViewModel> ChangeResult(string buttonId, int matchId)
         {
-            var result = matchService.Result(buttonId, matchId);
+
+            MatchScoreViewModel result = await matchService.Result(buttonId, matchId);
 
             return result;
         }

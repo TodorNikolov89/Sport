@@ -25,7 +25,6 @@
         public int TournamentId { get; set; }
         public Tournament Tournament { get; set; }
 
-
         public ICollection<Set> Sets { get; set; }
 
         public int FirstPlayerSets { get; set; }
@@ -36,7 +35,6 @@
 
         public bool IsFinished { get; set; }
 
-        //TODO Add Foot Faults, Double Faults
 
     }
 }

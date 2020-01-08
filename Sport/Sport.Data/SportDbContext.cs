@@ -14,8 +14,6 @@
 
         public DbSet<Match> Matches { get; set; }
 
-        // public DbSet<Result> Results { get; set; }
-
         public DbSet<Point> Points { get; set; }
 
         public DbSet<Game> Games { get; set; }
@@ -27,6 +25,10 @@
         {
         }
 
+        public DbSet<TieBreak> TieBreaks { get; set; }
+
+        public DbSet<TieBreakPoint> TieBreakPoints { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
@@ -36,9 +38,18 @@
             PointConfiguration(builder);
             GameConfiguration(builder);
             SetConfiguration(builder);
+            TieBreakConfiguration(builder);
 
 
             base.OnModelCreating(builder);
+        }
+
+        private void TieBreakConfiguration(ModelBuilder builder)
+        {
+            builder
+                .Entity<TieBreak>()
+                .HasMany(tp => tp.TieBreakPoints)
+                .WithOne(t => t.TieBreak);
         }
 
         private void SetConfiguration(ModelBuilder builder)
@@ -48,6 +59,10 @@
                 .HasOne(p => p.Player)
                 .WithMany(s => s.Sets);
 
+            builder
+                .Entity<Set>()
+                .HasOne(t => t.TieBreak)
+                .WithOne(s => s.Set);
         }
 
         private void GameConfiguration(ModelBuilder builder)
