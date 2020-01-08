@@ -6,7 +6,6 @@
     using TieBreak;
 
     using System.Collections.Generic;
-    using System.Linq;
 
     public class SetViewModel
     {
@@ -16,9 +15,7 @@
 
         public string PlayerId { get; set; }
         public UserDrawViewModel Player { get; set; }
-
-        public GameViewModel LastGame => this.Games.ToList().LastOrDefault();
-
+        
         public int MatchId { get; set; }
 
         public MatchScoreViewModel Match { get; set; }

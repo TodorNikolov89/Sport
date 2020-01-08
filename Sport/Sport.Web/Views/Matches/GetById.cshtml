@@ -16,6 +16,7 @@
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
+
 <form asp-controller="Matches" asp-action="ChangeResult"
       data-ajax-method="POST"
       data-ajax="true">
@@ -44,48 +45,48 @@
 
     <tbody>
         @*<tr>
-            <th>
-                @Model.
-            </th>
-            <th id="setsFirstPlayer">
-                @Model.MatchResult.FirstPlayerSets
-            </th>
-            <th id="gamesFirstPlayer">
-                @Model.MatchResult.FirstPlayerGames
-            </th>
-            <th id="pointsFirstPlayer">
-                @Model.MatchResult.FirstPlayerPoints
-            </th>
+                <th>
+                    @Model.
+                </th>
+                <th id="setsFirstPlayer">
+                    @Model.MatchResult.FirstPlayerSets
+                </th>
+                <th id="gamesFirstPlayer">
+                    @Model.MatchResult.FirstPlayerGames
+                </th>
+                <th id="pointsFirstPlayer">
+                    @Model.MatchResult.FirstPlayerPoints
+                </th>
 
-            <th id="tieBreakPointsFirstPlayer">
-                @Model.MatchResult.FirstPlayerTieBreakPoints
-            </th>
+                <th id="tieBreakPointsFirstPlayer">
+                    @Model.MatchResult.FirstPlayerTieBreakPoints
+                </th>
 
-        </tr>
-        <tr>
-            <th>
-                @Model.SecondPlayer.FirstName
-            </th>
-            <th id="setsSecondPlayer">
-                @Model.MatchResult.SecondPlayerSets
-            </th>
-            <th id="gamesSecondPlayer">
-                @Model.MatchResult.SecondPlayerGames
-            </th>
-            <th id="pointsSecondPlayer">
-                @Model.MatchResult.SecondPlayerPoints
-            </th>
-            <th id="tieBreakPointsSecondPlayer">
-                @Model.MatchResult.SecondPlayerTieBreakPoints
-            </th>
-        </tr>*@
+            </tr>
+            <tr>
+                <th>
+                    @Model.SecondPlayer.FirstName
+                </th>
+                <th id="setsSecondPlayer">
+                    @Model.MatchResult.SecondPlayerSets
+                </th>
+                <th id="gamesSecondPlayer">
+                    @Model.MatchResult.SecondPlayerGames
+                </th>
+                <th id="pointsSecondPlayer">
+                    @Model.MatchResult.SecondPlayerPoints
+                </th>
+                <th id="tieBreakPointsSecondPlayer">
+                    @Model.MatchResult.SecondPlayerTieBreakPoints
+                </th>
+            </tr>*@
 
     </tbody>
 </table>
 
 
 
-@if (User.Identity.GetUserId() == Model. UmpireId)
+@if (true)
 {
     <section class="sectionScore">
         <span id="spanPointsFirstPlayer" class="span" align="center">
@@ -115,13 +116,16 @@
             data: {
                         buttonId: this.id,
                         matchId : @Model.Id,
-                        
+
             },
             dataType: "json",
             success: function (msg) {
-                     alert('OK');
-            error: function () {
-                alert('error');
+                alert("OK");
+            },
+            error: function (response) {
+                console.log(response);
+                alert("error");
+                
             }
         });
     });

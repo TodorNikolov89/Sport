@@ -6,12 +6,13 @@
     using ViewModels.Player;
     using ViewModels.Tournament;
     using ViewModels.User;
+    using ViewModels.TieBreakPoint;
+    using ViewModels.Game;
+    using ViewModels.Set;
+    using ViewModels.TieBreak;
 
     using AutoMapper;
-    using Sport.ViewModels.TieBreakPoint;
-    using Sport.ViewModels.Game;
-    using Sport.ViewModels.Set;
-    using Sport.ViewModels.TieBreak;
+    using System.Collections.Generic;
 
     public class DomainProfile : Profile
     {
@@ -25,12 +26,16 @@
             CreateMap<User, PlayerViewModel>().ReverseMap();
             CreateMap<Match, MatchesViewModel>().ReverseMap();
             CreateMap<Match, MatchScoreViewModel>().ReverseMap();
+
             CreateMap<User, UserDrawViewModel>().ReverseMap();
 
 
             CreateMap<Point, PointViewModel>().ReverseMap();
             CreateMap<Game, GameViewModel>().ReverseMap();
             CreateMap<Set, SetViewModel>().ReverseMap();
+
+
+
             CreateMap<Match, MatchesViewModel>().ReverseMap();
             CreateMap<TieBreakPoint, TieBreakPointViewModel>().ReverseMap();
             CreateMap<TieBreak, TieBreakViewModel>().ReverseMap();

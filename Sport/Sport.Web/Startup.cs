@@ -15,7 +15,8 @@ namespace Sport.Web
     using Services;
     using Services.Implementation;
     using Infrastructure.Extensions;
-
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
 
     public class Startup
     {
@@ -46,12 +47,14 @@ namespace Sport.Web
             services.AddTransient<ITournamentService, TournamentService>();
             services.AddTransient<IPlayerService, PlayerService>();
             services.AddTransient<IMatchService, MatchService>();
-            //services.AddTransient<IMapper, Mapper>();
+           // services.AddTransient<IMapper, Mapper>();
 
 
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new DomainProfile());
+                cfg.AllowNullDestinationValues = true;
+                cfg.AllowNullCollections = true;
             });
 
             var mapper = config.CreateMapper();
@@ -61,6 +64,10 @@ namespace Sport.Web
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddMvc(option => option.EnableEndpointRouting = false)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
 
 

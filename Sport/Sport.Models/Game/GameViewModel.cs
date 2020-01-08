@@ -7,10 +7,11 @@
 
     using System.Collections.Generic;
     using System.Linq;
-   
+
 
     public class GameViewModel
     {
+
         public int Id { get; set; }
 
         public int FirsPlayerPoints { get; set; }
@@ -18,8 +19,6 @@
         public int SecondPlayerPoints { get; set; }
 
         public ICollection<PointViewModel> Points { get; set; }
-
-        public PointViewModel LastPoint => this.Points.ToList().LastOrDefault();
 
         public string PlayerId { get; set; }
         public UserDrawViewModel Player { get; set; }

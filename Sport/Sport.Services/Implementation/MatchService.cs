@@ -15,6 +15,7 @@
     {
         private readonly SportDbContext context;
         private readonly IMapper mapper;
+        private static int lastmatchId = 0;
 
 
         public MatchService(SportDbContext context, IMapper mapper)
@@ -50,7 +51,6 @@
             return match;
         }
 
-
         public async Task<MatchScoreViewModel> Result(string buttonId, int matchId)
         {
             Set set = null;
@@ -58,29 +58,28 @@
             Point point = null;
             TieBreakPoint tieBreakPoint = null;
             TieBreak tiebreak = null;
-            var lastMatchId = matchId;
 
             bool IsFirstPlayer = buttonId.Equals("firstButtonId");
             bool IsSecondPlayer = buttonId.Equals("secondButtonId");
 
+
             var match = await this.context
-              .Matches
-              .Include(m => m.FirstPlayer)
-              .Include(m => m.SecondPlayer)
-              .Include(m => m.Umpire)
-              .Include(m => m.Sets)
-              .ThenInclude(a => a.Games)
-              .ThenInclude(p => p.Points)
-              .FirstOrDefaultAsync(m => m.Id == matchId);
+            .Matches
+            .Include(m => m.FirstPlayer)
+            .Include(m => m.SecondPlayer)
+            .Include(m => m.Umpire)
+            .Include(m => m.Sets)
+            .ThenInclude(a => a.Games)
+            .ThenInclude(p => p.Points)
+            .FirstOrDefaultAsync(m => m.Id == matchId);
 
 
             set = match.Sets.ToList().LastOrDefault();
+
             tiebreak = await this.context
                 .TieBreaks
                 .Include(t => t.TieBreakPoints)
                 .FirstOrDefaultAsync(t => t.SetId == set.Id);
-
-
 
 
             if (set.IsSetFinished)
@@ -235,8 +234,6 @@
                         game.Points.Add(point);
                     }
 
-
-
                     if (IsSecondPlayer)
                     {
                         if (((point.SecondPlayerPoints - 2 >= point.FirsPlayerPoints) && point.FirsPlayerPoints >= 3)
@@ -335,12 +332,14 @@
                 }
             }
 
+            lastmatchId = matchId;
 
             await this.context.SaveChangesAsync();
 
-            var result = mapper.Map<MatchScoreViewModel>(match);
+           // var result = mapper.Map<MatchScoreViewModel>(match);
+            var r = mapper.Map<Match, MatchScoreViewModel>(match);
 
-            return result;
+            return r;
 
         }
 
