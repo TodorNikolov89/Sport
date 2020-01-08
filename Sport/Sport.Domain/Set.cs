@@ -11,6 +11,8 @@
             this.Games = new HashSet<Game>();
             FirstPlayerGames = 0;
             SecondPlayerGames = 0;
+            FirsPlayerTieBreakPoints = 0;
+            SecondPlayerTieBreakPoints = 0;
         }
 
         [Key]
@@ -23,10 +25,21 @@
 
         public Game LastGame => this.Games.ToList().LastOrDefault();
 
+        public int MatchId { get; set; }
+
+        public Match Match { get; set; }
+
         public bool IsSetFinished { get; set; }
 
+        public bool IsTieBreak { get; set; }
+
         public int FirstPlayerGames { get; set; }
+
         public int SecondPlayerGames { get; set; }
+
+        public int FirsPlayerTieBreakPoints { get; set; }
+
+        public int SecondPlayerTieBreakPoints { get; set; }
 
     }
 }

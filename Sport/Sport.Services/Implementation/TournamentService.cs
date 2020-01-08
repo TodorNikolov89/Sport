@@ -233,9 +233,8 @@
                         Tournament = tournament,
                         TournamentId = tournament.Id,
 
-                        MatchResult = new Result()
-                        {
-                            Sets = new List<Set>()
+
+                        Sets = new List<Set>()
                             {
                                 new Set()
                                 {
@@ -246,12 +245,16 @@
                                                 Points = new List<Point>()
                                                 {
                                                     new Point()
+                                                    {
+                                                        FirsPlayerPoints=0,
+                                                        SecondPlayerPoints=0
+                                                    }
                                                 }
                                             }
                                         }
                                 }
                             }
-                        }
+
 
                     });
                 }

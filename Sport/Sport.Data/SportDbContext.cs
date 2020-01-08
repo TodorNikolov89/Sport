@@ -14,14 +14,13 @@
 
         public DbSet<Match> Matches { get; set; }
 
-        public DbSet<Result> Results { get; set; }
+        // public DbSet<Result> Results { get; set; }
 
         public DbSet<Point> Points { get; set; }
 
         public DbSet<Game> Games { get; set; }
 
         public DbSet<Set> Sets { get; set; }
-
 
         public SportDbContext(DbContextOptions<SportDbContext> options)
             : base(options)
@@ -33,7 +32,7 @@
 
             UserTournamentConfiguration(builder);
             MatchConfiguration(builder);
-            ResultConfiguration(builder);
+            // ResultConfiguration(builder);
             PointConfiguration(builder);
             GameConfiguration(builder);
             SetConfiguration(builder);
@@ -48,6 +47,7 @@
                 .Entity<Set>()
                 .HasOne(p => p.Player)
                 .WithMany(s => s.Sets);
+
         }
 
         private void GameConfiguration(ModelBuilder builder)
@@ -71,14 +71,16 @@
                 .WithMany(p => p.Points);
         }
 
-        private void ResultConfiguration(ModelBuilder builder)
-        {
-            builder
-                .Entity<Result>()
-                .HasOne(r => r.Match)
-                .WithOne(m => m.MatchResult)
-                .HasForeignKey<Match>(fk => fk.MatchResultId);
-        }
+        //private void ResultConfiguration(ModelBuilder builder)
+        //{
+        //    builder
+        //        .Entity<Result>()
+        //        .HasOne(r => r.Match)
+        //        .WithOne(m => m.MatchResult)
+        //        .HasForeignKey<Match>(fk => fk.MatchResultId);
+
+
+        //}
 
         private void MatchConfiguration(ModelBuilder builder)
         {
@@ -87,11 +89,16 @@
                 .HasOne(t => t.Tournament)
                 .WithMany(m => m.Matches);
 
+            //builder
+            //    .Entity<Match>()
+            //    .HasOne(r => r.MatchResult)
+            //    .WithOne(m => m.Match)
+            //    .HasForeignKey<Result>(fk => fk.MatchId);
+
             builder
                 .Entity<Match>()
-                .HasOne(r => r.MatchResult)
-                .WithOne(m => m.Match)
-                .HasForeignKey<Result>(fk => fk.MatchId);
+                .HasMany(s => s.Sets)
+                .WithOne(m => m.Match);
         }
 
         private void UserTournamentConfiguration(ModelBuilder builder)
