@@ -9,13 +9,11 @@
     using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
-    using System;
 
     public class MatchService : IMatchService
     {
         private readonly SportDbContext context;
         private readonly IMapper mapper;
-        private static int lastmatchId = 0;
 
 
         public MatchService(SportDbContext context, IMapper mapper)
@@ -51,7 +49,7 @@
             return match;
         }
 
-        public async Task<MatchScoreViewModel> Result(string buttonId, int matchId)
+        public async Task<UmpireResultViewModel> Result(string buttonId, int matchId)
         {
             Set set = null;
             Game game = null;
@@ -94,7 +92,7 @@
                             {
                                 new Point()
                                 {
-                                    FirsPlayerPoints=0,
+                                    FirstPlayerPoints=0,
                                     SecondPlayerPoints=0
                                 }
                             }
@@ -128,7 +126,7 @@
 
                 point = new Point()
                 {
-                    FirsPlayerPoints = lastPoint.FirsPlayerPoints,
+                    FirstPlayerPoints = lastPoint.FirstPlayerPoints,
                     SecondPlayerPoints = lastPoint.SecondPlayerPoints,
                     GameId = lastPoint.GameId,
                     Game = lastPoint.Game
@@ -154,7 +152,7 @@
             {
                 if (!set.HasTieBreak)
                 {
-                    point.FirsPlayerPoints++;
+                    point.FirstPlayerPoints++;
                 }
                 else
                 {
@@ -179,12 +177,19 @@
             {
                 if (!set.HasTieBreak)
                 {
+
+                    //if (((point.FirstPlayerPoints - 2 >= point.SecondPlayerPoints) && point.SecondPlayerPoints >= 3)
+                    //|| (point.FirstPlayerPoints == 4 && point.SecondPlayerPoints <= 2))
+
                     if (IsFirstPlayer)
                     {
-                        if (((point.FirsPlayerPoints - 2 >= point.SecondPlayerPoints) && point.SecondPlayerPoints >= 3)
-                    || (point.FirsPlayerPoints == 4 && point.SecondPlayerPoints <= 2))
+                        if (((point.FirstPlayerPoints - 2 >= point.SecondPlayerPoints) && point.SecondPlayerPoints >= 3)
+                    || (point.FirstPlayerPoints == 4 && point.SecondPlayerPoints <= 2))
                         {
+                            point.FirstPlayerPoints--;
                             game.Points.Add(point);
+                            point.FirstPlayerPoints = 0;
+                            point.SecondPlayerPoints = 0;
                             game.Player = match.FirstPlayer;
                             game.PlayerId = match.FirstPlayerId;
                             game.IsGameFinished = true;
@@ -225,21 +230,25 @@
                             }
 
                         }
-                        else if (game.FirsPlayerPoints == 4 && game.SecondPlayerPoints == 4)
+                        else if (point.FirstPlayerPoints == 4 && point.SecondPlayerPoints == 4)
                         {
-                            game.FirsPlayerPoints = 3;
-                            game.SecondPlayerPoints = 3;
+                            point.FirstPlayerPoints = 3;
+                            point.SecondPlayerPoints = 3;
                         }
 
                         game.Points.Add(point);
+
                     }
 
                     if (IsSecondPlayer)
                     {
-                        if (((point.SecondPlayerPoints - 2 >= point.FirsPlayerPoints) && point.FirsPlayerPoints >= 3)
-                    || (point.SecondPlayerPoints == 4 && point.FirsPlayerPoints <= 2))
+                        if (((point.SecondPlayerPoints - 2 >= point.FirstPlayerPoints) && point.FirstPlayerPoints >= 3)
+                    || (point.SecondPlayerPoints == 4 && point.FirstPlayerPoints <= 2))
                         {
+                            point.SecondPlayerPoints--;
                             game.Points.Add(point);
+                            point.FirstPlayerPoints = 0;
+                            point.SecondPlayerPoints = 0;
                             game.Player = match.SecondPlayer;
                             game.PlayerId = match.SecondPlayerId;
                             game.IsGameFinished = true;
@@ -276,10 +285,10 @@
                             }
 
                         }
-                        else if (game.FirsPlayerPoints == 4 && game.SecondPlayerPoints == 4)
+                        else if (point.FirstPlayerPoints == 4 && point.SecondPlayerPoints == 4)
                         {
-                            game.FirsPlayerPoints = 3;
-                            game.SecondPlayerPoints = 3;
+                            point.FirstPlayerPoints = 3;
+                            point.SecondPlayerPoints = 3;
                         }
 
                         game.Points.Add(point);
@@ -332,12 +341,11 @@
                 }
             }
 
-            lastmatchId = matchId;
+
 
             await this.context.SaveChangesAsync();
 
-           // var result = mapper.Map<MatchScoreViewModel>(match);
-            var r = mapper.Map<Match, MatchScoreViewModel>(match);
+            var r = mapper.Map<UmpireResultViewModel>(match);
 
             return r;
 

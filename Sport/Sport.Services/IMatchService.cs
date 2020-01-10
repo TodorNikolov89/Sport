@@ -11,7 +11,7 @@
 
         Task<IEnumerable<Match>> GetAllActive();
 
-        Task<MatchScoreViewModel> Result(string buttonId, int matchId);
+        Task<UmpireResultViewModel> Result(string buttonId, int matchId);
 
     }
 }

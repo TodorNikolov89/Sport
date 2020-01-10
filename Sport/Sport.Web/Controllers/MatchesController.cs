@@ -4,7 +4,6 @@
     using Microsoft.AspNetCore.Mvc;
     using Services;
     using Sport.Data;
-    using Sport.Domain;
     using System.Threading.Tasks;
 
     using ViewModels.Match;
@@ -42,7 +41,7 @@
 
         [Route(nameof(ChangeResult))]
         [HttpPost]
-        public async Task<MatchScoreViewModel> ChangeResult(string buttonId, int matchId)
+        public async Task<UmpireResultViewModel> ChangeResult(string buttonId, int matchId)
         {
             var result = await matchService.Result(buttonId, matchId);
 

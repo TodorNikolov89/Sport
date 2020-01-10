@@ -27,6 +27,7 @@
 
         public ICollection<UserTournament> Tournaments { get; set; }
 
+
         public int Win { get; set; }
 
         public int Loses { get; set; }

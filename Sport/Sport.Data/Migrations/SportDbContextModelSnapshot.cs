@@ -157,7 +157,7 @@ namespace Sport.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("FirsPlayerPoints")
+                    b.Property<int>("FirstPlayerPoints")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsFirstPoint")
@@ -235,7 +235,7 @@ namespace Sport.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("FirsPlayerPoints")
+                    b.Property<int>("FirstPlayerPoints")
                         .HasColumnType("int");
 
                     b.Property<int>("GameId")

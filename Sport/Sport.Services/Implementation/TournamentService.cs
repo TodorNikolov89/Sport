@@ -248,8 +248,7 @@
                                                 {
                                                     new Point()
                                                     {
-                                                        FirsPlayerPoints=0,
-                                                        SecondPlayerPoints=0
+                                                        
                                                     }
                                                 }
                                             }

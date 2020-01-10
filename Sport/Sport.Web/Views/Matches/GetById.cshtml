@@ -1,17 +1,24 @@
 ﻿@model MatchScoreViewModel
 
-
+@using System.Web.Mvc.Ajax
+@using System.Web.Mvc
 @using Microsoft.AspNet.Identity
+
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>@ViewData["Title"]</h1>
 
+<script>
+    var arr = ["0", "15", "30", "40", "Ad"];
+   
+</script>
 
 <link rel="stylesheet" type="text/css" href="~/css/Score.css">
 
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
@@ -44,72 +51,70 @@
     </thead>
 
     <tbody>
-        @*<tr>
-                <th>
-                    @Model.
-                </th>
-                <th id="setsFirstPlayer">
-                    @Model.MatchResult.FirstPlayerSets
-                </th>
-                <th id="gamesFirstPlayer">
-                    @Model.MatchResult.FirstPlayerGames
-                </th>
-                <th id="pointsFirstPlayer">
-                    @Model.MatchResult.FirstPlayerPoints
-                </th>
+        <tr>
+            <th id="firstPlayerName">
+                @Model.FirstPlayer.FirstName
+            </th>
+            <th id="setsFirstPlayer">
 
-                <th id="tieBreakPointsFirstPlayer">
-                    @Model.MatchResult.FirstPlayerTieBreakPoints
-                </th>
+            </th>
+            <th id="gamesFirstPlayer">
 
-            </tr>
-            <tr>
-                <th>
-                    @Model.SecondPlayer.FirstName
-                </th>
-                <th id="setsSecondPlayer">
-                    @Model.MatchResult.SecondPlayerSets
-                </th>
-                <th id="gamesSecondPlayer">
-                    @Model.MatchResult.SecondPlayerGames
-                </th>
-                <th id="pointsSecondPlayer">
-                    @Model.MatchResult.SecondPlayerPoints
-                </th>
-                <th id="tieBreakPointsSecondPlayer">
-                    @Model.MatchResult.SecondPlayerTieBreakPoints
-                </th>
-            </tr>*@
+            </th>
+            <th id="pointsFirstPlayer">
+
+            </th>
+
+            <th id="tieBreakPointsFirstPlayer"  class="tieBreak">
+
+            </th>
+
+        </tr>
+        <tr>
+            <th>
+                @Model.SecondPlayer.FirstName
+            </th>
+            <th id="setsSecondPlayer">
+
+            </th>
+            <th id="gamesSecondPlayer" value="">
+
+            </th>
+            <th id="pointsSecondPlayer">
+
+            </th>
+            <th  id="tieBreakPointsSecondPlayer" class="tieBreak">
+
+            </th>
+        </tr>
 
     </tbody>
 </table>
 
 
 
-@if (true)
-{
-    <section class="sectionScore">
-        <span id="spanPointsFirstPlayer" class="span" align="center">
-            @*@Model.FirstPlayerPoints*@
-        </span>
+<section class="sectionScore">
+    <span id="spanPointsFirstPlayer" class="span" align="center">
+        @*@Model.FirstPlayerPoints*@
+    </span>
 
-        <span class="span"> / </span>
+    <span class="span"> / </span>
 
-        <span id="spanPointsSecondPlayer" class="span">
-            @*@Model.MatchResult.SecondPlayerPoints*@
-        </span>
-    </section>
+    <span id="spanPointsSecondPlayer" class="span">
+        @*@Model.MatchResult.SecondPlayerPoints*@
+    </span>
+</section>
 
-    <section class="section">
-        <button class="button" id="firstButtonId">Add First Player Point</button>
-        <button class="button" id="secondButtonId">Add Second Player Point</button>
-    </section>
-}
+<section class="section">
+    <button class="button" id="firstButtonId">Add First Player Point</button>
+    <button class="button" id="secondButtonId">Add Second Player Point</button>
+</section>
 
 
 <script type="text/javascript">
-   $(".button").click(function (e) {
-        e.preventDefault();
+    $(".button").click(function (e) {
+        var tieBreak;
+       e.preventDefault();
         $.ajax({
             type: "POST",
             url: '@Html.Raw(Url.Action("ChangeResult", "Matches"))',
@@ -119,15 +124,20 @@
 
             },
             dataType: "json",
-            success: function (msg) {
-                alert("OK");
+            success: function (data) {
+                  $("#setsFirstPlayer").html(data.firstPlayerSets),
+                  $("#setsSecondPlayer").html(data.secondPlayerSets),
+                  $("#gamesFirstPlayer").html(data.firstPlayerGames),
+                  $("#gamesSecondPlayer").html(data.secondPlayerGames),
+                  $("#pointsFirstPlayer").html(arr[data.firstPlayerPoints]),
+                  $("#pointsSecondPlayer").html(arr[data.secondPlayerPoints])    ,            
+
+                console.log(data)
             },
-            error: function (response) {
-                console.log(response);
-                alert("error");
-                
+            error: function (data) {
+                console.log(data),
+                alert("error")
             }
         });
     });
-
 </script>

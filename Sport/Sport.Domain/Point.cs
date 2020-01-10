@@ -8,13 +8,13 @@ namespace Sport.Domain
     {
         public Point()
         {
-            FirsPlayerPoints = 0;
+            FirstPlayerPoints = 0;
             SecondPlayerPoints = 0;
         }
 
         public int Id { get; set; }
 
-        public int FirsPlayerPoints { get; set; }
+        public int FirstPlayerPoints { get; set; }
 
         public int SecondPlayerPoints { get; set; }
 

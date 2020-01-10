@@ -26,7 +26,9 @@
 
         public bool IsActive { get; set; }
 
-        public bool IsFinished { get; set; }
+        public bool IsFinished { get; set; }   
+     
+
 
     }
 }
