@@ -29,6 +29,9 @@
 
         public string Description { get; set; }
 
+        public string CreatorId { get; set; }
+        public UserViewModel Creator { get; set; }
+
 
         public bool IsStarted { get; set; }
     }

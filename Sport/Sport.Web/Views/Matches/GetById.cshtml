@@ -12,7 +12,7 @@
 
 <script>
     var arr = ["0", "15", "30", "40", "Ad"];
-   
+
 </script>
 
 <link rel="stylesheet" type="text/css" href="~/css/Score.css">
@@ -65,7 +65,7 @@
 
             </th>
 
-            <th id="tieBreakPointsFirstPlayer"  class="tieBreak">
+            <th id="tieBreakPointsFirstPlayer" class="tieBreak">
 
             </th>
 
@@ -83,7 +83,7 @@
             <th id="pointsSecondPlayer">
 
             </th>
-            <th  id="tieBreakPointsSecondPlayer" class="tieBreak">
+            <th id="tieBreakPointsSecondPlayer" class="tieBreak">
 
             </th>
         </tr>
@@ -111,9 +111,10 @@
 </section>
 
 
+
 <script type="text/javascript">
+    var firstPlayerName=@Model.FirstPlayer.FirstName;
     $(".button").click(function (e) {
-        var tieBreak;
        e.preventDefault();
         $.ajax({
             type: "POST",
@@ -130,7 +131,7 @@
                   $("#gamesFirstPlayer").html(data.firstPlayerGames),
                   $("#gamesSecondPlayer").html(data.secondPlayerGames),
                   $("#pointsFirstPlayer").html(arr[data.firstPlayerPoints]),
-                  $("#pointsSecondPlayer").html(arr[data.secondPlayerPoints])    ,            
+                  $("#pointsSecondPlayer").html(arr[data.secondPlayerPoints])    ,
 
                 console.log(data)
             },
@@ -140,4 +141,7 @@
             }
         });
     });
+
+
+
 </script>

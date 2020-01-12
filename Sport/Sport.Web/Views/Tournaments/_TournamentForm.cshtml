@@ -1,53 +1,55 @@
 ﻿@using Sport.Domain.Enums.Tournament
 @model TournamentFormModel
 
-    <form method="post">
-        <div class="form-group">
-            <label asp-for="Name"></label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="form-text text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="StartDate"></label>
-            <input asp-for="StartDate" min="0" class="form-control" type="date" />
-            <span asp-validation-for="StartDate" class="form-text text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="EndDate"></label>
-            <input asp-for="EndDate" min="0" class="form-control" type="date" />
-            <span asp-validation-for="EndDate" class="form-text text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Place"></label>
-            <input asp-for="Place" class="form-control" />
-            <span asp-validation-for="Place" class="form-text text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="NumberOfPlayers"></label>
-            @*<input asp-for="NumberOfPlayers" class="form-control" />*@
+
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="form-text text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="StartDate"></label>
+        <input asp-for="StartDate" min="0" class="form-control" type="date" />
+        <span asp-validation-for="StartDate" class="form-text text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EndDate"></label>
+        <input asp-for="EndDate" min="0" class="form-control" type="date" />
+        <span asp-validation-for="EndDate" class="form-text text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Place"></label>
+        <input asp-for="Place" class="form-control" />
+        <span asp-validation-for="Place" class="form-text text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NumberOfPlayers"></label>
+        @*<input asp-for="NumberOfPlayers" class="form-control" />*@
         <select class="form-control" asp-for="NumberOfPlayers">
             <option value="Please Select" selected>Please Select</option>
             <option value="8">8</option>
             <option value="16">16</option>
             <option value="32">32</option>
         </select>
-            <span asp-validation-for="NumberOfPlayers" class="form-text text-danger"></span>
-        </div>
-        <label asp-for="Type"></label>
-        <select class="form-control" asp-for="Type" asp-items="Html.GetEnumSelectList<TournamentType>()">
-            <option selected="selected" value="">Please select</option>
-        </select>
-        <div class="form-group">
-            <label asp-for="AmmountOfMoney"></label>
-            <input asp-for="AmmountOfMoney" class="form-control" />
-            <span asp-validation-for="AmmountOfMoney" class="form-text text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Description"></label>
-            <textarea asp-for="Description" rows="4" cols="50"></textarea>
-            <span asp-validation-for="Description" class="form-text text-danger"></span>
-        </div>
-        <div class="form-group">
-            <input class="btn btn-success" type="submit" value="Add Tournament" />
-        </div>
-    </form>
+        <span asp-validation-for="NumberOfPlayers" class="form-text text-danger"></span>
+    </div>
+    <label asp-for="Type"></label>
+    <select class="form-control" asp-for="Type" asp-items="Html.GetEnumSelectList<TournamentType>()">
+        <option selected="selected" value="">Please select</option>
+    </select>
+    <div class="form-group">
+        <label asp-for="AmmountOfMoney"></label>
+        <input asp-for="AmmountOfMoney" class="form-control" />
+        <span asp-validation-for="AmmountOfMoney" class="form-text text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" rows="4" cols="50"></textarea>
+        <span asp-validation-for="Description" class="form-text text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input class="btn btn-success" type="submit" value="Add Tournament" />
+    </div>
+</form>

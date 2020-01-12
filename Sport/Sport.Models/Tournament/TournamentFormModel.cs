@@ -1,6 +1,7 @@
 ﻿namespace Sport.ViewModels.Tournament
 {
     using Domain.Enums.Tournament;
+    using User;
 
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -36,6 +37,7 @@
 
 
         public string Description { get; set; }
+
 
 
     }

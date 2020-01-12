@@ -32,7 +32,6 @@
         //TODO mapper!!!
         public IEnumerable<AllTournamentsViewModel> All()
         {
-
             var result = this.context
                 .Tournaments
                 .Select(t => new AllTournamentsViewModel
@@ -45,6 +44,7 @@
                     AmmountOfMoney = t.AmmountOfMoney,
                     Place = t.Place,
                     IsStarted = t.IsStarted,
+                    CreatorId = t.CreatorId,
                     Players = t.Players.Select(p => new UserViewModel
                     {
                         Id = p.User.Id,
@@ -75,22 +75,25 @@
 
         public void Create(TournamentFormModel model, string id)
         {
-            var tournament = mapper.Map<Tournament>(model);
-
             var user = userManager
                 .Users
                 .Where(u => u.Id == id)
                 .FirstOrDefault();
+
 
             if (user == null)
             {
                 return;
             }
 
+            var tournament = mapper.Map<Tournament>(model);
+            tournament.Creator = user;
+            tournament.CreatorId = user.Id;
+
             context.Tournaments.Add(tournament);
             context.SaveChanges();
         }
-
+        
 
         public async Task Delete(int id)
         {
@@ -248,7 +251,7 @@
                                                 {
                                                     new Point()
                                                     {
-                                                        
+
                                                     }
                                                 }
                                             }

@@ -9,7 +9,7 @@
     {
         MatchScoreViewModel GetMatch(int id);
 
-        Task<IEnumerable<Match>> GetAllActive();
+        Task<IEnumerable<Match>> GetAll();
 
         Task<UmpireResultViewModel> Result(string buttonId, int matchId);
 

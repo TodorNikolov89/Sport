@@ -1,0 +1,75 @@
+﻿.relation {
+    width: 100%;
+    position: relative;
+    right: 0;
+    top: 0;
+    height: 100%;
+    font-size: 0;
+    display: block;
+}
+
+.match {
+    background-color: var(--color-background-1);
+    border-color: var(--color-border-4);
+}
+
+.match {
+    width: 163px;
+    height: 36px;
+    padding-top: 1px;
+    padding-right: 5px;
+    padding-bottom: 1px;
+    padding-left: 5px;
+}
+
+.match {
+    background: #fff;
+    position: relative;
+    z-index: 1;
+    font-size: 11px;
+    border: 1px solid #d5d5d5;
+    overflow: hidden;
+}
+
+.home {
+    --color-sport-primary: #006290;
+    --color-sport-secondary-alpha: 0, 64, 109;
+}
+
+.participant {
+    height: 18px;
+    line-height: 18px;
+    margin-bottom: 0px;
+}
+
+.participant {
+    display: block;
+    position: relative;
+    vertical-align: middle;
+    overflow: hidden;
+}
+
+    .participant .name {
+        display: block;
+        position: relative;
+    }
+
+.matches .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.participant .name .codebook {
+    color: #b0b0b0;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 10px;
+}
+
+.participant .score {
+    position: absolute;
+    padding: 0 2px 0 4px;
+    right: 0;
+    top: 0;
+    font-weight: bold;
+}

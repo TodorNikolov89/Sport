@@ -12,8 +12,8 @@
     using ViewModels.TieBreak;
 
     using AutoMapper;
-    using System.Collections.Generic;
     using System.Linq;
+    using System.Collections.Generic;
 
     public class DomainProfile : Profile
     {

@@ -48,7 +48,7 @@
                 </th>
                 <th>
                     @if (!tournament.Players.Any(p => p.Id == User.Identity.GetUserId())
-                  && tournament.Players.Count() < tournament.NumberOfPlayers)
+            && tournament.Players.Count() < tournament.NumberOfPlayers)
                     {
                         <a href="/tournaments/signin/@tournament.Id" class="form-text">Sign in</a>
                     }
@@ -62,7 +62,10 @@
                 @if (tournament.Players.Count() == tournament.NumberOfPlayers)
                 {
                     <th>
-                        <a href="/tournaments/start/@tournament.Id" class="btn btn-warning btn-sm">Start</a>
+                        @if (tournament.CreatorId.Equals(User.Identity.GetUserId()))
+                        {
+                            <a href="/tournaments/start/@tournament.Id" class="btn btn-warning btn-sm">Start</a>
+                        }
 
                         @if (tournament.IsStarted)
                         {

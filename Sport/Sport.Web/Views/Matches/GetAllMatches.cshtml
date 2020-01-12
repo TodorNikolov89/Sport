@@ -27,9 +27,9 @@
     <tbody>
         @foreach (var match in Model)
         {
-            <tr>
+            <tr id="matchRow" class="">
                 <th>
-                    @match.FirstPlayer.FirstName  
+                    @match.FirstPlayer.FirstName
                 </th>
                 <th>
                     @match.SecondPlayer.FirstName
@@ -45,9 +45,3 @@
     </tbody>
 </table>
 
-
-@*<th>
-        <a href="/tournaments/edit/@tournament.Id" class="btn btn-warning btn-sm">Edit</a>
-        <a href="/tournaments/delete/@tournament.Id" class="btn btn-danger btn-sm">Delete</a>
-        <a href="/tournaments/details/@tournament.Id" class="btn btn-info btn-sm">Details</a>
-    </th>*@

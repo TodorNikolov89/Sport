@@ -22,11 +22,10 @@
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<Match>> GetAllActive()
+        public async Task<IEnumerable<Match>> GetAll()
         {
             var matches = await this.context
                 .Matches
-                .Where(m => m.IsActive)
                 .Include(m => m.FirstPlayer)
                 .Include(m => m.SecondPlayer)
                 .Include(m => m.Tournament)
@@ -253,7 +252,7 @@
                             game.PlayerId = match.SecondPlayerId;
                             game.IsGameFinished = true;
                             set.SecondPlayerGames++;
-
+                            set.Games.Add(game);
 
                             if ((set.SecondPlayerGames >= 6 && set.FirstPlayerGames <= 4)
                                 || set.SecondPlayerGames == 7 && set.FirstPlayerGames == 5)

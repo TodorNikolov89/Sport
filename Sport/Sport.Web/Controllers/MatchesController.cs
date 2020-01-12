@@ -31,10 +31,10 @@
             return View(match);
         }
 
-        [Route(nameof(GetAllActive))]
-        public async Task<IActionResult> GetAllActive()
+        [Route(nameof(GetAllMatches))]
+        public async Task<IActionResult> GetAllMatches()
         {
-            var result = await matchService.GetAllActive();
+            var result = await matchService.GetAll();
             return View(result);
         }
 
@@ -46,6 +46,22 @@
             var result = await matchService.Result(buttonId, matchId);
 
             return result;
+        }
+
+
+        [Route(nameof(GetLiveMatches))]
+        [HttpPost]
+        public IActionResult GetLiveMatches()
+        {
+            return View();
+        }
+
+
+        [Route(nameof(GetFinishedMatches))]
+        [HttpPost]
+        public IActionResult GetFinishedMatches()
+        {
+            return View();
         }
     }
 }

@@ -39,9 +39,17 @@
             GameConfiguration(builder);
             SetConfiguration(builder);
             TieBreakConfiguration(builder);
-
+            TournamentConfiguration(builder);
 
             base.OnModelCreating(builder);
+        }
+
+        private void TournamentConfiguration(ModelBuilder builder)
+        {
+            builder
+                .Entity<Tournament>()
+                .HasOne(c => c.Creator)
+                .WithMany(t => t.CreatedTournaments);
         }
 
         private void TieBreakConfiguration(ModelBuilder builder)

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sport.Data;
 
 namespace Sport.Data.Migrations
 {
     [DbContext(typeof(SportDbContext))]
-    partial class SportDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200110140154_addedCreatorProperty")]
+    partial class addedCreatorProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -610,7 +612,7 @@ namespace Sport.Data.Migrations
             modelBuilder.Entity("Sport.Domain.Tournament", b =>
                 {
                     b.HasOne("Sport.Domain.User", "Creator")
-                        .WithMany("CreatedTournaments")
+                        .WithMany()
                         .HasForeignKey("CreatorId");
                 });
 

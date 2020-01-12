@@ -13,6 +13,7 @@
         public User()
         {
             this.Tournaments = new HashSet<UserTournament>();
+            this.CreatedTournaments = new HashSet<Tournament>();
             this.Win = initialValue;
             this.Loses = initialValue;
             this.Points = initialValue;
@@ -23,7 +24,7 @@
         public string FirstName { get; set; }
 
         [Required]
-        public string LastName { get; set; }          
+        public string LastName { get; set; }
 
         public ICollection<UserTournament> Tournaments { get; set; }
 
@@ -31,7 +32,7 @@
         public int Win { get; set; }
 
         public int Loses { get; set; }
-        
+
         public string Town { get; set; }
 
         public int Points { get; set; }
@@ -42,6 +43,9 @@
         public ICollection<Game> Games { get; set; }
 
         public ICollection<Set> Sets { get; set; }
+
+
+        public ICollection<Tournament> CreatedTournaments { get; set; }
 
     }
 }
