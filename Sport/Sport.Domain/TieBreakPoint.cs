@@ -13,6 +13,7 @@
         public int FirstPlayerPoint { get; set; }
 
         public int SecondPlayerpoint { get; set; }
+
         public int TieBreakId { get; set; }
         public TieBreak TieBreak { get; set; }
     }

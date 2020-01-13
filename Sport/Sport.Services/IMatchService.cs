@@ -7,11 +7,13 @@
 
     public interface IMatchService
     {
-        MatchScoreViewModel GetMatch(int id);
+        LiveResultViewModel GetMatch(int id);
 
         Task<IEnumerable<Match>> GetAll();
 
-        Task<UmpireResultViewModel> Result(string buttonId, int matchId);
+        Task<LiveResultViewModel> AddFirstPlayerPoint(int matchId);
+
+        Task<LiveResultViewModel> AddSecondPlayerPoint(int matchId);
 
     }
 }

@@ -41,9 +41,18 @@
 
         [Route(nameof(ChangeResult))]
         [HttpPost]
-        public async Task<UmpireResultViewModel> ChangeResult(string buttonId, int matchId)
+        public async Task<LiveResultViewModel> ChangeResult(string buttonId, int matchId)
         {
-            var result = await matchService.Result(buttonId, matchId);
+            LiveResultViewModel result = null;
+            if (buttonId.Equals("firstButtonId"))
+            {
+                result = await matchService.AddFirstPlayerPoint(matchId);
+            }
+
+            if (buttonId.Equals("secondButtonId"))
+            {
+                result = await matchService.AddSecondPlayerPoint(matchId);
+            }            
 
             return result;
         }

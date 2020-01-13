@@ -28,14 +28,16 @@
             CreateMap<Match, MatchesViewModel>().ReverseMap();
             CreateMap<Match, MatchScoreViewModel>().ReverseMap();
 
-            CreateMap<Match, UmpireResultViewModel>()
-                 .ForMember(dest => dest.FirstPlayerSets, opt => opt.MapFrom(src => src.FirstPlayerSets))
-                 .ForMember(dest => dest.SecondPlayerSets, opt => opt.MapFrom(src => src.SecondPlayerSets))
-                 .ForMember(dest => dest.HasTieBreak, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().HasTieBreak))
-                 .ForMember(dest => dest.FirstPlayerGames, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().FirstPlayerGames))
-                 .ForMember(dest => dest.SecondPlayerGames, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().SecondPlayerGames))
+            CreateMap<Match, LiveResultViewModel>()
                  .ForMember(dest => dest.FirstPlayerPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().Games.ToList().LastOrDefault().Points.ToList().LastOrDefault().FirstPlayerPoints))
-                 .ForMember(dest => dest.SecondPlayerPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().Games.ToList().LastOrDefault().Points.ToList().LastOrDefault().SecondPlayerPoints));
+                 .ForMember(dest => dest.SecondPlayerPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().Games.ToList().LastOrDefault().Points.ToList().LastOrDefault().SecondPlayerPoints))
+                .ForMember(dest => dest.FirstPlayerGames, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().FirstPlayerGames))
+                .ForMember(dest => dest.SecondPlayerGames, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().SecondPlayerGames))
+                .ForMember(dest => dest.FirstPlayerSets, opt => opt.MapFrom(src => src.FirstPlayerSets))
+                .ForMember(dest => dest.SecondPlayerSets, opt => opt.MapFrom(src => src.SecondPlayerSets))
+                .ForMember(dest => dest.HasTieBreak, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().HasTieBreak))
+                .ForMember(dest => dest.FirstPlayerTieBreakPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().TieBreak.TieBreakPoints.ToList().LastOrDefault().FirstPlayerPoint))
+                .ForMember(dest => dest.SecondPlayerTieBreakPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().TieBreak.TieBreakPoints.ToList().LastOrDefault().SecondPlayerpoint));
 
             CreateMap<User, UserDrawViewModel>().ReverseMap();
 
