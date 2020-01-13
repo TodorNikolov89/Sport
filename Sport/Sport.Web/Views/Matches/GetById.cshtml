@@ -73,13 +73,13 @@
                 @Model.SecondPlayer.FirstName @Model.SecondPlayer.LastName
             </th>
             <th id="setsSecondPlayer">
-                @Model.FirstPlayerSets
+                @Model.SecondPlayerSets
             </th>
             <th id="gamesSecondPlayer" value="">
-                @Model.FirstPlayerGames
+                @Model.SecondPlayerGames
             </th>
             <th id="pointsSecondPlayer">
-                @Model.FirstPlayerPoints
+                @Model.SecondPlayerPoints
             </th>
             <th id="tieBreakPointsSecondPlayer" class="tieBreak">
 
@@ -93,13 +93,13 @@
 
 <section class="sectionScore">
     <span id="spanPointsFirstPlayer" class="span" align="center">
-        @*@Model.FirstPlayerPoints*@
+        @Model.FirstPlayerPoints
     </span>
 
     <span class="span"> / </span>
 
     <span id="spanPointsSecondPlayer" class="span">
-        @*@Model.MatchResult.SecondPlayerPoints*@
+        @Model.SecondPlayerPoints
     </span>
 </section>
 
@@ -132,6 +132,8 @@
                   $("#gamesSecondPlayer").html(data.secondPlayerGames),
                   $("#tieBreakPointsFirstPlayer").html(data.firstPlayerTieBreakPoints),
                   $("#tieBreakPointsSecondPlayer").html(data.secondPlayerTieBreakPoints),
+                $("#spanPointsFirstPlayer").html(arr[data.firstPlayerPoints]),
+                  $("#spanPointsSecondPlayer").html(arr[data.secondPlayerPoints]),
 
                 console.log(data)
             },
@@ -162,6 +164,8 @@
                   $("#gamesSecondPlayer").html(data.secondPlayerGames),
                   $("#tieBreakPointsFirstPlayer").html(data.firstPlayerTieBreakPoints),
                   $("#tieBreakPointsSecondPlayer").html(data.secondPlayerTieBreakPoints),
+                  $("#spanPointsFirstPlayer").html(arr[data.firstPlayerPoints]),
+                  $("#spanPointsSecondPlayer").html(arr[data.secondPlayerPoints]),
 
                 console.log(data)
             },

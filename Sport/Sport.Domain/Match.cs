@@ -37,6 +37,5 @@
 
         public bool IsFinished { get; set; }
 
-
     }
 }

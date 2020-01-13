@@ -105,7 +105,6 @@
                             {
                                 match.IsFinished = true;
                                 match.IsActive = false;
-
                                 //TODO Add Winner
                             }
                             else

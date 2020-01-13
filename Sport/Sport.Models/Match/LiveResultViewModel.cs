@@ -33,7 +33,5 @@
         public int SecondPlayerTieBreakPoints { get; set; }
 
 
-
-
     }
 }
