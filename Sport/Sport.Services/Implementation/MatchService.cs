@@ -105,6 +105,8 @@
                             {
                                 match.IsFinished = true;
                                 match.IsActive = false;
+                                match.FirstPlayer.Win++;
+                                match.SecondPlayer.Loses++;
                                 //TODO Add Winner
                             }
                             else
@@ -167,6 +169,8 @@
                         {
                             match.IsActive = false;
                             match.IsFinished = true;
+                            match.SecondPlayer.Win++;
+                            match.FirstPlayer.Loses++;
                         }
                         else
                         {
