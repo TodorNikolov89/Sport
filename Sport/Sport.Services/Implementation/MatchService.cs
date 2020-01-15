@@ -9,17 +9,19 @@
     using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
+    using Microsoft.AspNetCore.Identity;
 
     public class MatchService : IMatchService
     {
         private readonly SportDbContext context;
         private readonly IMapper mapper;
+        private readonly UserManager<User> userManager;
 
-
-        public MatchService(SportDbContext context, IMapper mapper)
+        public MatchService(SportDbContext context, IMapper mapper, UserManager<User> userManager)
         {
             this.context = context;
             this.mapper = mapper;
+            this.userManager = userManager;
         }
 
         public async Task<IEnumerable<Match>> GetAll()
@@ -356,5 +358,23 @@
             match.Sets.Add(newSet);
         }
 
+        public void AddUmpire(int id, string userId)
+        {
+            var user = this.context.Users.FirstOrDefault(u => u.Id.Equals(userId));
+
+            var match = this.context
+                .Matches
+                .FirstOrDefault(m => m.Id == id);
+
+            if (match == null)
+            {
+                return;
+            }
+
+            match.Umpire = user;
+            match.UmpireId = user.Id;
+
+            this.context.SaveChanges();
+        }
     }
 }

@@ -40,6 +40,12 @@
                 <th>
                     <a href="/matches/GetById/@match.Id" class="btn btn-warning btn-sm">View Details</a>
                 </th>
+                @if (User.IsInRole(GlobalConstants.UmpireRole) && match.Umpire == null)
+                {
+                    <th>
+                        <a href="/matches/BecomeUmpire/@match.Id" class="btn btn-warning btn-sm">Umpire</a>
+                    </th>
+                }
             </tr>
         }
     </tbody>

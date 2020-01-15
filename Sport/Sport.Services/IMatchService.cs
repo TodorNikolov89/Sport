@@ -15,5 +15,6 @@
 
         Task<LiveResultViewModel> AddSecondPlayerPoint(int matchId);
 
+        void AddUmpire(int id, string userId);
     }
 }

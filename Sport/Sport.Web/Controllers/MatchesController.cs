@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Services;
     using Sport.Data;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using ViewModels.Match;
@@ -52,7 +53,7 @@
             if (buttonId.Equals("secondButtonId"))
             {
                 result = await matchService.AddSecondPlayerPoint(matchId);
-            }            
+            }
 
             return result;
         }
@@ -71,6 +72,18 @@
         public IActionResult GetFinishedMatches()
         {
             return View();
+        }
+
+
+        [Route(nameof(BecomeUmpire) + "/{id}")]
+       
+        public IActionResult BecomeUmpire(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            this.matchService.AddUmpire(id, userId);
+
+            return RedirectToAction(nameof(GetAllMatches));
         }
     }
 }
