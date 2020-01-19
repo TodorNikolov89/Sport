@@ -12,7 +12,6 @@
 
 <script>
     var arr = ["0", "15", "30", "40", "Ad"];
-
 </script>
 
 <link rel="stylesheet" type="text/css" href="~/css/Score.css">
@@ -64,7 +63,7 @@
                 @Model.FirstPlayerPoints
             </th>
             <th id="tieBreakPointsFirstPlayer" class="tieBreak">
-                
+
             </th>
 
         </tr>
@@ -110,7 +109,15 @@
 
 
 
-<script type="text/javascript">
+<script type="text/javascript" defer> 
+    $(document).ready(function () {
+        var model = {
+            firstPlayerPoints: @Model.FirstPlayerPoints,
+            secondPlayerPoints: @Model.SecondPlayerPoints,
+        }
+
+        onChangeResultSuccess(model)
+    });
 
     $("#firstButtonId").click(function (e) {
        e.preventDefault();
@@ -118,24 +125,13 @@
             type: "POST",
             url: '@Html.Raw(Url.Action("ChangeResult", "Matches"))',
             data: {
-                        buttonId: this.id,
-                        matchId : @Model.Id,
+                buttonId: this.id,
+                matchId: @Model.Id,
 
             },
             dataType: "json",
             success: function (data) {
-                $("#pointsFirstPlayer").html(arr[data.firstPlayerPoints]),
-                  $("#pointsSecondPlayer").html(arr[data.secondPlayerPoints]),
-                  $("#setsFirstPlayer").html(data.firstPlayerSets),
-                  $("#setsSecondPlayer").html(data.secondPlayerSets),
-                  $("#gamesFirstPlayer").html(data.firstPlayerGames),
-                  $("#gamesSecondPlayer").html(data.secondPlayerGames),
-                  $("#tieBreakPointsFirstPlayer").html(data.firstPlayerTieBreakPoints),
-                  $("#tieBreakPointsSecondPlayer").html(data.secondPlayerTieBreakPoints),
-                $("#spanPointsFirstPlayer").html(arr[data.firstPlayerPoints]),
-                  $("#spanPointsSecondPlayer").html(arr[data.secondPlayerPoints]),
-
-                console.log(data)
+                onChangeResultSuccess(data)
             },
             error: function (data) {
                 console.log(data),
@@ -156,16 +152,7 @@
             },
             dataType: "json",
             success: function (data) {
-                $("#pointsFirstPlayer").html(arr[data.firstPlayerPoints]),
-                  $("#pointsSecondPlayer").html(arr[data.secondPlayerPoints]),
-                  $("#setsFirstPlayer").html(data.firstPlayerSets),
-                  $("#setsSecondPlayer").html(data.secondPlayerSets),
-                  $("#gamesFirstPlayer").html(data.firstPlayerGames),
-                  $("#gamesSecondPlayer").html(data.secondPlayerGames),
-                  $("#tieBreakPointsFirstPlayer").html(data.firstPlayerTieBreakPoints),
-                  $("#tieBreakPointsSecondPlayer").html(data.secondPlayerTieBreakPoints),
-                  $("#spanPointsFirstPlayer").html(arr[data.firstPlayerPoints]),
-                  $("#spanPointsSecondPlayer").html(arr[data.secondPlayerPoints]),
+                onChangeResultSuccess(data)
 
                 console.log(data)
             },
@@ -174,6 +161,19 @@
                 alert("error")
             }
         });
-    });
+     });
+
+    function onChangeResultSuccess(data) {
+        $("#pointsFirstPlayer").html(arr[data.firstPlayerPoints]),
+        $("#pointsSecondPlayer").html(arr[data.secondPlayerPoints]),
+        $("#setsFirstPlayer").html(data.firstPlayerSets),
+        $("#setsSecondPlayer").html(data.secondPlayerSets),
+        $("#gamesFirstPlayer").html(data.firstPlayerGames),
+        $("#gamesSecondPlayer").html(data.secondPlayerGames),
+        $("#tieBreakPointsFirstPlayer").html(data.firstPlayerTieBreakPoints),
+        $("#tieBreakPointsSecondPlayer").html(data.secondPlayerTieBreakPoints),
+        $("#spanPointsFirstPlayer").html(arr[data.firstPlayerPoints]),
+        $("#spanPointsSecondPlayer").html(arr[data.secondPlayerPoints])
+    }
 
 </script>

@@ -10,6 +10,7 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using Microsoft.AspNetCore.Identity;
+    using System;
 
     public class MatchService : IMatchService
     {
@@ -40,9 +41,13 @@
         {
             var dbMatch = this.context
                 .Matches
+                .Include(m => m.Tournament)
                 .Include(m => m.FirstPlayer)
                 .Include(m => m.SecondPlayer)
-                .Include(m => m.Tournament)
+                .Include(m => m.Umpire)
+                .Include(m => m.Sets)
+                .ThenInclude(a => a.Games)
+                .ThenInclude(p => p.Points)
                 .FirstOrDefault(m => m.Id == id);
 
             var match = mapper.Map<LiveResultViewModel>(dbMatch);
@@ -85,7 +90,7 @@
                         point.FirstPlayerPoints--;
                         game.Points.Add(point);
 
-                        PointsToZero(point);
+
 
                         game.Player = match.FirstPlayer;
                         game.PlayerId = match.FirstPlayerId;
@@ -186,7 +191,6 @@
             }
 
             await this.context.SaveChangesAsync();
-
             var r = mapper.Map<LiveResultViewModel>(match);
 
             return r;
@@ -228,7 +232,6 @@
                         point.SecondPlayerPoints--;
                         game.Points.Add(point);
 
-                        PointsToZero(point);
 
                         game.Player = match.SecondPlayer;
                         game.PlayerId = match.SecondPlayerId;
@@ -376,5 +379,7 @@
 
             this.context.SaveChanges();
         }
+
+
     }
 }

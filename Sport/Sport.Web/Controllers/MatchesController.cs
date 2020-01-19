@@ -39,7 +39,6 @@
             return View(result);
         }
 
-
         [Route(nameof(ChangeResult))]
         [HttpPost]
         public async Task<LiveResultViewModel> ChangeResult(string buttonId, int matchId)
