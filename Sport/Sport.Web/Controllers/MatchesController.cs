@@ -59,10 +59,11 @@
 
 
         [Route(nameof(GetLiveMatches))]
-        [HttpPost]
-        public IActionResult GetLiveMatches()
+        public async Task<IActionResult> GetLiveMatches()
         {
-            return View();
+            var result = await this.matchService.GetLiveMatches();
+
+            return View(result);
         }
 
 
@@ -75,7 +76,7 @@
 
 
         [Route(nameof(BecomeUmpire) + "/{id}")]
-       
+
         public IActionResult BecomeUmpire(int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -84,5 +85,7 @@
 
             return RedirectToAction(nameof(GetAllMatches));
         }
+
+
     }
 }

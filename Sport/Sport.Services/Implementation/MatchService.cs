@@ -380,10 +380,26 @@
 
             match.Umpire = user;
             match.UmpireId = user.Id;
+            match.IsActive = true;
 
             this.context.SaveChanges();
         }
 
+        public async Task<IEnumerable<LiveMatchesViewModel>> GetLiveMatches()
+        {
+            var allLiveMatches = await this.context
+                .Matches
+                .Where(m => m.IsActive == true)
+                .Include(m=>m.FirstPlayer)
+                .Include(m=>m.SecondPlayer)
+                .Include(m => m.Sets)
+                .ThenInclude(a => a.Games)
+                .ThenInclude(p => p.Points)
+                .ToListAsync();
 
+            var result = mapper.Map<List<LiveMatchesViewModel>>(allLiveMatches);
+
+            return result;
+        }
     }
 }

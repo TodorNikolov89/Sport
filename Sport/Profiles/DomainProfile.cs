@@ -27,10 +27,11 @@
             CreateMap<User, PlayerViewModel>().ReverseMap();
             CreateMap<Match, MatchesViewModel>().ReverseMap();
             CreateMap<Match, MatchScoreViewModel>().ReverseMap();
+            CreateMap<List<Match>, List<LiveMatchesViewModel>>().ReverseMap();
 
             CreateMap<Match, LiveResultViewModel>()
-                 .ForMember(dest => dest.FirstPlayerPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().Games.ToList().LastOrDefault().Points.ToList().LastOrDefault().FirstPlayerPoints))
-                 .ForMember(dest => dest.SecondPlayerPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().Games.ToList().LastOrDefault().Points.ToList().LastOrDefault().SecondPlayerPoints))
+                .ForMember(dest => dest.FirstPlayerPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().Games.ToList().LastOrDefault().Points.ToList().LastOrDefault().FirstPlayerPoints))
+                .ForMember(dest => dest.SecondPlayerPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().Games.ToList().LastOrDefault().Points.ToList().LastOrDefault().SecondPlayerPoints))
                 .ForMember(dest => dest.FirstPlayerGames, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().FirstPlayerGames))
                 .ForMember(dest => dest.SecondPlayerGames, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().SecondPlayerGames))
                 .ForMember(dest => dest.FirstPlayerSets, opt => opt.MapFrom(src => src.FirstPlayerSets))
