@@ -136,6 +136,8 @@
                                         new TieBreakPoint()
                                     }
                             };
+
+                            PointsToZero(point);
                         }
                         else
                         {
@@ -162,8 +164,8 @@
 
                     tieBreakPoint.FirstPlayerPoint++;
 
-                    if ((tieBreakPoint.FirstPlayerPoint == 7 && tieBreakPoint.SecondPlayerpoint <= 5)
-                            || ((tieBreakPoint.FirstPlayerPoint - 2 == tieBreakPoint.SecondPlayerpoint) && tieBreakPoint.SecondPlayerpoint > 5))
+                    if ((tieBreakPoint.FirstPlayerPoint == 7 && tieBreakPoint.SecondPlayerPoint <= 5)
+                            || ((tieBreakPoint.FirstPlayerPoint - 2 == tieBreakPoint.SecondPlayerPoint) && tieBreakPoint.SecondPlayerPoint > 5))
                     {
                         set.FirstPlayerGames++;
                         match.FirstPlayerSets++;
@@ -276,6 +278,8 @@
                                         new TieBreakPoint()
                                     }
                             };
+
+                            PointsToZero(point);
                         }
                         else
                         {
@@ -300,10 +304,10 @@
 
                     tieBreakPoint = tieBreak.TieBreakPoints.ToList().LastOrDefault(p => p.TieBreakId == tieBreak.Id);
 
-                    tieBreakPoint.SecondPlayerpoint++;
+                    tieBreakPoint.SecondPlayerPoint++;
 
-                    if ((tieBreakPoint.SecondPlayerpoint == 7 && tieBreakPoint.FirstPlayerPoint <= 5)
-                            || ((tieBreakPoint.SecondPlayerpoint - 2 == tieBreakPoint.FirstPlayerPoint) && tieBreakPoint.FirstPlayerPoint > 5))
+                    if ((tieBreakPoint.SecondPlayerPoint == 7 && tieBreakPoint.FirstPlayerPoint <= 5)
+                            || ((tieBreakPoint.SecondPlayerPoint - 2 == tieBreakPoint.FirstPlayerPoint) && tieBreakPoint.FirstPlayerPoint > 5))
                     {
                         set.SecondPlayerGames++;
                         match.SecondPlayerSets++;

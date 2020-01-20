@@ -319,7 +319,7 @@ namespace Sport.Data.Migrations
                     b.Property<int>("FirstPlayerPoint")
                         .HasColumnType("int");
 
-                    b.Property<int>("SecondPlayerpoint")
+                    b.Property<int>("SecondPlayerPoint")
                         .HasColumnType("int");
 
                     b.Property<int>("TieBreakId")

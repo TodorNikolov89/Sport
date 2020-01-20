@@ -81,7 +81,7 @@
                 @Model.SecondPlayerPoints
             </th>
             <th id="tieBreakPointsSecondPlayer" class="tieBreak">
-
+                
             </th>
         </tr>
 
@@ -114,6 +114,8 @@
         var model = {
             firstPlayerPoints: @Model.FirstPlayerPoints,
             secondPlayerPoints: @Model.SecondPlayerPoints,
+            tieBreakPointsFirstPlayer: @Model.FirstPlayerTieBreakPoints,
+            tieBreakPointsSecondPlayer: @Model.SecondPlayerTieBreakPoints,
         }
 
         onChangeResultSuccess(model)
@@ -148,7 +150,6 @@
             data: {
                         buttonId: this.id,
                         matchId : @Model.Id,
-
             },
             dataType: "json",
             success: function (data) {
