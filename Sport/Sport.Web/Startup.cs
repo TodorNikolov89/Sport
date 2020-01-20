@@ -1,5 +1,12 @@
 namespace Sport.Web
 {
+    using Data;
+    using Domain;
+    using Profiles;
+    using Services;
+    using Services.Implementation;
+    using Infrastructure.Extensions;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Hosting;
@@ -7,14 +14,7 @@ namespace Sport.Web
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using AutoMapper;
-
-    using Data;
-    using Domain;
-    using Profiles;
-    using Services;
-    using Services.Implementation;
-    using Infrastructure.Extensions;
+    using AutoMapper;    
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
 
