@@ -6,19 +6,55 @@
 
 <h1>@ViewData["Title"]</h1>
 
+<script>
+    var arr = ["0", "15", "30", "40", "Ad"];
+</script>
 
 <style>
-    table, th, td {
-        border: 1px solid black;
+    table {
+        border-bottom: 1px solid black;
+        width: 500px;
+        margin: 5px;
+    }
+
+    tr, th {
+        border: 1px black;
+        align-content: center;
     }
 </style>
 
-<table>
-    <tr>
-        <th>name1</th>
-    </tr>
-    <tr>
-        <th>name2</th>
-    </tr>
-
-</table>
+@foreach (var match in Model)
+{
+    <table align="center">
+        <tbody>
+            <tr>
+                <th width="50%">
+                    @match.FirstPlayer.FirstName @match.FirstPlayer.LastName
+                </th>
+                <th>
+                    @match.FirstPlayerSets
+                </th>
+                <th>
+                    @match.FirstPlayerGames
+                </th>
+                <th>
+                    @match.FirstPlayerPoints
+                </th>
+            </tr>
+            <tr>
+                <th width="50%">
+                    @match.SecondPlayer.FirstName @match.SecondPlayer.LastName
+                </th>
+                <th>
+                    @match.SecondPlayerSets
+                </th>
+                <th>
+                    @match.SecondPlayerGames
+                </th>
+                <th>
+                    @match.SecondPlayerPoints
+                </th>
+            </tr>
+        </tbody>
+    </table>
+}

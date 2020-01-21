@@ -152,6 +152,10 @@
 
                         game.Points.Add(point);
                     }
+                    else
+                    {
+                        game.Points.Add(point);
+                    }
                 }
                 else
                 {
@@ -294,6 +298,10 @@
 
                         game.Points.Add(point);
                     }
+                    else
+                    {
+                        game.Points.Add(point);
+                    }
                 }
                 else
                 {
@@ -398,6 +406,23 @@
                 .ToListAsync();
 
             var result = mapper.Map<List<LiveMatchesViewModel>>(allLiveMatches);
+
+            return result;
+        }
+
+        public async Task<IEnumerable<FinishedMatchesViewModel>> GetFinishedMatches()
+        {
+            var allFinishedMatches = await this.context
+                .Matches
+                .Where(m => m.IsFinished == true)
+                .Include(m => m.FirstPlayer)
+                .Include(m => m.SecondPlayer)
+                .Include(m => m.Sets)
+                .ThenInclude(a => a.Games)
+                .ThenInclude(p => p.Points)
+                .ToListAsync();
+
+            var result = mapper.Map<List<FinishedMatchesViewModel>>(allFinishedMatches);
 
             return result;
         }

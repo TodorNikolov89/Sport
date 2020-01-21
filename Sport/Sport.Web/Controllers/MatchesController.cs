@@ -68,10 +68,11 @@
 
 
         [Route(nameof(GetFinishedMatches))]
-        [HttpPost]
-        public IActionResult GetFinishedMatches()
+        public async Task<IActionResult> GetFinishedMatches()
         {
-            return View();
+            var result = await this.matchService.GetFinishedMatches();
+
+            return View(result);
         }
 
 
