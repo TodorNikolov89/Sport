@@ -9,20 +9,16 @@
     using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
-    using Microsoft.AspNetCore.Identity;
-    using System;
 
     public class MatchService : IMatchService
     {
         private readonly SportDbContext context;
         private readonly IMapper mapper;
-        private readonly UserManager<User> userManager;
 
-        public MatchService(SportDbContext context, IMapper mapper, UserManager<User> userManager)
+        public MatchService(SportDbContext context, IMapper mapper)
         {
             this.context = context;
             this.mapper = mapper;
-            this.userManager = userManager;
         }
 
         public async Task<IEnumerable<Match>> GetAll()
@@ -77,18 +73,7 @@
             game = set.Games.ToList().LastOrDefault();
             var lastPoint = game.Points.ToList().LastOrDefault();
 
-            if (lastPoint == null)
-            {
-                point.Game = game;
-                point.GameId = game.Id;
-            }
-            else
-            {
-                point.Game = lastPoint.Game;
-                point.GameId = lastPoint.GameId;
-                point.FirstPlayerPoints = lastPoint.FirstPlayerPoints;
-                point.SecondPlayerPoints = lastPoint.SecondPlayerPoints;
-            }
+            PointValue(game, point, lastPoint);
 
             if (!match.IsFinished)
             {
@@ -100,9 +85,7 @@
                         || (point.FirstPlayerPoints == 4 && point.SecondPlayerPoints <= 2))
                     {
                         point.FirstPlayerPoints--;
-                        game.Points.Add(point);
-
-
+                        //game.Points.Add(point);
 
                         game.Player = match.FirstPlayer;
                         game.PlayerId = match.FirstPlayerId;
@@ -126,6 +109,7 @@
                                 match.IsActive = false;
                                 match.FirstPlayer.Win++;
                                 match.SecondPlayer.Loses++;
+                                PointsToZero(point);
                                 //TODO Add Winner
                             }
                             else
@@ -238,18 +222,7 @@
             var lastPoint = game.Points.ToList().LastOrDefault();
 
             //Refactor this in both methods
-            if (lastPoint == null)
-            {
-                point.Game = game;
-                point.GameId = game.Id;
-            }
-            else
-            {
-                point.Game = lastPoint.Game;
-                point.GameId = lastPoint.GameId;
-                point.FirstPlayerPoints = lastPoint.FirstPlayerPoints;
-                point.SecondPlayerPoints = lastPoint.SecondPlayerPoints;
-            }
+            PointValue(game, point, lastPoint);
 
             if (!match.IsFinished)
             {
@@ -261,7 +234,7 @@
                         || (point.SecondPlayerPoints == 4 && point.FirstPlayerPoints <= 2))
                     {
                         point.SecondPlayerPoints--;
-                        game.Points.Add(point);
+                        //game.Points.Add(point);
 
 
                         game.Player = match.SecondPlayer;
@@ -393,7 +366,6 @@
             Game newGame = new Game();
             Set newSet = new Set();
 
-            newGame.Points.Add(newPoint);
             newSet.Games.Add(newGame);
             match.Sets.Add(newSet);
         }
@@ -451,5 +423,22 @@
 
             return result;
         }
+
+        private static void PointValue(Game game, Point point, Point lastPoint)
+        {
+            if (lastPoint == null || (lastPoint.FirstPlayerPoints == 0 && lastPoint.SecondPlayerPoints == 0))
+            {
+                point.Game = game;
+                point.GameId = game.Id;
+            }
+            else
+            {
+                point.Game = lastPoint.Game;
+                point.GameId = lastPoint.GameId;
+                point.FirstPlayerPoints = lastPoint.FirstPlayerPoints;
+                point.SecondPlayerPoints = lastPoint.SecondPlayerPoints;
+            }
+        }
+
     }
 }
