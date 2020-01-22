@@ -249,10 +249,7 @@
                                             {
                                                 Points = new List<Point>()
                                                 {
-                                                    new Point()
-                                                    {
-
-                                                    }
+                                                    
                                                 }
                                             }
                                         }

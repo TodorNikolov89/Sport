@@ -59,7 +59,7 @@
         {
             Set set = null;
             Game game = null;
-            Point point = null;
+            Point point = new Point();
             TieBreakPoint tieBreakPoint = null;
             TieBreak tieBreak = null;
 
@@ -75,8 +75,20 @@
 
             set = match.Sets.ToList().LastOrDefault();
             game = set.Games.ToList().LastOrDefault();
-            point = game.Points.ToList().LastOrDefault();
+            var lastPoint = game.Points.ToList().LastOrDefault();
 
+            if (lastPoint == null)
+            {
+                point.Game = game;
+                point.GameId = game.Id;
+            }
+            else
+            {
+                point.Game = lastPoint.Game;
+                point.GameId = lastPoint.GameId;
+                point.FirstPlayerPoints = lastPoint.FirstPlayerPoints;
+                point.SecondPlayerPoints = lastPoint.SecondPlayerPoints;
+            }
 
             if (!match.IsFinished)
             {
@@ -207,7 +219,7 @@
         {
             Set set = null;
             Game game = null;
-            Point point = null;
+            Point point = new Point();
             TieBreakPoint tieBreakPoint = null;
             TieBreak tieBreak = null;
 
@@ -223,8 +235,21 @@
 
             set = match.Sets.ToList().LastOrDefault();
             game = set.Games.ToList().LastOrDefault();
-            point = game.Points.ToList().LastOrDefault();
+            var lastPoint = game.Points.ToList().LastOrDefault();
 
+            //Refactor this in both methods
+            if (lastPoint == null)
+            {
+                point.Game = game;
+                point.GameId = game.Id;
+            }
+            else
+            {
+                point.Game = lastPoint.Game;
+                point.GameId = lastPoint.GameId;
+                point.FirstPlayerPoints = lastPoint.FirstPlayerPoints;
+                point.SecondPlayerPoints = lastPoint.SecondPlayerPoints;
+            }
 
             if (!match.IsFinished)
             {
@@ -398,8 +423,8 @@
             var allLiveMatches = await this.context
                 .Matches
                 .Where(m => m.IsActive == true)
-                .Include(m=>m.FirstPlayer)
-                .Include(m=>m.SecondPlayer)
+                .Include(m => m.FirstPlayer)
+                .Include(m => m.SecondPlayer)
                 .Include(m => m.Sets)
                 .ThenInclude(a => a.Games)
                 .ThenInclude(p => p.Points)

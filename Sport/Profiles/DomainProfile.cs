@@ -52,10 +52,14 @@
                 .ForMember(dest => dest.FirstPlayerTieBreakPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().TieBreak.TieBreakPoints.ToList().LastOrDefault().FirstPlayerPoint))
                 .ForMember(dest => dest.SecondPlayerTieBreakPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().TieBreak.TieBreakPoints.ToList().LastOrDefault().SecondPlayerPoint));
 
+
+
             CreateMap<Match, FinishedMatchesViewModel>()
                 .ForMember(dest => dest.FirstPlayer, opt => opt.MapFrom(src => src.FirstPlayer))
                 .ForMember(dest => dest.SecondPlayer, opt => opt.MapFrom(src => src.SecondPlayer))
                 .ForMember(dest => dest.Sets, opt => opt.MapFrom(src => src.Sets));
+
+
 
             CreateMap<Point, PointViewModel>().ReverseMap();
             CreateMap<Game, GameViewModel>().ReverseMap();
