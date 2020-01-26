@@ -29,7 +29,7 @@
         @foreach (var match in Model)
         {
             <tr id="matchRow" class="">
-                <th>
+                <th>    
                     @match.FirstPlayer.FirstName
                 </th>
                 <th>
@@ -41,14 +41,14 @@
                 @if (match.Umpire != null && match.Umpire.Id == User.Identity.GetUserId())
                 {
                     <th>
-                        <a href="/matches/GetById/@match.Id" class="btn btn-warning btn-sm">Scoring</a>
+                        <a href="/matches/GetById/@match.Id" class="btn btn-warning btn-sm" title="You are an umpire for this match. Continue scoring..">Scoring</a>
                     </th>
                 }
 
                 @if (User.IsInRole(GlobalConstants.UmpireRole) && match.Umpire == null)
                 {
                     <th>
-                        <a href="/matches/BecomeUmpire/@match.Id" class="btn btn-warning btn-sm">Umpire</a>
+                        <a href="/matches/BecomeUmpire/@match.Id" class="btn btn-warning btn-sm" title="Click if you wat to be an umpire!">Umpire</a>
                     </th>
                 }
             </tr>

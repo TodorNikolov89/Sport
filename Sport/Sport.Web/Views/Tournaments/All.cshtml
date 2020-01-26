@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<AllTournamentsViewModel>
 @using Microsoft.AspNet.Identity;
 @{
-    ViewData["Title"] = "All Tournaments";
+    ViewData["Title"] = "All Tournaments with signed in players";
 }
 
 <h1>@ViewData["Title"]</h1>
-<a class="btn btn-primary" asp-controller="tournaments" asp-action="Create">Create</a>
+<a class="btn btn-primary"  asp-controller="tournaments" asp-action="Create">Create</a>
 
 <table class="table table-bordered table-hover">
     <thead>
