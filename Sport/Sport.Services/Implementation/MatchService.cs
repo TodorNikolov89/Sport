@@ -21,7 +21,7 @@
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<Match>> GetAll()
+        public async Task<IEnumerable<AllMatchesViewModel>> GetAll()
         {
             var matches = await this.context
                 .Matches
@@ -30,7 +30,10 @@
                 .Include(m => m.Tournament)
                 .ToListAsync();
 
-            return matches;
+            var result = mapper.Map<IEnumerable<AllMatchesViewModel>>(matches);
+
+
+            return result;
         }
 
         public LiveResultViewModel GetMatch(int id)

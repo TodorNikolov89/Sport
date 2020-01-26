@@ -9,7 +9,7 @@
     {
         LiveResultViewModel GetMatch(int id);
 
-        Task<IEnumerable<Match>> GetAll();
+        Task<IEnumerable<AllMatchesViewModel>> GetAll();
 
         Task<LiveResultViewModel> AddFirstPlayerPoint(int matchId);
 

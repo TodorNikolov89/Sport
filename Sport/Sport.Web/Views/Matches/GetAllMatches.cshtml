@@ -1,6 +1,6 @@
-﻿@model IEnumerable<Match>
+﻿@model IEnumerable<AllMatchesViewModel>
 @{
-    ViewData["Title"] = "GetAllActive";
+    ViewData["Title"] = "All Matches";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -16,7 +16,7 @@
                 Second Player
             </th>
             <th>
-                Details
+                Name
             </th>
             <th>
                 Tournament
@@ -38,7 +38,7 @@
                     @match.Tournament.Name
                 </th>
                 <th>
-                    <a href="/matches/GetById/@match.Id" class="btn btn-warning btn-sm">View Details</a>
+                    <a href="/matches/GetById/@match.Id" class="btn btn-warning btn-sm">Scoring</a>
                 </th>
                 @if (User.IsInRole(GlobalConstants.UmpireRole) && match.Umpire == null)
                 {

@@ -28,7 +28,7 @@
         public IActionResult GetById(int id)
         {
             var match = this.matchService.GetMatch(id);
-
+            
             return View(match);
         }
 
