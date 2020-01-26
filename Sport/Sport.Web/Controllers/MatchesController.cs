@@ -87,6 +87,5 @@
             return RedirectToAction(nameof(GetAllMatches));
         }
 
-
     }
 }

@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<AllMatchesViewModel>
+@using Microsoft.AspNet.Identity;
 @{
     ViewData["Title"] = "All Matches";
 }
@@ -37,9 +38,13 @@
                 <th>
                     @match.Tournament.Name
                 </th>
-                <th>
-                    <a href="/matches/GetById/@match.Id" class="btn btn-warning btn-sm">Scoring</a>
-                </th>
+                @if (match.Umpire != null && match.Umpire.Id == User.Identity.GetUserId())
+                {
+                    <th>
+                        <a href="/matches/GetById/@match.Id" class="btn btn-warning btn-sm">Scoring</a>
+                    </th>
+                }
+
                 @if (User.IsInRole(GlobalConstants.UmpireRole) && match.Umpire == null)
                 {
                     <th>
