@@ -19,7 +19,7 @@
 
                 var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
                 var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
-                var roles = new string[] { GlobalConstants.PlayerRole, GlobalConstants.UmpireRole, GlobalConstants.AdministratorRole };
+                var roles = new string[] {GlobalConstants.SuperAdministrator, GlobalConstants.PlayerRole, GlobalConstants.UmpireRole, GlobalConstants.AdministratorRole };
 
                 Task
                      .Run(async () =>
@@ -34,27 +34,28 @@
                              }
                          }
 
-                         var adminRoleName = GlobalConstants.AdministratorRole;
+                         var superAdminRoleName = GlobalConstants.SuperAdministrator;
                          var playerRoleName = GlobalConstants.PlayerRole;
+                         var umpireRoleName = GlobalConstants.UmpireRole;
 
 
-                         var roleExists = await roleManager.RoleExistsAsync(adminRoleName);
+                         var roleExists = await roleManager.RoleExistsAsync(superAdminRoleName);
 
                          if (!roleExists)
                          {
                              await roleManager.CreateAsync(new IdentityRole
                              {
-                                 Name = adminRoleName
+                                 Name = superAdminRoleName
                              });
                          }
 
 
 
-                         var adminUser = await userManager.FindByNameAsync(adminRoleName);
+                         var superAdmin = await userManager.FindByNameAsync(superAdminRoleName);
 
-                         if (adminUser == null)
+                         if (superAdmin == null)
                          {
-                             adminUser = new User
+                             superAdmin = new User
                              {
                                  Email = "admin@abv.bg",
                                  UserName = "admin@abv.bg",
@@ -63,10 +64,11 @@
                              };
 
                              
-                             await userManager.CreateAsync(adminUser, "admin12");
+                             await userManager.CreateAsync(superAdmin, "admin12");
 
-                             await userManager.AddToRoleAsync(adminUser, playerRoleName);
-                             await userManager.AddToRoleAsync(adminUser, adminRoleName);
+                             await userManager.AddToRoleAsync(superAdmin, playerRoleName);
+                             await userManager.AddToRoleAsync(superAdmin, superAdminRoleName);
+                             await userManager.AddToRoleAsync(superAdmin, umpireRoleName);
                          }
                      })
                      .Wait();
