@@ -1,5 +1,6 @@
 namespace Sport.Web
 {
+    using Hubs;
     using Data;
     using Domain;
     using Profiles;
@@ -14,9 +15,10 @@ namespace Sport.Web
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using AutoMapper;    
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
+    using AutoMapper;    
+    
 
     public class Startup
     {
@@ -65,6 +67,7 @@ namespace Sport.Web
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSignalR();
 
             services.AddMvc(option => option.EnableEndpointRouting = false)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
@@ -101,6 +104,7 @@ namespace Sport.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapHub<SportHub>("/sportHub");
             });
         }
     }
