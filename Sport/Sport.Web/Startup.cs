@@ -26,7 +26,7 @@ namespace Sport.Web
         }
 
         public IConfiguration Configuration { get; }
-
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<SportDbContext>(options =>
@@ -49,6 +49,7 @@ namespace Sport.Web
             services.AddTransient<IMatchService, MatchService>();
            // services.AddTransient<IMapper, Mapper>();
 
+           
 
             var config = new MapperConfiguration(cfg =>
             {

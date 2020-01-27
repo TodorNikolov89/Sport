@@ -35,6 +35,7 @@
                          }
 
                          var superAdminRoleName = GlobalConstants.SuperAdministrator;
+                         var adminRoleName = GlobalConstants.AdministratorRole;
                          var playerRoleName = GlobalConstants.PlayerRole;
                          var umpireRoleName = GlobalConstants.UmpireRole;
 
@@ -69,6 +70,7 @@
                              await userManager.AddToRoleAsync(superAdmin, playerRoleName);
                              await userManager.AddToRoleAsync(superAdmin, superAdminRoleName);
                              await userManager.AddToRoleAsync(superAdmin, umpireRoleName);
+                             await userManager.AddToRoleAsync(superAdmin, adminRoleName);
                          }
                      })
                      .Wait();

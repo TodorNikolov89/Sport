@@ -10,7 +10,7 @@
 
         public string SecondPlayerId { get; set; }
         public UserDrawViewModel SecondPlayer { get; set; }
-
+        
         public string UmpireId { get; set; }
         public UserDrawViewModel Umpire { get; set; }
 
