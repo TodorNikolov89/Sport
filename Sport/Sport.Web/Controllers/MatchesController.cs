@@ -2,8 +2,10 @@
 {
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.SignalR;
     using Services;
     using Sport.Data;
+    using Sport.Web.Hubs;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -12,12 +14,14 @@
     [Route("matches")]
     public class MatchesController : Controller
     {
+        private readonly IHubContext<SportHub> sportHub;
         private readonly IMatchService matchService;
         private readonly SportDbContext context;
         private readonly IMapper mapper;
 
-        public MatchesController(IMatchService matchService, SportDbContext context, IMapper mapper)
+        public MatchesController(IHubContext<SportHub> sportHub, IMatchService matchService, SportDbContext context, IMapper mapper)
         {
+            this.sportHub = sportHub;
             this.matchService = matchService;
             this.context = context;
             this.mapper = mapper;
@@ -28,7 +32,7 @@
         public IActionResult GetById(int id)
         {
             var match = this.matchService.GetMatch(id);
-            
+
             return View(match);
         }
 
@@ -42,8 +46,9 @@
         [Route(nameof(ChangeResult))]
         [HttpPost]
         public async Task<LiveResultViewModel> ChangeResult(string buttonId, int matchId)
-        {
+        {          
             LiveResultViewModel result = null;
+         
             if (buttonId.Equals("firstButtonId"))
             {
                 result = await matchService.AddFirstPlayerPoint(matchId);
@@ -53,6 +58,8 @@
             {
                 result = await matchService.AddSecondPlayerPoint(matchId);
             }
+
+            await this.sportHub.Clients.All.SendAsync("ReceiveResult", result);
 
             return result;
         }
