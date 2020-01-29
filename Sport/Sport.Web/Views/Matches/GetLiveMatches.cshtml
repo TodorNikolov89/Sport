@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LiveMatchesViewModel>
+﻿@model LiveMatchesViewModel
 
 @{
     ViewData["Title"] = "Live matches";
@@ -23,38 +23,38 @@
     }
 </style>
 
-@foreach (var match in Model)
-{
-    <table align="center">
-        <tbody>
-            <tr>
-                <th width="50%">
-                    @match.FirstPlayer.FirstName @match.FirstPlayer.LastName
-                </th>
-                <th>
-                    @match.FirstPlayerSets
-                </th>
-                <th>
-                    @match.FirstPlayerGames
-                </th>
-                <th>
-                    @match.FirstPlayerPoints
-                </th>
-            </tr>
-            <tr>
-                <th width="50%">
-                    @match.SecondPlayer.FirstName @match.SecondPlayer.LastName
-                </th>
-                <th>
-                    @match.SecondPlayerSets
-                </th>
-                <th>
-                    @match.SecondPlayerGames
-                </th>
-                <th>
-                    @match.SecondPlayerPoints
-                </th>
-            </tr>
-        </tbody>
-    </table>
-}
+<table align="center">
+    <tbody>
+        <tr>
+            <th width="50%">
+                @Model.FirstPlayer.FirstName @Model.FirstPlayer.LastName
+            </th>
+            <th>
+                @Model.FirstPlayerSets
+            </th>
+            <th>
+                @Model.FirstPlayerGames
+            </th>
+            <th id="fpp">
+                @Model.FirstPlayerPoints
+            </th>
+        </tr>
+        <tr>
+            <th width="50%">
+                @Model.SecondPlayer.FirstName @Model.SecondPlayer.LastName
+            </th>
+            <th>
+                @Model.SecondPlayerSets
+            </th>
+            <th>
+                @Model.SecondPlayerGames
+            </th>
+            <th id="spp">
+                @Model.SecondPlayerPoints
+            </th>
+        </tr>
+    </tbody>
+</table>
+
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/result.js"></script>

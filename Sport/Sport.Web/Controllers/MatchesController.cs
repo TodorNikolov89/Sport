@@ -61,7 +61,7 @@
         [Route(nameof(GetLiveMatches))]
         public async Task<IActionResult> GetLiveMatches()
         {
-            var result = await this.matchService.GetLiveMatches();
+            var result = await this.matchService.GetLiveMatch();
 
             return View(result);
         }

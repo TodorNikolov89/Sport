@@ -15,11 +15,12 @@
 </script>
 
 <link rel="stylesheet" type="text/css" href="~/css/Score.css">
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
+@*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+@*<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>*@
 
 
 <form asp-controller="Matches" asp-action="ChangeResult"
@@ -117,7 +118,6 @@
             tieBreakPointsFirstPlayer: @Model.FirstPlayerTieBreakPoints,
             tieBreakPointsSecondPlayer: @Model.SecondPlayerTieBreakPoints,
         }
-
         onChangeResultSuccess(model)
     });
 
@@ -176,5 +176,7 @@
         $("#spanPointsFirstPlayer").html(arr[data.firstPlayerPoints]),
         $("#spanPointsSecondPlayer").html(arr[data.secondPlayerPoints])
     }
-
 </script>
+
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/result.js"></script>
