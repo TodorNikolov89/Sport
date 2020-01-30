@@ -5,7 +5,9 @@
 }
 
 <h1>@ViewData["Title"]</h1>
-
+@{
+    var arr = new[] { "0", "15", "30", "40", "Ad" };
+}
 <style>
     table {
         border-bottom: 1px solid black;
@@ -18,6 +20,14 @@
         border: 1px black;
         align-content: center;
     }
+
+    th {
+        width: 10%;
+    }
+
+    .playerName {
+        width: 30%;
+    }
 </style>
 
 @foreach (var match in Model)
@@ -25,7 +35,7 @@
     <table align="center" id=@match.Id>
         <tbody>
             <tr>
-                <th width="50%">
+                <th class="playerName">
                     @match.FirstPlayer.FirstName @match.FirstPlayer.LastName
                 </th>
                 <th id="fps-@match.Id">
@@ -35,14 +45,14 @@
                     @match.FirstPlayerGames
                 </th>
                 <th id="fpp-@match.Id">
-                    @match.FirstPlayerPoints
+                    @arr[match.FirstPlayerPoints]
                 </th>
                 <th id="fptbp-@match.Id">
                     @match.FirstPlayerTieBreakPoints
                 </th>
             </tr>
             <tr>
-                <th width="50%">
+                <th class="playerName">
                     @match.SecondPlayer.FirstName @match.SecondPlayer.LastName
                 </th>
                 <th id="sps-@match.Id">
@@ -52,7 +62,7 @@
                     @match.SecondPlayerGames
                 </th>
                 <th id="spp-@match.Id">
-                    @match.SecondPlayerPoints
+                    @arr[match.SecondPlayerPoints]
                 </th>
                 <th id="sptbp-@match.Id">
                     @match.SecondPlayerTieBreakPoints
@@ -61,6 +71,7 @@
         </tbody>
     </table>
 }
+
 
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/result.js"></script>
