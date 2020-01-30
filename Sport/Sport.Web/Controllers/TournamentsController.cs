@@ -1,15 +1,17 @@
 ﻿namespace Sport.Web.Controllers
 {
+    using Domain;
+    using Services;
+    using ViewModels.Tournament;
+    using Infrastructure;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
-    using Domain;
-    using Services;
-    using ViewModels.Tournament;
-    using Infrastructure;
+   
 
     [Route("tournaments")]
     public class TournamentsController : Controller

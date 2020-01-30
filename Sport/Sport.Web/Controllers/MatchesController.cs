@@ -1,15 +1,15 @@
 ﻿namespace Sport.Web.Controllers
 {
+    using Data;
+    using Hubs;
+    using Services;
+    using ViewModels.Match;
+
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.SignalR;
-    using Services;
-    using Sport.Data;
-    using Sport.Web.Hubs;
+    using Microsoft.AspNetCore.SignalR;    
     using System.Security.Claims;
     using System.Threading.Tasks;
-
-    using ViewModels.Match;
 
     [Route("matches")]
     public class MatchesController : Controller

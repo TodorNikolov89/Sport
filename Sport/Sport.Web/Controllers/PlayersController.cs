@@ -1,8 +1,9 @@
 ﻿namespace Sport.Web.Controllers
 {
+    using Services;
+
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using Sport.Services;
 
     [Route("players")]
     public class PlayersController : Controller

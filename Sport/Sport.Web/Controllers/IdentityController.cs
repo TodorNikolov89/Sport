@@ -1,13 +1,14 @@
 ﻿namespace Sport.Web.Controllers
 {
+    using Data;
+    using Domain;
+    using Infrastructure;
+    using ViewModels.Identity;
+    using ViewModels.Role;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using Sport.Data;
-    using Sport.Domain;
-    using Sport.ViewModels.Identity;
-    using Sport.ViewModels.Role;
-    using Sport.Web.Infrastructure;
+    using Microsoft.AspNetCore.Mvc;  
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;

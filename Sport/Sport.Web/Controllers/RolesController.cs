@@ -1,13 +1,15 @@
 ﻿namespace Sport.Web.Controllers
 {
+    using Domain;
+    using Infrastructure;
+
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
-    using Domain;
-    using Infrastructure;
+    
 
     [Authorize(Roles = GlobalConstants.AdministratorRole)]
     [Route("roles")]
