@@ -4,21 +4,19 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/sportHub").build()
 //document.getElementById("firstButtonId").disabled = true;
 var arr = ["0", "15", "30", "40", "Ad"];
 
-connection.on("ReceiveResult", function (result) {   
-        $("#fpp").html(arr[result.firstPlayerPoints]),
-        $("#spp").html(arr[result.secondPlayerPoints])
+connection.on("ReceiveResult", function (result) {
+    var fpp = "fpp" + "-" + result.id;
+    $("#fpp" + "-" + result.id).html(arr[result.firstPlayerPoints]),
+    $("#fpg" + "-" + result.id).html(result.firstPlayerGames),
+    $("#fps" + "-" + result.id).html(result.firstPlayerSets),
+    $("#fptbp" + "-" + result.id).html(result.firstPlayerTieBreakPoints),
+    $("#spp" + "-" + result.id).html(arr[result.secondPlayerPoints]),
+    $("#spg" + "-" + result.id).html(result.secondPlayerGames),
+    $("#sps" + "-" + result.id).html(result.secondPlayerSets),
+    $("#sptbp" + "-" + result.id).html(result.secondPlayerTieBreakPoints)
 });
 
 connection.start().then(function () {
-    //document.getElementById("firstButtonId").disabled = false;
 }).catch(function (err) {
     return console.error(err.toString());
 });
-
-//document.getElementById("firstButtonId").addEventListener("click", function (event) {
-//    var id = 141;
-//    connection.invoke("UpdateResult", id).catch(function (err) {
-//        return console.error(err.toString());
-//    });
-//    event.preventDefault();
-//});

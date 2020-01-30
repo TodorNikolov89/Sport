@@ -18,7 +18,7 @@
         void AddUmpire(int id, string userId);
 
         Task<IEnumerable<LiveMatchesViewModel>> GetLiveMatches();
-        Task<LiveMatchesViewModel> GetLiveMatch();
+      //  Task<LiveMatchesViewModel> GetLiveMatch();
         Task<IEnumerable<FinishedMatchesViewModel>> GetFinishedMatches();
     }
 }

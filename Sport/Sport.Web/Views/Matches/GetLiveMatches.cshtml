@@ -1,4 +1,4 @@
-﻿@model LiveMatchesViewModel
+﻿@model IEnumerable<LiveMatchesViewModel>
 
 @{
     ViewData["Title"] = "Live matches";
@@ -9,8 +9,9 @@
 <style>
     table {
         border-bottom: 1px solid black;
+        border-top: 1px solid black;
         width: 500px;
-        margin: 5px;
+        margin-bottom: 5px;
     }
 
     tr, th {
@@ -19,37 +20,47 @@
     }
 </style>
 
-<table align="center">
-    <tbody>
-        <tr>
-            <th width="50%">
-                @Model.FirstPlayer.FirstName @Model.FirstPlayer.LastName
-            </th>
-            <th>
-                @Model.FirstPlayerSets
-            </th>
-            <th>
-                @Model.FirstPlayerGames
-            </th>
-            <th id="fpp">
-                @Model.FirstPlayerPoints
-            </th>
-        </tr>
-        <tr>
-            <th width="50%">
-                @Model.SecondPlayer.FirstName @Model.SecondPlayer.LastName
-            </th>
-            <th>
-                @Model.SecondPlayerSets
-            </th>
-            <th>
-                @Model.SecondPlayerGames
-            </th>
-            <th id="spp">
-                @Model.SecondPlayerPoints
-            </th>
-        </tr>
-    </tbody>
-</table>
+@foreach (var match in Model)
+{
+    <table align="center" id=@match.Id>
+        <tbody>
+            <tr>
+                <th width="50%">
+                    @match.FirstPlayer.FirstName @match.FirstPlayer.LastName
+                </th>
+                <th id="fps-@match.Id">
+                    @match.FirstPlayerSets
+                </th>
+                <th id="fpg-@match.Id">
+                    @match.FirstPlayerGames
+                </th>
+                <th id="fpp-@match.Id">
+                    @match.FirstPlayerPoints
+                </th>
+                <th id="fptbp-@match.Id">
+                    @match.FirstPlayerTieBreakPoints
+                </th>
+            </tr>
+            <tr>
+                <th width="50%">
+                    @match.SecondPlayer.FirstName @match.SecondPlayer.LastName
+                </th>
+                <th id="sps-@match.Id">
+                    @match.SecondPlayerSets
+                </th>
+                <th id="spg-@match.Id">
+                    @match.SecondPlayerGames
+                </th>
+                <th id="spp-@match.Id">
+                    @match.SecondPlayerPoints
+                </th>
+                <th id="sptbp-@match.Id">
+                    @match.SecondPlayerTieBreakPoints
+                </th>
+            </tr>
+        </tbody>
+    </table>
+}
+
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/result.js"></script>
