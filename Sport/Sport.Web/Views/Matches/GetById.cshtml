@@ -53,8 +53,20 @@
             <th id="setsFirstPlayer">
                 @Model.FirstPlayerSets
             </th>
+
             <th id="gamesFirstPlayer">
-                @Model.FirstPlayerGames
+                @{
+                    int firstPlayerSetNumber = 1;
+                }
+                @foreach (var set in Model.Sets)
+                {
+                    <span class="games-set" id="firstPlayerGamesInSet-@firstPlayerSetNumber">
+                        @set.FirstPlayerGames
+                    </span>
+                    {
+                        firstPlayerSetNumber = firstPlayerSetNumber + 1;
+                    }
+                }
             </th>
             <th id="pointsFirstPlayer">
                 @Model.FirstPlayerPoints
@@ -71,8 +83,19 @@
             <th id="setsSecondPlayer">
                 @Model.SecondPlayerSets
             </th>
-            <th id="gamesSecondPlayer" value="">
-                @Model.SecondPlayerGames
+            <th id="gamesSecondPlayer">
+                @{
+                    int secontPlayerSetNumber = 1;
+                }
+                @foreach (var set in Model.Sets)
+                {
+                    <span class="games-set" id="secondPlayerGamesInSet-@secontPlayerSetNumber">
+                        @set.SecondPlayerGames
+                    </span>
+                    {
+                        secontPlayerSetNumber = secontPlayerSetNumber + 1;
+                    }
+                }
             </th>
             <th id="pointsSecondPlayer">
                 @Model.SecondPlayerPoints
@@ -109,7 +132,7 @@
             secondPlayerPoints: @Model.SecondPlayerPoints,
             tieBreakPointsFirstPlayer: @Model.FirstPlayerTieBreakPoints,
             tieBreakPointsSecondPlayer: @Model.SecondPlayerTieBreakPoints,
-        }
+        };
         onChangeResultSuccess(model)
     });
 
@@ -156,13 +179,47 @@
         });
      });
 
+    function addNewSetElement(id, playerElement, setNumber) {
+        var newSpan = document.createElement("SPAN");
+        newSpan.setAttribute('class', 'games-set');
+        newSpan.setAttribute('id', id + setNumber);
+
+        playerElement.appendChild(newSpan);
+    }
+
+    function updateLastSetResult(data, loadedSetsCount) {
+        var firstPlayerPrevSet = document.getElementById('firstPlayerGamesInSet-' + loadedSetsCount);
+        var secondPlayerPrevSet = document.getElementById('secondPlayerGamesInSet-' + loadedSetsCount);
+
+        firstPlayerPrevSet.innerHTML = data.sets[loadedSetsCount - 1].firstPlayerGames;
+        secondPlayerPrevSet.innerHTML = data.sets[loadedSetsCount - 1].secondPlayerGames;
+    }
+
     function onChangeResultSuccess(data) {
+        if (data.sets) {
+            var firstPlayerElement = document.getElementById('gamesFirstPlayer');
+            var loadedSetsCount = firstPlayerElement.childElementCount;
+
+            if (loadedSetsCount !== data.sets.length) {
+                addNewSetElement('firstPlayerGamesInSet-', firstPlayerElement, data.sets.length)
+
+                var secondPlayerElement = document.getElementById('gamesSecondPlayer');
+                addNewSetElement('secondPlayerGamesInSet-', secondPlayerElement, data.sets.length)
+
+                updateLastSetResult(data, loadedSetsCount);
+            }
+
+            var firstPlayerSets = 'firstPlayerGamesInSet-' + data.sets.length;
+            var secondPlayerSets = 'secondPlayerGamesInSet-' + data.sets.length;
+
+            $("#" + firstPlayerSets).html(data.firstPlayerGames);
+            $("#" + secondPlayerSets).html(data.secondPlayerGames);
+        }
+
         $("#pointsFirstPlayer").html(arr[data.firstPlayerPoints]),
         $("#pointsSecondPlayer").html(arr[data.secondPlayerPoints]),
         $("#setsFirstPlayer").html(data.firstPlayerSets),
         $("#setsSecondPlayer").html(data.secondPlayerSets),
-        $("#gamesFirstPlayer").html(data.firstPlayerGames),
-        $("#gamesSecondPlayer").html(data.secondPlayerGames),
         $("#tieBreakPointsFirstPlayer").html(data.firstPlayerTieBreakPoints),
         $("#tieBreakPointsSecondPlayer").html(data.secondPlayerTieBreakPoints),
         $("#spanPointsFirstPlayer").html(arr[data.firstPlayerPoints]),

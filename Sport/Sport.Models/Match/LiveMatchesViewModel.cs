@@ -1,6 +1,9 @@
 ﻿namespace Sport.ViewModels.Match
 {
+    using Set;
     using User;
+
+    using System.Collections.Generic;
 
     public class LiveMatchesViewModel
     {
@@ -13,7 +16,10 @@
         public UserDrawViewModel SecondPlayer { get; set; }
 
         public string UmpireId { get; set; }
+
         public UserDrawViewModel Umpire { get; set; }
+
+        public IEnumerable<SetViewModel> Sets { get; set; }
 
         public int FirstPlayerPoints { get; set; }
 

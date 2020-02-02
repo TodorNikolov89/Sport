@@ -40,7 +40,8 @@
                 .ForMember(dest => dest.SecondPlayerSets, opt => opt.MapFrom(src => src.SecondPlayerSets))
                 .ForMember(dest => dest.HasTieBreak, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().HasTieBreak))
                 .ForMember(dest => dest.FirstPlayerTieBreakPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().TieBreak.TieBreakPoints.ToList().LastOrDefault().FirstPlayerPoint))
-                .ForMember(dest => dest.SecondPlayerTieBreakPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().TieBreak.TieBreakPoints.ToList().LastOrDefault().SecondPlayerPoint));
+                .ForMember(dest => dest.SecondPlayerTieBreakPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().TieBreak.TieBreakPoints.ToList().LastOrDefault().SecondPlayerPoint))
+                .ForMember(dest => dest.Sets, opt => opt.MapFrom(src => src.Sets));
 
             CreateMap<Match, LiveResultViewModel>()
                 .ForMember(dest => dest.FirstPlayerPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().Games.ToList().LastOrDefault().Points.ToList().LastOrDefault().FirstPlayerPoints))
@@ -51,7 +52,8 @@
                 .ForMember(dest => dest.SecondPlayerSets, opt => opt.MapFrom(src => src.SecondPlayerSets))
                 .ForMember(dest => dest.HasTieBreak, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().HasTieBreak))
                 .ForMember(dest => dest.FirstPlayerTieBreakPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().TieBreak.TieBreakPoints.ToList().LastOrDefault().FirstPlayerPoint))
-                .ForMember(dest => dest.SecondPlayerTieBreakPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().TieBreak.TieBreakPoints.ToList().LastOrDefault().SecondPlayerPoint));
+                .ForMember(dest => dest.SecondPlayerTieBreakPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().TieBreak.TieBreakPoints.ToList().LastOrDefault().SecondPlayerPoint))
+                .ForMember(dest => dest.Sets, opt => opt.MapFrom(src => src.Sets));
 
 
 
