@@ -5,7 +5,6 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/sportHub").build()
 var arr = ["0", "15", "30", "40", "Ad"];
 
 connection.on("ReceiveResult", function (result) {
-    var fpp = "fpp" + "-" + result.id;
     $("#fpp" + "-" + result.id).html(arr[result.firstPlayerPoints]),
     $("#fpg" + "-" + result.id).html(result.firstPlayerGames),
     $("#fps" + "-" + result.id).html(result.firstPlayerSets),

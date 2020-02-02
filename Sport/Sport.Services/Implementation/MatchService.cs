@@ -266,9 +266,7 @@
                             else
                             {
                                 CreateGameAndSet(match);
-
                             }
-
                         }
                         else if (set.SecondPlayerGames == 6 && set.FirstPlayerGames == 6)
                         {
