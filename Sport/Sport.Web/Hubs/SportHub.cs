@@ -1,6 +1,6 @@
 ﻿namespace Sport.Web.Hubs
 {
-    using Sport.ViewModels.Match;
+    using ViewModels.Match;
 
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.SignalR;
