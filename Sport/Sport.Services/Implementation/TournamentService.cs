@@ -12,8 +12,8 @@
     using ViewModels.Match;
 
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
+    using System.Linq;
 
     public class TournamentService : ITournamentService
     {
@@ -70,8 +70,7 @@
             var result = mapper.Map<TournamentFormModel>(tournament);
 
             return result;
-        }
-
+        }        
 
         public void Create(TournamentFormModel model, string id)
         {
@@ -92,8 +91,7 @@
 
             context.Tournaments.Add(tournament);
             context.SaveChanges();
-        }
-        
+        }        
 
         public async Task Delete(int id)
         {
