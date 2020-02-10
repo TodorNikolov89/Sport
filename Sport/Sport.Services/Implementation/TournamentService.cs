@@ -70,10 +70,6 @@
 
             var result = mapper.Map<TournamentFormModel>(tournament);
 
-            if (result == null)
-            {
-                return;
-            }
 
             return result;
         }
