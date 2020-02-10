@@ -67,10 +67,16 @@
             .Where(t => t.Id == id)
             .FirstOrDefault();
 
+
             var result = mapper.Map<TournamentFormModel>(tournament);
 
+            if (result == null)
+            {
+                return;
+            }
+
             return result;
-        }        
+        }
 
         public void Create(TournamentFormModel model, string id)
         {
@@ -91,7 +97,7 @@
 
             context.Tournaments.Add(tournament);
             context.SaveChanges();
-        }        
+        }
 
         public async Task Delete(int id)
         {
@@ -247,7 +253,7 @@
                                             {
                                                 Points = new List<Point>()
                                                 {
-                                                    
+
                                                 }
                                             }
                                         }
