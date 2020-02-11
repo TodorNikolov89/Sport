@@ -21,6 +21,11 @@
             this.mapper = mapper;
         }
 
+        public MatchService(SportDbContext context)
+        {
+            this.context = context;
+        }
+
         public async Task<IEnumerable<AllMatchesViewModel>> GetAll()
         {
             var matches = await this.context
