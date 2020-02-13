@@ -428,7 +428,7 @@
             }
 
             match.Umpire = user;
-            match.UmpireId = user.Id;
+            //match.UmpireId = user.Id;
             match.IsActive = true;
 
             this.context.SaveChanges();

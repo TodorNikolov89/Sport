@@ -89,7 +89,11 @@
             //Assert
             Assert.True(expectedResult == actualResult.ToList().Count());
         }
-           
+
+        //[Fact]
+        //public async Task AddUmpireShouldAddCurrentUserAsAnUmpire()
+        //{
+        //}
 
         private static Task SeedData(FakeSportDbContext db)
         {

@@ -30,6 +30,11 @@
 
 
         //TODO mapper!!!
+
+        /// <summary>
+        /// This method returns all Tournaments from database
+        /// </summary>
+        /// <returns>Collection of AllTournamentsViewMOdel</returns>
         public IEnumerable<AllTournamentsViewModel> All()
         {
             var result = this.context
@@ -60,6 +65,12 @@
             return result;
         }
 
+
+        /// <summary>
+        /// THis method returns Tournament by given ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Tournament by given Id</returns>
         public TournamentFormModel ById(int id)
         {
             var tournament = this.context
@@ -74,6 +85,11 @@
             return result;
         }
 
+        /// <summary>
+        /// This method creates tournament by given model and id
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="id"></param>
         public void Create(TournamentFormModel model, string id)
         {
             var user = userManager
@@ -95,6 +111,11 @@
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// This method deletes Tournaments by given Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task Delete(int id)
         {
             var tournament = await this.context.Tournaments.FindAsync(id);
@@ -108,6 +129,11 @@
             await this.context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// This method edits  Tournament by given TournamentFormModel
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task Edit(TournamentFormModel model)
         {
             var tournament = await this.context
