@@ -21,6 +21,11 @@
             this.mapper = mapper;
         }
 
+        public MatchService(SportDbContext context)
+        {
+            this.context = context;
+        }
+
         public async Task<IEnumerable<AllMatchesViewModel>> GetAll()
         {
             var matches = await this.context
@@ -371,13 +376,13 @@
             match.Sets.Add(newSet);
         }
 
-        public void AddUmpire(int id, string userId)
+        public void AddUmpire(int matchId, string userId)
         {
             var user = this.context.Users.FirstOrDefault(u => u.Id.Equals(userId));
 
             var match = this.context
                 .Matches
-                .FirstOrDefault(m => m.Id == id);
+                .FirstOrDefault(m => m.Id == matchId);
 
             if (match == null)
             {
