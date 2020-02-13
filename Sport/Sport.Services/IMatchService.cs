@@ -1,7 +1,7 @@
 ﻿namespace Sport.Services
 {
-    using Domain;
     using ViewModels.Match;
+
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
