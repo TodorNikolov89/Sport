@@ -2,14 +2,13 @@
 {
     using Profiles;
     using Domain;
-    using Data;
-    using Services.Implementation;
+    using Sport.Services.Implementation;
+    using Sport.Tests.Fakes;
 
     using System.Threading.Tasks;
-    using Xunit;
     using AutoMapper;
-    using Sport.Tests.Fakes;
     using System.Linq;
+    using Xunit;
 
     public class MatchServiceTests
     {

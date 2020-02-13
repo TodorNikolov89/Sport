@@ -26,6 +26,12 @@
             this.context = context;
         }
 
+        /// <summary>
+        /// This method returns all matches
+        /// </summary>
+        /// <returns>
+        /// Collection of type AllMatchesViewModel
+        /// </returns>
         public async Task<IEnumerable<AllMatchesViewModel>> GetAll()
         {
             var matches = await this.context
@@ -41,6 +47,11 @@
             return result;
         }
 
+        /// <summary>
+        /// This method returns match by the given id
+        /// </summary>
+        /// <param name="id">Id of the match</param>
+        /// <returns>Returns match by the given id</returns>
         public LiveResultViewModel GetMatch(int id)
         {
             var dbMatch = this.context
@@ -59,6 +70,11 @@
             return match;
         }
 
+        /// <summary>
+        /// Add point to the first player of match by the given Id
+        /// </summary>
+        /// <param name="matchId"></param>
+        /// <returns> Task<LiveREsultViewModel> </returns>
         public async Task<LiveResultViewModel> AddFirstPlayerPoint(int matchId)
         {
             Set set = null;
@@ -207,6 +223,11 @@
 
         }
 
+        /// <summary>
+        /// Add point to the second player of match by the given Id
+        /// </summary>
+        /// <param name="matchId"></param>
+        /// <returns> Task<LiveREsultViewModel> </returns>
         public async Task<LiveResultViewModel> AddSecondPlayerPoint(int matchId)
         {
             Set set = null;
@@ -352,12 +373,20 @@
 
         }
 
+        /// <summary>
+        /// This method make firstPlayerPoints and secondPlayerPoints equals to zero from the given Point
+        /// </summary>
+        /// <param name="point"></param>
         private static void PointsToZero(Point point)
         {
             point.FirstPlayerPoints = 0;
             point.SecondPlayerPoints = 0;
         }
 
+        /// <summary>
+        /// This Method adds a new game in the given set
+        /// </summary>
+        /// <param name="set"></param>
         private static void AddNewGame(Set set)
         {
             Game newG = new Game();
@@ -366,6 +395,10 @@
             set.Games.Add(newG);
         }
 
+        /// <summary>
+        /// This method creates new game and set. 
+        /// </summary>
+        /// <param name="match"></param>
         private static void CreateGameAndSet(Match match)
         {
             Point newPoint = new Point();
@@ -376,6 +409,11 @@
             match.Sets.Add(newSet);
         }
 
+        /// <summary>
+        /// This method gets user by the given userId and adds it as an umpiree to the given match by matchId
+        /// </summary>
+        /// <param name="matchId"></param>
+        /// <param name="userId"></param>
         public void AddUmpire(int matchId, string userId)
         {
             var user = this.context.Users.FirstOrDefault(u => u.Id.Equals(userId));
@@ -396,6 +434,10 @@
             this.context.SaveChanges();
         }
 
+        /// <summary>
+        /// This method returns collection of all matches that are not finished
+        /// </summary>
+        /// <returns>Collection of all the matches that are not finished</returns>
         public async Task<IEnumerable<LiveMatchesViewModel>> GetLiveMatches()
         {
             var allLiveMatches = await this.context
@@ -413,22 +455,11 @@
             return result;
         }
 
-        public async Task<LiveMatchesViewModel> GetLiveMatch()
-        {
-            var liveMatch = await this.context
-                .Matches
-                .Include(m => m.FirstPlayer)
-                .Include(m => m.SecondPlayer)
-                .Include(m => m.Sets)
-                .ThenInclude(a => a.Games)
-                .ThenInclude(p => p.Points)
-                .FirstOrDefaultAsync(m => m.Id == 141);
 
-            var result = mapper.Map<LiveMatchesViewModel>(liveMatch);
-
-            return result;
-        }
-
+        /// <summary>
+        /// This method returns collection of all matches that are finished
+        /// </summary>
+        /// <returns>Collection of all matches that are finished</returns>
         public async Task<IEnumerable<FinishedMatchesViewModel>> GetFinishedMatches()
         {
             var allFinishedMatches = await this.context
@@ -446,6 +477,12 @@
             return result;
         }
 
+        /// <summary>
+        /// This method checks if last point is null and adds game and game id to the new point or new point gets last point values
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="point"></param>
+        /// <param name="lastPoint"></param>
         private static void PointValue(Game game, Point point, Point lastPoint)
         {
             if (lastPoint == null || (lastPoint.FirstPlayerPoints == 0 && lastPoint.SecondPlayerPoints == 0))

@@ -19,7 +19,7 @@
         public int Id { get; set; }
 
         [Required]
-        [StringLength(50, ErrorMessage = "Too long name. Allowed symbols are 50!")]
+        [StringLength(50, ErrorMessage = "The Tournament Name value cannot exceed 50 characters. ")]
         public string Name { get; set; }
 
         [Required]
@@ -29,7 +29,7 @@
 
         [Required]
         public DateTime? StartDate { get; set; }
-
+             
         public DateTime? EndDate { get; set; }
 
         [Required]

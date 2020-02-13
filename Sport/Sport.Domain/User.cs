@@ -21,9 +21,11 @@
         public DateTime? DateOfBirth { get; set; }
 
         [Required]
+        [StringLength(50, ErrorMessage = "The FirstName value cannot exceed 25 characters. ")]
         public string FirstName { get; set; }
 
         [Required]
+        [StringLength(50, ErrorMessage = "The LastName value cannot exceed 50 characters. ")]
         public string LastName { get; set; }
 
         public ICollection<UserTournament> Tournaments { get; set; }
