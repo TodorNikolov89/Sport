@@ -455,7 +455,6 @@
             return result;
         }
 
-
         /// <summary>
         /// This method returns collection of all matches that are finished
         /// </summary>
