@@ -85,7 +85,7 @@
             var matchService = new MatchService(db.Data, mapper);
 
             //Act
-            var expectedResult = 8;
+            var expectedResult = 11;
             var actualResult = await matchService.GetAll();
 
             //Assert
@@ -163,7 +163,7 @@
             var liveMatches = await service.GetLiveMatches();
 
 
-            var expectedCountOfLiveMatches = 7;
+            var expectedCountOfLiveMatches = 10;
             var actualCountOfLiveMatches = liveMatches.ToList().Count();
 
 
@@ -340,7 +340,7 @@
             var currentMatch = await service.AddFirstPlayerPoint(match.Id);
 
             //Assert
-            Assert.True(currentMatch.HasTieBreak,"Last set does not have TieBreak!");
+            Assert.True(currentMatch.HasTieBreak, "Last set does not have TieBreak!");
         }
 
         [Fact]
@@ -367,6 +367,98 @@
             //Assert
             Assert.True(actualResult.FirstPlayerPoints == 1);
             Assert.True(actualResult.SecondPlayerPoints == 0);
+
+        }
+
+        [Fact]
+        public async Task AddFirstPlayerPointShouldAddPointInTieBreak()
+        {
+            //Arrange
+            const string databaseName = "MatchAddFirstPlayerPointTieBreak";
+            var db = new FakeSportDbContext(databaseName);
+            await SeedData(db);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new DomainProfile());
+            });
+
+            var mapper = config.CreateMapper();
+
+            IMatchService service = new MatchService(db.Data, mapper);
+
+            //Act
+            var match = db.Data.Matches.FirstOrDefault(m => m.Id == 9);
+            var currentSet = match.Sets.FirstOrDefault(s => s.HasTieBreak);
+
+            var expectedFirstPlayerTieBreakPoints = 1;
+            var expectedSecondPlayerTieBreakPoints = 0;
+
+            var actualResult = await service.AddFirstPlayerPoint(match.Id);
+            var actualFirstPlayerTieBreakPoints = actualResult.FirstPlayerTieBreakPoints;
+            var actualSecondPlayerTieBreakPoints = actualResult.SecondPlayerTieBreakPoints;
+
+
+            //Assert
+            Assert.Equal(expectedFirstPlayerTieBreakPoints, actualFirstPlayerTieBreakPoints);
+            Assert.Equal(expectedSecondPlayerTieBreakPoints, actualSecondPlayerTieBreakPoints);
+        }
+
+        [Fact]
+        public async Task AddFirstPlayerPointShouldReturnEndTheSetAndAddNewOne()
+        {
+            //Arrange
+            const string databaseName = "MatchAddFirstPlayerPointEndSet";
+            var db = new FakeSportDbContext(databaseName);
+            await SeedData(db);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new DomainProfile());
+            });
+
+            var mapper = config.CreateMapper();
+
+            IMatchService service = new MatchService(db.Data, mapper);
+            var expectedFirstPlayerSets = 1;
+            var expectedSecondPlayerSets = 0;
+            var expectedSetsNumber = 2;
+            //Act
+            var match = db.Data.Matches.FirstOrDefault(m => m.Id == 10);
+            var actualMatch = await service.AddFirstPlayerPoint(match.Id);
+            var actualFirstPlayerSets = actualMatch.FirstPlayerSets;
+            var actualSecontPlayerSets = actualMatch.SecondPlayerSets;
+            var actualSetsNumber = actualMatch.Sets.Count();
+
+            //Assert
+            Assert.Equal(expectedFirstPlayerSets, actualFirstPlayerSets);
+            Assert.Equal(expectedSecondPlayerSets, actualSecontPlayerSets);
+            Assert.Equal(expectedSetsNumber, actualSetsNumber);
+
+        }
+
+        [Fact]
+        public async Task AddFirstPlayerPointInTieBreakShouldEndMatch()
+        {
+            const string databaseName = "MatchAddFirstPlayerInTieBreakEndMatch";
+            var db = new FakeSportDbContext(databaseName);
+            await SeedData(db);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new DomainProfile());
+            });
+
+            var mapper = config.CreateMapper();
+
+            IMatchService service = new MatchService(db.Data, mapper);
+            //Act
+
+            var match = db.Data.Matches.FirstOrDefault(m => m.Id == 11);
+            var actualMatch = await service.AddFirstPlayerPoint(match.Id);
+
+            //Assert
+            Assert.True(actualMatch.IsFinished);
 
         }
 
@@ -660,6 +752,185 @@
                                     new Domain.Point()
                                     {
                                         Id=8,
+                                        FirstPlayerPoints=3,
+                                        SecondPlayerPoints=2
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            new Domain.Match
+            {
+                Id = 9,
+                FirstPlayer = new Domain.User
+                {
+                    FirstName = "Player9"
+                },
+                FirstPlayerId = "15",
+
+                SecondPlayer = new Domain.User
+                {
+                    FirstName = "Player10"
+                },
+                SecondPlayerId = "16",
+                Tournament = new Domain.Tournament
+                {
+                    Id = 9
+                },
+                IsActive = true,
+                IsFinished = false,
+                FirstPlayerSets = 1,
+                SecondPlayerSets = 0,
+                Sets = new List<Domain.Set>()
+                {
+                    new Domain.Set
+                    {
+                        Id=9,
+                        FirstPlayerGames=6,
+                        SecondPlayerGames=6,
+                        HasTieBreak=true,
+                        TieBreak = new Domain.TieBreak()
+                        {
+                            TieBreakPoints = new List<Domain.TieBreakPoint>
+                            {
+                                new Domain.TieBreakPoint()
+                                {
+
+                                }
+                            }
+                        },
+                        Games = new List<Domain.Game>()
+                        {
+                            new Domain.Game()
+                            {
+                                Id=9,
+                                Points = new List<Domain.Point>()
+                                {
+                                    new Domain.Point()
+                                    {
+                                        Id=9,
+                                        FirstPlayerPoints=3,
+                                        SecondPlayerPoints=2
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            new Domain.Match
+            {
+                Id = 10,
+                FirstPlayer = new Domain.User
+                {
+                    FirstName = "Player9"
+                },
+                FirstPlayerId = "17",
+
+                SecondPlayer = new Domain.User
+                {
+                    FirstName = "Player10"
+                },
+                SecondPlayerId = "18",
+                Tournament = new Domain.Tournament
+                {
+                    Id = 10
+                },
+                IsActive = true,
+                IsFinished = false,
+                FirstPlayerSets = 0,
+                SecondPlayerSets = 0,
+                Sets = new List<Domain.Set>()
+                {
+                    new Domain.Set
+                    {
+                        Id=10,
+                        FirstPlayerGames=6,
+                        SecondPlayerGames=6,
+                        HasTieBreak=true,
+                        TieBreak = new Domain.TieBreak()
+                        {
+                            TieBreakPoints = new List<Domain.TieBreakPoint>
+                            {
+                                new Domain.TieBreakPoint()
+                                {
+                                    FirstPlayerPoint=6,
+                                    SecondPlayerPoint=5
+                                }
+                            }
+                        },
+                        Games = new List<Domain.Game>()
+                        {
+                            new Domain.Game()
+                            {
+                                Id=10,
+                                Points = new List<Domain.Point>()
+                                {
+                                    new Domain.Point()
+                                    {
+                                        Id=10,
+                                        FirstPlayerPoints=3,
+                                        SecondPlayerPoints=2
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            new Domain.Match
+            {
+                Id = 11,
+                FirstPlayer = new Domain.User
+                {
+                    FirstName = "Player9"
+                },
+                FirstPlayerId = "19",
+
+                SecondPlayer = new Domain.User
+                {
+                    FirstName = "Player10"
+                },
+                SecondPlayerId = "20",
+                Tournament = new Domain.Tournament
+                {
+                    Id = 11
+                },
+                IsActive = true,
+                IsFinished = false,
+                FirstPlayerSets = 1,
+                SecondPlayerSets = 0,
+                Sets = new List<Domain.Set>()
+                {
+                    new Domain.Set
+                    {
+                        Id=11,
+                        FirstPlayerGames=6,
+                        SecondPlayerGames=6,
+                        HasTieBreak=true,
+                        TieBreak = new Domain.TieBreak()
+                        {
+                            TieBreakPoints = new List<Domain.TieBreakPoint>
+                            {
+                                new Domain.TieBreakPoint()
+                                {
+                                    FirstPlayerPoint=6,
+                                    SecondPlayerPoint=5
+                                }
+                            }
+                        },
+                        Games = new List<Domain.Game>()
+                        {
+                            new Domain.Game()
+                            {
+                                Id=11,
+                                Points = new List<Domain.Point>()
+                                {
+                                    new Domain.Point()
+                                    {
+                                        Id=11,
                                         FirstPlayerPoints=3,
                                         SecondPlayerPoints=2
                                     }
