@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profiles", "Profiles\Profil
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{24D11AC3-9C7A-4A2A-9663-2CC9199D7BE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sport.Tests", "Sport.Tests\Sport.Tests.csproj", "{0D89FD12-C96E-4E64-B756-8F2A158FE79A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sport.Tests", "Sport.Tests\Sport.Tests.csproj", "{0D89FD12-C96E-4E64-B756-8F2A158FE79A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,7 +58,6 @@ Global
 		{2F304F14-CFBC-4F04-BF09-9AC8AA29738E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F304F14-CFBC-4F04-BF09-9AC8AA29738E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3A368792-A871-4B70-8F82-40C2E4C46F51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3A368792-A871-4B70-8F82-40C2E4C46F51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A368792-A871-4B70-8F82-40C2E4C46F51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A368792-A871-4B70-8F82-40C2E4C46F51}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0D89FD12-C96E-4E64-B756-8F2A158FE79A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

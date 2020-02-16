@@ -14,6 +14,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.Linq;
+    using System;
 
     public class TournamentService : ITournamentService
     {
@@ -65,7 +66,6 @@
             return result;
         }
 
-
         /// <summary>
         /// THis method returns Tournament by given ID
         /// </summary>
@@ -78,9 +78,7 @@
             .Where(t => t.Id == id)
             .FirstOrDefault();
 
-
             var result = mapper.Map<TournamentFormModel>(tournament);
-
 
             return result;
         }
@@ -90,13 +88,12 @@
         /// </summary>
         /// <param name="model"></param>
         /// <param name="id"></param>
-        public void Create(TournamentFormModel model, string id)
+        public void Create(TournamentFormModel model, string userId)
         {
             var user = userManager
                 .Users
-                .Where(u => u.Id == id)
+                .Where(u => u.Id == userId)
                 .FirstOrDefault();
-
 
             if (user == null)
             {

@@ -1,4 +1,4 @@
-﻿namespace Sport.Tests
+﻿namespace Sport.Tests.Services
 {
     using Profiles;
     using Sport.Services;
@@ -173,6 +173,8 @@
 
         }
 
+
+        //AddFirstPlayerPointTests
         [Fact]
         public async Task AddFirstPlayerPointWhenMatchIsFinishedShouldNotChangeResult()
         {
@@ -462,8 +464,8 @@
 
         }
 
+       //AddSecondPlayerPointTests
 
-        /////////////////////////////
         [Fact]
         public async Task AddSecondPlayerPointInTieBreakShouldEndMatch()
         {
