@@ -1,9 +1,8 @@
 ﻿namespace Sport.Tests.Fakes
 {
-    using AutoMapper;
     using Data;
+
     using Microsoft.EntityFrameworkCore;
-    using Sport.Profiles;
     using System.Threading.Tasks;
 
     public class FakeSportDbContext
@@ -12,9 +11,9 @@
         {
             var options = new DbContextOptionsBuilder<SportDbContext>()
                .UseInMemoryDatabase(name)
-               .Options;            
+               .Options;
 
-             this.Data = new SportDbContext(options);
+            this.Data = new SportDbContext(options);
         }
 
 
@@ -23,7 +22,7 @@
         public async Task Add(params object[] data)
         {
             this.Data.AddRange(data);
-           await this.Data.SaveChangesAsync();
+            await this.Data.SaveChangesAsync();
         }
     }
 }
