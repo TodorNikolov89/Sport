@@ -405,10 +405,10 @@
         }
 
         [Fact]
-        public async Task AddFirstPlayerPointShouldReturnEndTheSetAndAddNewOne()
+        public async Task AddFirstPlayerPointInTieBreakShouldReturnEndTheSetAndAddNewOne()
         {
             //Arrange
-            const string databaseName = "MatchAddFirstPlayerPointEndSet";
+            const string databaseName = "MatchAddFirstPlayerPointInTieBreakEndSet";
             var db = new FakeSportDbContext(databaseName);
             await SeedData(db);
 
@@ -490,10 +490,10 @@
         }
 
         [Fact]
-        public async Task AddSecondPlayerPointShouldReturnEndTheSetAndAddNewOne()
+        public async Task AddSecondPlayerPointInTieBreakShouldReturnEndTheSetAndAddNewOne()
         {
             //Arrange
-            const string databaseName = "MatchAddFirstPlayerPointEndSet";
+            const string databaseName = "MatchAddSecondPlayerPointInTieBreakEndSet";
             var db = new FakeSportDbContext(databaseName);
             await SeedData(db);
 
