@@ -205,8 +205,6 @@
 
             ITournamentService service = new TournamentService(mapper, db.Data, userManager.Object);
 
-
-
         }
 
 
