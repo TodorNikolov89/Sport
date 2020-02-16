@@ -244,8 +244,6 @@
                 .Select(p => p.User)
                 .ToList();
 
-
-
             //TODO Add some sorting to PLAYERS
 
             if (!tournament.Matches.Any())

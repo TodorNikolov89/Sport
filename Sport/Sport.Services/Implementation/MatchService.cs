@@ -83,15 +83,7 @@
             TieBreakPoint tieBreakPoint = null;
             TieBreak tieBreak = null;
 
-            var match = await this.context
-            .Matches
-            .Include(m => m.FirstPlayer)
-            .Include(m => m.SecondPlayer)
-            .Include(m => m.Umpire)
-            .Include(m => m.Sets)
-            .ThenInclude(a => a.Games)
-            .ThenInclude(p => p.Points)
-            .FirstOrDefaultAsync(m => m.Id == matchId);
+            Match match = await GetCurrentMatch(matchId);
 
             set = match.Sets.ToList().LastOrDefault();
             game = set.Games.ToList().LastOrDefault();
@@ -236,15 +228,7 @@
             TieBreakPoint tieBreakPoint = null;
             TieBreak tieBreak = null;
 
-            var match = await this.context
-            .Matches
-            .Include(m => m.FirstPlayer)
-            .Include(m => m.SecondPlayer)
-            .Include(m => m.Umpire)
-            .Include(m => m.Sets)
-            .ThenInclude(a => a.Games)
-            .ThenInclude(p => p.Points)
-            .FirstOrDefaultAsync(m => m.Id == matchId);
+            Match match = await GetCurrentMatch(matchId);
 
             set = match.Sets.ToList().LastOrDefault();
             game = set.Games.ToList().LastOrDefault();
@@ -334,7 +318,7 @@
                            .TieBreaks
                            .Include(t => t.TieBreakPoints)
                            .FirstOrDefaultAsync(t => t.SetId == set.Id);
-
+        
                     tieBreakPoint = tieBreak.TieBreakPoints.ToList().LastOrDefault(p => p.TieBreakId == tieBreak.Id);
 
                     tieBreakPoint.SecondPlayerPoint++;
@@ -371,43 +355,7 @@
 
             return r;
 
-        }
-
-        /// <summary>
-        /// This method make firstPlayerPoints and secondPlayerPoints equals to zero from the given Point
-        /// </summary>
-        /// <param name="point"></param>
-        private static void PointsToZero(Point point)
-        {
-            point.FirstPlayerPoints = 0;
-            point.SecondPlayerPoints = 0;
-        }
-
-        /// <summary>
-        /// This Method adds a new game in the given set
-        /// </summary>
-        /// <param name="set"></param>
-        private static void AddNewGame(Set set)
-        {
-            Game newG = new Game();
-            Point newP = new Point();
-            newG.Points.Add(newP);
-            set.Games.Add(newG);
-        }
-
-        /// <summary>
-        /// This method creates new game and set. 
-        /// </summary>
-        /// <param name="match"></param>
-        private static void CreateGameAndSet(Match match)
-        {
-            Point newPoint = new Point();
-            Game newGame = new Game();
-            Set newSet = new Set();
-
-            newSet.Games.Add(newGame);
-            match.Sets.Add(newSet);
-        }
+        }            
 
         /// <summary>
         /// This method gets user by the given userId and adds it as an umpiree to the given match by matchId
@@ -496,6 +444,55 @@
                 point.FirstPlayerPoints = lastPoint.FirstPlayerPoints;
                 point.SecondPlayerPoints = lastPoint.SecondPlayerPoints;
             }
+        }
+
+        /// <summary>
+        /// This method make firstPlayerPoints and secondPlayerPoints equals to zero from the given Point
+        /// </summary>
+        /// <param name="point"></param>
+        private static void PointsToZero(Point point)
+        {
+            point.FirstPlayerPoints = 0;
+            point.SecondPlayerPoints = 0;
+        }
+
+        /// <summary>
+        /// This Method adds a new game in the given set
+        /// </summary>
+        /// <param name="set"></param>
+        private static void AddNewGame(Set set)
+        {
+            Game newG = new Game();
+            Point newP = new Point();
+            newG.Points.Add(newP);
+            set.Games.Add(newG);
+        }
+
+        /// <summary>
+        /// This method creates new game and set. 
+        /// </summary>
+        /// <param name="match"></param>
+        private static void CreateGameAndSet(Match match)
+        {
+            Point newPoint = new Point();
+            Game newGame = new Game();
+            Set newSet = new Set();
+
+            newSet.Games.Add(newGame);
+            match.Sets.Add(newSet);
+        }
+
+        private async Task<Match> GetCurrentMatch(int matchId)
+        {
+            return await this.context
+            .Matches
+            .Include(m => m.FirstPlayer)
+            .Include(m => m.SecondPlayer)
+            .Include(m => m.Umpire)
+            .Include(m => m.Sets)
+            .ThenInclude(a => a.Games)
+            .ThenInclude(p => p.Points)
+            .FirstOrDefaultAsync(m => m.Id == matchId);
         }
 
     }
