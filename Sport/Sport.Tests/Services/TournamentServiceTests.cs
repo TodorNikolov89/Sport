@@ -379,12 +379,13 @@
                 {
                     Id = user.Id
                 });
+
             UserManager<User> userManager = GetUserManager(mockUserStore);
             ITournamentService service = new TournamentService(mapper, db.Data, userManager);
 
             await AddUsers(db);
-            //Act
 
+            //Act
             TournamentFormModel expectedModel = new TournamentFormModel()
             {
                 Id = 5,
