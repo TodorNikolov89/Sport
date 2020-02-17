@@ -355,6 +355,58 @@
 
         }
 
+        [Fact]
+        public async Task CreateShouldAddNewTournament()
+        {
+            const string databaseName = "TournamentCreate";
+            var db = new FakeSportDbContext(databaseName);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new DomainProfile());
+            });
+            var mapper = config.CreateMapper();
+
+            var user = new User()
+            {
+                Id = new Guid().ToString()
+            };
+
+            var mockUserStore = new Mock<IUserStore<User>>();
+
+            mockUserStore.Setup(x => x.FindByIdAsync(user.Id, CancellationToken.None))
+                .ReturnsAsync(new User()
+                {
+                    Id = user.Id
+                });
+            UserManager<User> userManager = GetUserManager(mockUserStore);
+            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
+
+            await AddUsers(db);
+            //Act
+
+            TournamentFormModel expectedModel = new TournamentFormModel()
+            {
+                Id = 5,
+                Name = "SandanskiOpen",
+                StartDate = new DateTime(),
+                Place = "Sandanski",
+                NumberOfPlayers = 16,
+                Type = Domain.Enums.Tournament.TournamentType.Charity
+            };
+
+            await service.Create(expectedModel, user.Id);
+
+            var actualModel = db.Data.Tournaments.FirstOrDefault(t => t.Id == 5);
+
+            //Assert
+            Assert.True(expectedModel.Id == actualModel.Id);
+            Assert.True(expectedModel.Name.Equals(actualModel.Name));
+            Assert.True(expectedModel.StartDate == actualModel.StartDate);
+            Assert.True(expectedModel.NumberOfPlayers == actualModel.NumberOfPlayers);
+            Assert.True(expectedModel.Place.Equals(actualModel.Place));
+        }
+
 
         private static UserManager<User> GetUserManager(Mock<IUserStore<User>> mockUserStore)
         {
@@ -364,51 +416,6 @@
         private static Tournament GetTournament(FakeSportDbContext db, int tournamentId)
         {
             return db.Data.Tournaments.FirstOrDefault(t => t.Id == tournamentId);
-        }
-
-        private static Task AddUserTournament(FakeSportDbContext db)
-        {
-            return db.Add(
-               new UserTournament()
-               {
-                   TournamentId = 3,
-                   UserId = "2"
-               },
-               new UserTournament()
-               {
-                   TournamentId = 3,
-                   UserId = "3"
-               },
-               new UserTournament()
-               {
-                   TournamentId = 3,
-                   UserId = "4"
-               },
-               new UserTournament()
-               {
-                   TournamentId = 3,
-                   UserId = "5"
-               },
-               new UserTournament()
-               {
-                   TournamentId = 3,
-                   UserId = "6"
-               },
-               new UserTournament()
-               {
-                   TournamentId = 3,
-                   UserId = "7"
-               },
-               new UserTournament()
-               {
-                   TournamentId = 3,
-                   UserId = "8"
-               },
-               new UserTournament()
-               {
-                   TournamentId = 3,
-                   UserId = "9"
-               });
         }
 
         private static Task AddTournaments(FakeSportDbContext db)

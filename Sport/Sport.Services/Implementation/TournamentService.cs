@@ -88,12 +88,12 @@
         /// </summary>
         /// <param name="model"></param>
         /// <param name="id"></param>
-        public void Create(TournamentFormModel model, string userId)
+        public async Task Create(TournamentFormModel model, string userId)
         {
-            var user = userManager
-                .Users
-                .Where(u => u.Id == userId)
-                .FirstOrDefault();
+            var user = await userManager.FindByIdAsync(userId);
+            //.Users
+            //.Where(u => u.Id == userId)
+            //.FirstOrDefault();
 
             if (user == null)
             {

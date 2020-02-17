@@ -44,7 +44,7 @@
         [Authorize]
         [Route(nameof(Create))]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(TournamentFormModel model)
+        public async Task<IActionResult> Create(TournamentFormModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -53,7 +53,7 @@
                 return View(model);
             }
 
-            tournamentService.Create(model, userId);
+          await  tournamentService.Create(model, userId);
 
             return RedirectToAction(nameof(All));
         }

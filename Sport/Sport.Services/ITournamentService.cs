@@ -12,7 +12,7 @@
     {
         IEnumerable<AllTournamentsViewModel> All();
 
-        void Create(TournamentFormModel model, string id);
+        Task Create(TournamentFormModel model, string id);
 
         Task Edit(TournamentFormModel model);
 
