@@ -25,20 +25,7 @@
         {
             //Arrange
             const string databaseName = "TournamentAll";
-            var db = new FakeSportDbContext(databaseName);
-
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new DomainProfile());
-            });
-            var mapper = config.CreateMapper();
-
-            await AddTournaments(db);
-
-            var mockUserStore = new Mock<IUserStore<User>>();
-            var userManager = GetUserManager(mockUserStore);
-
-            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
+            ITournamentService service = await GetTournamentService(databaseName);
 
             //Act
             var expectedTournamentsCount = 4;
@@ -50,25 +37,13 @@
                 $"Expected count ot tournaments should be {expectedTournamentsCount} not {actualTournamentsCount}!");
         }
 
+
         [Fact]
         public async Task ByIdShouldReturnTournamentByGivenId()
         {
             //Arrange
             const string databaseName = "TournamentById";
-            var db = new FakeSportDbContext(databaseName);
-
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new DomainProfile());
-            });
-            var mapper = config.CreateMapper();
-
-            await AddTournaments(db);
-
-            var mockUserStore = new Mock<IUserStore<User>>();
-            var userManager = GetUserManager(mockUserStore);
-
-            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
+            ITournamentService service = await GetTournamentService(databaseName);
 
             //Act
             var expectedTournamentId = 1;
@@ -83,27 +58,13 @@
         {
             //Arrange
             const string databaseName = "TournamentDelete";
-            var db = new FakeSportDbContext(databaseName);
-
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new DomainProfile());
-            });
-            var mapper = config.CreateMapper();
-
-            await AddTournaments(db);
-            //TODO userManager is not used
-
-            var mockUserStore = new Mock<IUserStore<User>>();
-            var userManager = GetUserManager(mockUserStore);
-
-            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
+            ITournamentService service = await GetTournamentService(databaseName);
 
             //Act
             var tournamentId = 1;
             await service.Delete(tournamentId);
 
-            var tournament = GetTournament(db, tournamentId);
+            var tournament = service.ById(tournamentId);
 
             //Assert
             Assert.True(tournament == null);
@@ -114,19 +75,7 @@
         {
             //Arrange
             const string databaseName = "TournamentEdit";
-            var db = new FakeSportDbContext(databaseName);
-
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new DomainProfile());
-            });
-            var mapper = config.CreateMapper();
-
-            await AddTournaments(db);
-
-            var mockUserStore = new Mock<IUserStore<User>>();
-            var userManager = GetUserManager(mockUserStore);
-            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
+            ITournamentService service = await GetTournamentService(databaseName);
 
             //Act
             int tournamentId = 1;
@@ -139,7 +88,7 @@
 
             await service.Edit(expectedTournament);
 
-            var actualTournament = GetTournament(db, tournamentId);
+            var actualTournament = service.ById(tournamentId);
 
             //Assert
             Assert.Equal(expectedTournament.Name, actualTournament.Name);
@@ -152,21 +101,7 @@
         {
             //Arrange
             const string databaseName = "TournamentEditNotfound";
-            var db = new FakeSportDbContext(databaseName);
-
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new DomainProfile());
-            });
-            var mapper = config.CreateMapper();
-
-            await AddTournaments(db);
-            //TODO userManager is not used
-
-            var mockUserStore = new Mock<IUserStore<User>>();
-            var userManager = GetUserManager(mockUserStore);
-
-            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
+            ITournamentService service = await GetTournamentService(databaseName);
 
             //Act
             int tournamentId = -1;
@@ -179,7 +114,7 @@
 
             await service.Edit(expectedTournament);
 
-            var actualTournament = GetTournament(db, tournamentId);
+            var actualTournament = service.ById(tournamentId);
 
             //Assert
             Assert.True(actualTournament == null);
@@ -199,26 +134,24 @@
             });
             var mapper = config.CreateMapper();
 
-
             await AddTournaments(db);
-            //            await AddUsers(db);
-
-            var user = new User()
-            {
-                Id = new Guid().ToString()
-            };
 
             var mockUserStore = new Mock<IUserStore<User>>();
             UserManager<User> userManager = GetUserManager(mockUserStore);
 
             ITournamentService service = new TournamentService(mapper, db.Data, userManager);
+            //Act
+            var user = new User()
+            {
+                Id = new Guid().ToString()
+            };
+
             mockUserStore.Setup(x => x.FindByIdAsync(user.Id, CancellationToken.None))
                 .ReturnsAsync(new User()
                 {
                     Id = user.Id
                 });
 
-            //Act
             service.Signin(1, user);
             var actualResult = db.Data.UserTournament.Any(u => u.UserId == user.Id);
 
@@ -263,19 +196,7 @@
         {
             //Arrange
             const string databaseName = "TournamentGetTournamentPlayers";
-            var db = new FakeSportDbContext(databaseName);
-
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new DomainProfile());
-            });
-            var mapper = config.CreateMapper();
-
-            await AddUsers(db);
-
-            var mockUserStore = new Mock<IUserStore<User>>();
-            UserManager<User> userManager = GetUserManager(mockUserStore);
-            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
+            ITournamentService service = await GetTournamentService(databaseName);
 
             var expectedPlayersCount = 8;
 
@@ -291,25 +212,13 @@
         [Fact]
         public async Task GetDrawPlayersShuoldReturnMatchesForTheSchedule()
         {
+            //Arrange
             const string databaseName = "TournamentGetDrawPlayers";
-            var db = new FakeSportDbContext(databaseName);
+            ITournamentService service = await GetTournamentService(databaseName);
 
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new DomainProfile());
-            });
-            var mapper = config.CreateMapper();
-
-            await AddTournaments(db);
-
-            var mockUserStore = new Mock<IUserStore<User>>();
-            UserManager<User> userManager = GetUserManager(mockUserStore);
-            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
-
+            //Act
             var expectedMatchesCount = 4;
-
             var tournamentId = 3;
-
             var result = service.GetDrawPlayers(tournamentId);
             var actualMatchesCount = result.Count();
 
@@ -333,26 +242,24 @@
 
             var mockUserStore = new Mock<IUserStore<User>>();
             UserManager<User> userManager = GetUserManager(mockUserStore);
-            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
 
+            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
 
             //Act
             var tournamentId = 4;
-            var actualTournament = db.Data.Tournaments
-                .FirstOrDefault(t => t.Id == tournamentId);
+            var expectedTournament = db.Data.Tournaments
+              .FirstOrDefault(t => t.Id == tournamentId);
 
             var expectedMatchesCount = 4;
 
             service.Start(tournamentId);
 
-            var expectedTournament = db.Data.Tournaments
-              .FirstOrDefault(t => t.Id == tournamentId);
+            var actualTournament = db.Data.Tournaments
+                .FirstOrDefault(t => t.Id == tournamentId);
 
             //Assert
-            Assert.True(expectedTournament.IsStarted);
-
-
-
+            Assert.True(actualTournament.IsStarted);
+            Assert.True(actualTournament.Matches.Count() == expectedMatchesCount);
         }
 
         [Fact]
@@ -367,12 +274,12 @@
             });
             var mapper = config.CreateMapper();
 
+
+            var mockUserStore = new Mock<IUserStore<User>>();
             var user = new User()
             {
                 Id = new Guid().ToString()
             };
-
-            var mockUserStore = new Mock<IUserStore<User>>();
 
             mockUserStore.Setup(x => x.FindByIdAsync(user.Id, CancellationToken.None))
                 .ReturnsAsync(new User()
@@ -398,8 +305,8 @@
 
             await service.Create(expectedModel, user.Id);
 
-            var actualModel = db.Data.Tournaments.FirstOrDefault(t => t.Id == 5);
-
+            var actualModel = service.ById(5);
+          
             //Assert
             Assert.True(expectedModel.Id == actualModel.Id);
             Assert.True(expectedModel.Name.Equals(actualModel.Name));
@@ -408,15 +315,47 @@
             Assert.True(expectedModel.Place.Equals(actualModel.Place));
         }
 
+        private static async Task<ITournamentService> GetTournamentService(string databaseName)
+        {
+            var db = new FakeSportDbContext(databaseName);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new DomainProfile());
+            });
+            var mapper = config.CreateMapper();
+
+            if (databaseName.Equals("TournamentCreate")
+                || databaseName.Equals("TournamentGetTournamentPlayers"))
+            {
+                await AddUsers(db);
+            }
+            else
+            {
+                await AddTournaments(db);
+            }
+
+            var user = new User()
+            {
+                Id = new Guid().ToString()
+            };
+
+
+            var mockUserStore = new Mock<IUserStore<User>>();
+            var userManager = GetUserManager(mockUserStore);
+
+            mockUserStore.Setup(x => x.FindByIdAsync(user.Id, CancellationToken.None))
+                .ReturnsAsync(new User()
+                {
+                    Id = user.Id
+                });
+            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
+            return service;
+        }
 
         private static UserManager<User> GetUserManager(Mock<IUserStore<User>> mockUserStore)
         {
             return new UserManager<User>(mockUserStore.Object, null, null, null, null, null, null, null, null);
-        }
-
-        private static Tournament GetTournament(FakeSportDbContext db, int tournamentId)
-        {
-            return db.Data.Tournaments.FirstOrDefault(t => t.Id == tournamentId);
         }
 
         private static Task AddTournaments(FakeSportDbContext db)
