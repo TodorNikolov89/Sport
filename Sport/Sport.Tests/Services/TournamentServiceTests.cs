@@ -41,7 +41,7 @@
             ITournamentService service = new TournamentService(mapper, db.Data, userManager);
 
             //Act
-            var expectedTournamentsCount = 3;
+            var expectedTournamentsCount = 4;
 
             var actualTournamentsCount = service.All().ToList().Count();
 
@@ -151,7 +151,7 @@
         public async Task EditShouldReturnTournamentNotfound()
         {
             //Arrange
-            const string databaseName = "TournamentDeleteNotfound";
+            const string databaseName = "TournamentEditNotfound";
             var db = new FakeSportDbContext(databaseName);
 
             var config = new MapperConfiguration(cfg =>
@@ -246,7 +246,7 @@
             UserManager<User> userManager = GetUserManager(mockUserStore);
 
             ITournamentService service = new TournamentService(mapper, db.Data, userManager);
-          
+
             //Act
             var userId = "1";
             var tournamentId = 2;
@@ -276,7 +276,7 @@
             var mockUserStore = new Mock<IUserStore<User>>();
             UserManager<User> userManager = GetUserManager(mockUserStore);
             ITournamentService service = new TournamentService(mapper, db.Data, userManager);
-           
+
             var expectedPlayersCount = 8;
 
             var tournamentId = 3;
@@ -287,6 +287,74 @@
             //Assert
             Assert.Equal(expectedPlayersCount, actualPlayersCount);
         }
+
+        [Fact]
+        public async Task GetDrawPlayersShuoldReturnMatchesForTheSchedule()
+        {
+            const string databaseName = "TournamentGetDrawPlayers";
+            var db = new FakeSportDbContext(databaseName);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new DomainProfile());
+            });
+            var mapper = config.CreateMapper();
+
+            await AddTournaments(db);
+
+            var mockUserStore = new Mock<IUserStore<User>>();
+            UserManager<User> userManager = GetUserManager(mockUserStore);
+            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
+
+            var expectedMatchesCount = 4;
+
+            var tournamentId = 3;
+
+            var result = service.GetDrawPlayers(tournamentId);
+            var actualMatchesCount = result.Count();
+
+            //Assert
+            Assert.Equal(expectedMatchesCount, actualMatchesCount);
+        }
+
+        [Fact]
+        public async Task StartShouldCreateMatchesAndSetIsStartedTrue()
+        {
+            const string databaseName = "TournamentStart";
+            var db = new FakeSportDbContext(databaseName);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new DomainProfile());
+            });
+            var mapper = config.CreateMapper();
+
+            await AddTournaments(db);
+
+            var mockUserStore = new Mock<IUserStore<User>>();
+            UserManager<User> userManager = GetUserManager(mockUserStore);
+            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
+
+
+            //Act
+            var tournamentId = 4;
+            var actualTournament = db.Data.Tournaments
+                .FirstOrDefault(t => t.Id == tournamentId);
+
+            var expectedMatchesCount = 4;
+
+            service.Start(tournamentId);
+
+            var expectedTournament = db.Data.Tournaments
+              .FirstOrDefault(t => t.Id == tournamentId);
+
+            //Assert
+            Assert.True(expectedTournament.IsStarted);
+
+
+
+        }
+
 
         private static UserManager<User> GetUserManager(Mock<IUserStore<User>> mockUserStore)
         {
@@ -374,6 +442,25 @@
                     Name = "VarnaOpen",
                     Place = "Varna",
                     NumberOfPlayers = 8,
+                    Matches = new List<Domain.Match>()
+                    {
+                        new Domain.Match()
+                        {
+                            Id = 1
+                        },
+                         new Domain.Match()
+                        {
+                            Id = 2
+                        },
+                          new Domain.Match()
+                        {
+                            Id = 3
+                        },
+                           new Domain.Match()
+                        {
+                            Id = 4
+                        }
+                    },
                     Players = new List<UserTournament>()
                     {
                         new UserTournament()
@@ -417,7 +504,71 @@
                             TournamentId = 3
                         }
                     }
+                }
+                ,
+                new Tournament()
+                {
+                    Id = 4,
+                    Name = "SlivenOpen",
+                    Place = "Sliven",
+                    NumberOfPlayers = 8,
+                    Players = new List<UserTournament>()
+                    {
+                        new UserTournament()
+                        {
+                            User = CreateUser(),
+                            UserId = "2",
+                            TournamentId = 4
+                        },
+                        new UserTournament()
+                        {
+                            User = CreateUser(),
+                            UserId = "3",
+                            TournamentId = 4
+                        },
+                        new UserTournament()
+                        {
+                              User = CreateUser(),
+                            UserId = "4",
+                            TournamentId = 4
+                        },
+                        new UserTournament()
+                        {
+                              User = CreateUser(),
+                            UserId = "5",
+                            TournamentId = 4
+                        },
+                        new UserTournament()
+                        {
+                              User = CreateUser(),
+                            UserId = "6",
+                            TournamentId = 4
+                        },
+                        new UserTournament()
+                        {
+                              User = CreateUser(),
+                            UserId = "7",
+                            TournamentId = 4
+                        },
+                        new UserTournament()
+                        {
+                              User = CreateUser(),
+                            UserId = "8",
+                            TournamentId = 4
+                        },
+                        new UserTournament()
+                        {
+                              User = CreateUser(),
+                            UserId = "9",
+                            TournamentId = 4
+                        }
+                    }
                 });
+        }
+
+        private static User CreateUser()
+        {
+            return new User();
         }
 
         private static Task AddUsers(FakeSportDbContext db)
