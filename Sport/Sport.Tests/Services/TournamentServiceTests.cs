@@ -41,7 +41,7 @@
             ITournamentService service = new TournamentService(mapper, db.Data, userManager);
 
             //Act
-            var expectedTournamentsCount = 2;
+            var expectedTournamentsCount = 3;
 
             var actualTournamentsCount = service.All().ToList().Count();
 
@@ -200,15 +200,16 @@
             var mapper = config.CreateMapper();
 
 
-            await AddUsers(db);
             await AddTournaments(db);
+            //            await AddUsers(db);
 
-            var user = db.Data.Users.FirstOrDefault(u => u.Id == "1");
+            var user = new User()
+            {
+                Id = new Guid().ToString()
+            };
 
             var mockUserStore = new Mock<IUserStore<User>>();
             UserManager<User> userManager = GetUserManager(mockUserStore);
-
-            //  var userManager = GetMockUserManager();
 
             ITournamentService service = new TournamentService(mapper, db.Data, userManager);
             mockUserStore.Setup(x => x.FindByIdAsync(user.Id, CancellationToken.None))
@@ -239,34 +240,53 @@
             });
             var mapper = config.CreateMapper();
 
-
-            await AddUsers(db);
             await AddTournaments(db);
-
-            var user = db.Data.Users.FirstOrDefault(u => u.Id == "1");
 
             var mockUserStore = new Mock<IUserStore<User>>();
             UserManager<User> userManager = GetUserManager(mockUserStore);
 
-            //  var userManager = GetMockUserManager();
-
             ITournamentService service = new TournamentService(mapper, db.Data, userManager);
-            mockUserStore.Setup(x => x.FindByIdAsync(user.Id, CancellationToken.None))
-                .ReturnsAsync(new User()
-                {
-                    Id = user.Id
-                });
-
+          
             //Act
+            var userId = "1";
             var tournamentId = 2;
-            await service.Signout(tournamentId, user.Id);
-            var actualResult = db.Data.UserTournament.Any(u => u.UserId == user.Id);
+            await service.Signout(tournamentId, userId);
+            var actualResult = db.Data.UserTournament.Any(u => u.UserId == userId);
 
             //Assert
             Assert.False(actualResult);
 
         }
 
+        [Fact]
+        public async Task GetTournamentPlayersShouldREturnAllPlayers()
+        {
+            //Arrange
+            const string databaseName = "TournamentGetTournamentPlayers";
+            var db = new FakeSportDbContext(databaseName);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new DomainProfile());
+            });
+            var mapper = config.CreateMapper();
+
+            await AddUsers(db);
+
+            var mockUserStore = new Mock<IUserStore<User>>();
+            UserManager<User> userManager = GetUserManager(mockUserStore);
+            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
+           
+            var expectedPlayersCount = 8;
+
+            var tournamentId = 3;
+
+            var result = service.GetTournamentPlayers(tournamentId);
+            var actualPlayersCount = result.Count();
+
+            //Assert
+            Assert.Equal(expectedPlayersCount, actualPlayersCount);
+        }
 
         private static UserManager<User> GetUserManager(Mock<IUserStore<User>> mockUserStore)
         {
@@ -278,6 +298,51 @@
             return db.Data.Tournaments.FirstOrDefault(t => t.Id == tournamentId);
         }
 
+        private static Task AddUserTournament(FakeSportDbContext db)
+        {
+            return db.Add(
+               new UserTournament()
+               {
+                   TournamentId = 3,
+                   UserId = "2"
+               },
+               new UserTournament()
+               {
+                   TournamentId = 3,
+                   UserId = "3"
+               },
+               new UserTournament()
+               {
+                   TournamentId = 3,
+                   UserId = "4"
+               },
+               new UserTournament()
+               {
+                   TournamentId = 3,
+                   UserId = "5"
+               },
+               new UserTournament()
+               {
+                   TournamentId = 3,
+                   UserId = "6"
+               },
+               new UserTournament()
+               {
+                   TournamentId = 3,
+                   UserId = "7"
+               },
+               new UserTournament()
+               {
+                   TournamentId = 3,
+                   UserId = "8"
+               },
+               new UserTournament()
+               {
+                   TournamentId = 3,
+                   UserId = "9"
+               });
+        }
+
         private static Task AddTournaments(FakeSportDbContext db)
         {
             return db.Add(
@@ -287,24 +352,69 @@
                     Name = "SofiaOpen",
                     Place = "Sofia",
                     NumberOfPlayers = 8
-                    //Players = new List<UserTournament>()
-                    //{
-                    //    new UserTournament()
-                    //    {
-
-                    //    }
-                    //}
-
                 },
                 new Tournament()
                 {
                     Id = 2,
+                    Name = "BurgasOpen",
+                    Place = "Burgas",
+                    NumberOfPlayers = 8,
                     Players = new List<UserTournament>()
                     {
                         new UserTournament()
                         {
                             UserId = "1",
-                            TournamentId = 1
+                            TournamentId = 2
+                        }
+                    }
+                },
+                new Tournament()
+                {
+                    Id = 3,
+                    Name = "VarnaOpen",
+                    Place = "Varna",
+                    NumberOfPlayers = 8,
+                    Players = new List<UserTournament>()
+                    {
+                        new UserTournament()
+                        {
+                            UserId = "2",
+                            TournamentId = 3
+                        },
+                        new UserTournament()
+                        {
+                            UserId = "3",
+                            TournamentId = 3
+                        },
+                        new UserTournament()
+                        {
+                            UserId = "4",
+                            TournamentId = 3
+                        },
+                        new UserTournament()
+                        {
+                            UserId = "5",
+                            TournamentId = 3
+                        },
+                        new UserTournament()
+                        {
+                            UserId = "6",
+                            TournamentId = 3
+                        },
+                        new UserTournament()
+                        {
+                            UserId = "7",
+                            TournamentId = 3
+                        },
+                        new UserTournament()
+                        {
+                            UserId = "8",
+                            TournamentId = 3
+                        },
+                        new UserTournament()
+                        {
+                            UserId = "9",
+                            TournamentId = 3
                         }
                     }
                 });
@@ -317,11 +427,106 @@
                 {
                     Id = "1",
                     Email = "Test@abv.bg"
-                }, new User()
+
+                },
+                new User()
                 {
-                    Id = "2"
+                    Id = "2",
+                    Tournaments = new List<UserTournament>()
+                    {
+                        new UserTournament()
+                        {
+                            TournamentId = 3,
+                            UserId="2"
+                        }
+                    }
+                },
+                new User()
+                {
+                    Id = "3",
+                    Tournaments = new List<UserTournament>()
+                    {
+                        new UserTournament()
+                        {
+                            TournamentId = 3,
+                            UserId= "3"
+                        }
+                    }
+                },
+                new User()
+                {
+                    Id = "4",
+                    Tournaments = new List<UserTournament>()
+                    {
+                        new UserTournament()
+                        {
+                            TournamentId = 3,
+                            UserId= "4"
+                        }
+                    }
+                },
+                new User()
+                {
+                    Id = "5",
+                    Tournaments = new List<UserTournament>()
+                    {
+                        new UserTournament()
+                        {
+                            TournamentId = 3,
+                            UserId= "5"
+                        }
+                    }
+                },
+                new User()
+                {
+                    Id = "6",
+                    Tournaments = new List<UserTournament>()
+                    {
+                        new UserTournament()
+                        {
+                            TournamentId = 3,
+                            UserId= "6"
+                        }
+                    }
+                },
+                new User()
+                {
+                    Id = "7",
+                    Tournaments = new List<UserTournament>()
+                    {
+                        new UserTournament()
+                        {
+                            TournamentId = 3,
+                            UserId= "7"
+                        }
+                    }
+                },
+                new User()
+                {
+                    Id = "8",
+                    Tournaments = new List<UserTournament>()
+                    {
+                        new UserTournament()
+                        {
+                            TournamentId = 3,
+                            UserId= "8"
+                        }
+                    }
+                },
+                new User()
+                {
+                    Id = "9",
+                    Tournaments = new List<UserTournament>()
+                    {
+                        new UserTournament()
+                        {
+                            TournamentId = 3,
+                            UserId= "9"
+                        }
+                    }
                 });
         }
+
 
     }
 }

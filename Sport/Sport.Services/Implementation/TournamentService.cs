@@ -162,11 +162,11 @@
             return result;
         }
 
-        public IEnumerable<PlayerViewModel> GetTournamentPlayers(int id)
+        public IEnumerable<PlayerViewModel> GetTournamentPlayers(int tournamentId)
         {
             var users = this.context
                 .Users
-                .Where(t => t.Tournaments.Any(a => a.TournamentId == id))
+                .Where(t => t.Tournaments.Any(a => a.TournamentId == tournamentId))
                 .ToList();
 
             var result = mapper.Map<IEnumerable<PlayerViewModel>>(users);
