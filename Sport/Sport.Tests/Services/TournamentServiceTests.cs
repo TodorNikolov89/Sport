@@ -10,10 +10,10 @@
     using AutoMapper;
     using Xunit;
     using Moq;
-    using Microsoft.AspNetCore.Identity;
     using System.Linq;
-    using System;
     using Sport.ViewModels.Tournament;
+    using Microsoft.AspNetCore.Identity;
+    using System.Threading;
     using System.Collections.Generic;
 
     public class TournamentServiceTests
@@ -34,9 +34,10 @@
 
             await AddTournaments(db);
 
-            var userManager = GetMockUserManager();
+            var mockUserStore = new Mock<IUserStore<User>>();
+            var userManager = GetUserManager(mockUserStore);
 
-            ITournamentService service = new TournamentService(mapper, db.Data, userManager.Object);
+            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
 
             //Act
             var expectedTournamentsCount = 2;
@@ -63,9 +64,10 @@
 
             await AddTournaments(db);
 
-            var userManager = GetMockUserManager();
+            var mockUserStore = new Mock<IUserStore<User>>();
+            var userManager = GetUserManager(mockUserStore);
 
-            ITournamentService service = new TournamentService(mapper, db.Data, userManager.Object);
+            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
 
             //Act
             var expectedTournamentId = 1;
@@ -92,9 +94,10 @@
             await AddTournaments(db);
             //TODO userManager is not used
 
-            var userManager = GetMockUserManager();
+            var mockUserStore = new Mock<IUserStore<User>>();
+            var userManager = GetUserManager(mockUserStore);
 
-            ITournamentService service = new TournamentService(mapper, db.Data, userManager.Object);
+            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
 
             //Act
             var tournamentId = 1;
@@ -107,12 +110,11 @@
         }
 
 
-
         [Fact]
         public async Task EditShouldEditTournamentByModel()
         {
             //Arrange
-            const string databaseName = "TournamentDelete";
+            const string databaseName = "TournamentEdit";
             var db = new FakeSportDbContext(databaseName);
 
             var config = new MapperConfiguration(cfg =>
@@ -122,11 +124,10 @@
             var mapper = config.CreateMapper();
 
             await AddTournaments(db);
-            //TODO userManager is not used
 
-            var userManager = GetMockUserManager();
-
-            ITournamentService service = new TournamentService(mapper, db.Data, userManager.Object);
+            var mockUserStore = new Mock<IUserStore<User>>();
+            var userManager = GetUserManager(mockUserStore);
+            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
 
             //Act
             int tournamentId = 1;
@@ -163,9 +164,10 @@
             await AddTournaments(db);
             //TODO userManager is not used
 
-            var userManager = GetMockUserManager();
+            var mockUserStore = new Mock<IUserStore<User>>();
+            var userManager = GetUserManager(mockUserStore);
 
-            ITournamentService service = new TournamentService(mapper, db.Data, userManager.Object);
+            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
 
             //Act
             int tournamentId = -1;
@@ -198,15 +200,37 @@
             });
             var mapper = config.CreateMapper();
 
+
+            await AddUsers(db);
             await AddTournaments(db);
-            //TODO userManager is not used
 
-            var userManager = GetMockUserManager();
+            var user = db.Data.Users.FirstOrDefault(u => u.Id == "1");
 
-            ITournamentService service = new TournamentService(mapper, db.Data, userManager.Object);
+            var mockUserStore = new Mock<IUserStore<User>>();
+            UserManager<User> userManager = GetUserManager(mockUserStore);
+
+            //  var userManager = GetMockUserManager();
+
+            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
+            mockUserStore.Setup(x => x.FindByIdAsync(user.Id, CancellationToken.None))
+                .ReturnsAsync(new User()
+                {
+                    Id = user.Id
+                });
+
+            //Act
+            service.Signin(1, user);
+            var actualResult = db.Data.UserTournament.Any(u => u.UserId == user.Id);
+
+            //Assert
+            Assert.True(actualResult);
 
         }
 
+        private static UserManager<User> GetUserManager(Mock<IUserStore<User>> mockUserStore)
+        {
+            return new UserManager<User>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+        }
 
         private static Tournament GetTournament(FakeSportDbContext db, int tournamentId)
         {
@@ -220,7 +244,16 @@
                 {
                     Id = 1,
                     Name = "SofiaOpen",
-                    Place = "Sofia",                   
+                    Place = "Sofia",
+                    NumberOfPlayers = 8
+                    //Players = new List<UserTournament>()
+                    //{
+                    //    new UserTournament()
+                    //    {
+
+                    //    }
+                    //}
+
                 },
                 new Tournament()
                 {
@@ -233,18 +266,13 @@
             return db.Add(
                 new User()
                 {
-                    Id = "1"
+                    Id = "1",
+                    Email = "Testc@abv.bg"
                 }, new User()
                 {
                     Id = "2"
                 });
         }
-
-        private Mock<UserManager<User>> GetMockUserManager()
-        {
-            var userStoreMock = new Mock<IUserStore<User>>();
-            return new Mock<UserManager<User>>(
-                userStoreMock.Object, null, null, null, null, null, null, null, null);
-        }
+    
     }
 }
