@@ -15,6 +15,7 @@
     using Microsoft.AspNetCore.Identity;
     using System.Threading;
     using System.Collections.Generic;
+    using System;
 
     public class TournamentServiceTests
     {
@@ -77,7 +78,6 @@
             Assert.True(expectedTournamentId == actualTournament.Id);
         }
 
-
         [Fact]
         public async Task DeleteShouldRemoveTournamentById()
         {
@@ -108,7 +108,6 @@
             //Assert
             Assert.True(tournament == null);
         }
-
 
         [Fact]
         public async Task EditShouldEditTournamentByModel()
@@ -191,7 +190,7 @@
         public async Task SigninShouldSignInCurrentUser()
         {
             //Arrange
-            const string databaseName = "TournamentDeleteNotfound";
+            const string databaseName = "TournamentSigninUser";
             var db = new FakeSportDbContext(databaseName);
 
             var config = new MapperConfiguration(cfg =>
@@ -227,6 +226,48 @@
 
         }
 
+        [Fact]
+        public async Task SignoutShouldSignOutCurrentUser()
+        {
+            //Arrange
+            const string databaseName = "TournamentSignOutUser";
+            var db = new FakeSportDbContext(databaseName);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new DomainProfile());
+            });
+            var mapper = config.CreateMapper();
+
+
+            await AddUsers(db);
+            await AddTournaments(db);
+
+            var user = db.Data.Users.FirstOrDefault(u => u.Id == "1");
+
+            var mockUserStore = new Mock<IUserStore<User>>();
+            UserManager<User> userManager = GetUserManager(mockUserStore);
+
+            //  var userManager = GetMockUserManager();
+
+            ITournamentService service = new TournamentService(mapper, db.Data, userManager);
+            mockUserStore.Setup(x => x.FindByIdAsync(user.Id, CancellationToken.None))
+                .ReturnsAsync(new User()
+                {
+                    Id = user.Id
+                });
+
+            //Act
+            var tournamentId = 2;
+            await service.Signout(tournamentId, user.Id);
+            var actualResult = db.Data.UserTournament.Any(u => u.UserId == user.Id);
+
+            //Assert
+            Assert.False(actualResult);
+
+        }
+
+
         private static UserManager<User> GetUserManager(Mock<IUserStore<User>> mockUserStore)
         {
             return new UserManager<User>(mockUserStore.Object, null, null, null, null, null, null, null, null);
@@ -257,7 +298,15 @@
                 },
                 new Tournament()
                 {
-                    Id = 2
+                    Id = 2,
+                    Players = new List<UserTournament>()
+                    {
+                        new UserTournament()
+                        {
+                            UserId = "1",
+                            TournamentId = 1
+                        }
+                    }
                 });
         }
 
@@ -267,12 +316,12 @@
                 new User()
                 {
                     Id = "1",
-                    Email = "Testc@abv.bg"
+                    Email = "Test@abv.bg"
                 }, new User()
                 {
                     Id = "2"
                 });
         }
-    
+
     }
 }

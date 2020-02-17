@@ -243,8 +243,7 @@
 
             //TODO Add some sorting to PLAYERS
 
-            if (!tournament.Matches.Any())
-            {
+            if (!tournament.Matches.Any())            {
 
                 for (int i = 0; i < players.Count - 1; i += 2)
                 {
