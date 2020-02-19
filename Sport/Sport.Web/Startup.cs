@@ -18,6 +18,8 @@ namespace Sport.Web
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using AutoMapper;
+    using Microsoft.AspNetCore.Http;
+    using Sport.Web.Middlewares;
 
     public class Startup
     {
@@ -27,7 +29,7 @@ namespace Sport.Web
         }
 
         public IConfiguration Configuration { get; }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<SportDbContext>(options =>
@@ -48,7 +50,7 @@ namespace Sport.Web
             services.AddTransient<ITournamentService, TournamentService>();
             services.AddTransient<IPlayerService, PlayerService>();
             services.AddTransient<IMatchService, MatchService>();
-           // services.AddTransient<IMapper, Mapper>();           
+            // services.AddTransient<IMapper, Mapper>();           
 
             var config = new MapperConfiguration(cfg =>
             {
@@ -83,11 +85,13 @@ namespace Sport.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
+
+                app.UseStatusCodePagesWithRedirects("/Error/Index?code={0}");
+                app.UseExceptionHandler("/Home/Error/");
+
             }
 
-            
+
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -106,7 +110,7 @@ namespace Sport.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-               
+
             });
         }
     }

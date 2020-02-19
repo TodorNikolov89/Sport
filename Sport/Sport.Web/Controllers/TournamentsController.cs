@@ -11,7 +11,7 @@
     using System.Security.Claims;
     using System.Threading.Tasks;
 
-   
+
 
     [Route("tournaments")]
     public class TournamentsController : Controller
@@ -53,7 +53,7 @@
                 return View(model);
             }
 
-          await  tournamentService.Create(model, userId);
+            await tournamentService.Create(model, userId);
 
             return RedirectToAction(nameof(All));
         }
