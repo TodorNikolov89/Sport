@@ -12,9 +12,13 @@
         {
             var errorMessage = string.Empty;
 
-            if (code.Equals("404"))
+            switch (code)
             {
-                errorMessage = "Page cannot be found!";
+                case "404":
+                    errorMessage = "Page cannot be found!";
+                    break;
+                default:
+                    break;
             }
 
             return View(new ErrorViewModel
@@ -23,7 +27,6 @@
                 Url = HttpContext.Features.Get<IHttpRequestFeature>().RawTarget,
                 Message = errorMessage
             });
-            ;
         }
     }
 }

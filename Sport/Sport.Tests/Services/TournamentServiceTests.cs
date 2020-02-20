@@ -37,7 +37,6 @@
                 $"Expected count ot tournaments should be {expectedTournamentsCount} not {actualTournamentsCount}!");
         }
 
-
         [Fact]
         public async Task ByIdShouldReturnTournamentByGivenId()
         {

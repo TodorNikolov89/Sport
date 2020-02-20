@@ -7,7 +7,7 @@
 
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.SignalR;    
+    using Microsoft.AspNetCore.SignalR;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -46,9 +46,9 @@
         [Route(nameof(ChangeResult))]
         [HttpPost]
         public async Task<LiveResultViewModel> ChangeResult(string buttonId, int matchId)
-        {          
+        {
             LiveResultViewModel result = null;
-         
+
             if (buttonId.Equals("firstButtonId"))
             {
                 result = await matchService.AddFirstPlayerPoint(matchId);
@@ -63,7 +63,6 @@
 
             return result;
         }
-
 
         [Route(nameof(GetLiveMatches))]
         public async Task<IActionResult> GetLiveMatches()

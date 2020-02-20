@@ -18,8 +18,7 @@ namespace Sport.Web
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using AutoMapper;
-    using Microsoft.AspNetCore.Http;
-    using Sport.Web.Middlewares;
+    using Sport.Web.MIddlewares;
 
     public class Startup
     {
@@ -50,7 +49,6 @@ namespace Sport.Web
             services.AddTransient<ITournamentService, TournamentService>();
             services.AddTransient<IPlayerService, PlayerService>();
             services.AddTransient<IMatchService, MatchService>();
-            // services.AddTransient<IMapper, Mapper>();           
 
             var config = new MapperConfiguration(cfg =>
             {
@@ -83,14 +81,11 @@ namespace Sport.Web
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
-            else
-            {
 
-                app.UseStatusCodePagesWithRedirects("/Error/Index?code={0}");
-                app.UseExceptionHandler("/Home/Error/");
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
-            }
-
+            app.UseStatusCodePagesWithRedirects("/Error/Index?code={0}");
+            app.UseExceptionHandler("/Home/Error/");
 
 
             app.UseHttpsRedirection();
@@ -100,7 +95,6 @@ namespace Sport.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.UseEndpoints(endpoints =>
             {

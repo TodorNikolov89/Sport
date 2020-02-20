@@ -4,6 +4,7 @@
 
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.SignalR;
+
     public class SportHub : Hub
     {
         public async Task UpdateResult(LiveResultViewModel match)

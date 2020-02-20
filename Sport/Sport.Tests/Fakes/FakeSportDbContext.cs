@@ -16,7 +16,6 @@
             this.Data = new SportDbContext(options);
         }
 
-
         public SportDbContext Data { get; }
 
         public async Task Add(params object[] data)

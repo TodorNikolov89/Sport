@@ -14,6 +14,7 @@ namespace Sport.Domain
         public ICollection<TieBreakPoint> TieBreakPoints { get; set; }
 
         public int SetId { get; set; }
+
         public Set Set { get; set; }
     }
 }

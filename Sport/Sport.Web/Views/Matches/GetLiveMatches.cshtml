@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<LiveMatchesViewModel>
+@using Microsoft.AspNetCore
 
 @{
     ViewData["Title"] = "Live matches";
@@ -8,6 +9,9 @@
 @{
     var arr = new[] { "0", "15", "30", "40", "Ad" };
 }
+
+
+
 <style>
     table {
         border-bottom: 1px solid black;
@@ -29,6 +33,7 @@
         width: 30%;
     }
 </style>
+
 
 @foreach (var match in Model)
 {
@@ -73,5 +78,6 @@
 }
 
 
-<script src="~/js/signalr/dist/browser/signalr.js"></script>
+@*<script src="~/js/signalr/dist/browser/signalr.js"></script>*@
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/result.js"></script>

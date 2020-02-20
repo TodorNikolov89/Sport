@@ -1,7 +1,7 @@
 ﻿"use strict";
+
 var connection = new signalR.HubConnectionBuilder().withUrl("/sportHub").build();
-//Disable buttons until connection is established
-//document.getElementById("firstButtonId").disabled = true;
+
 var arr = ["0", "15", "30", "40", "Ad"];
 
 connection.on("ReceiveResult", function (result) {
