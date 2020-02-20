@@ -19,6 +19,7 @@ namespace Sport.Web
     using Newtonsoft.Json;
     using AutoMapper;
     using Sport.Web.MIddlewares;
+    using Microsoft.AspNetCore.Http.Connections;
 
     public class Startup
     {

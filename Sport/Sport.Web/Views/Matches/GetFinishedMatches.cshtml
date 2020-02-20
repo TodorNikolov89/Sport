@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<FinishedMatchesViewModel>
 @{
     ViewData["Title"] = "Finished matches";
 }
@@ -13,7 +13,7 @@
 <style>
     table {
         border-bottom: 1px solid black;
-        width: 500px;
+        width: 1000px;
         margin: 5px;
     }
 
@@ -21,40 +21,46 @@
         border: 1px black;
         align-content: center;
     }
+
+    .games {
+        color: gray;
+    }
 </style>
 
 @foreach (var match in Model)
 {
-    <table align="center">
+    <table>
         <tbody>
             <tr>
-                <th width="50%">
+                <th width="400px">
                     @match.FirstPlayer.FirstName @match.FirstPlayer.LastName
                 </th>
-                <th>
+                <th width="150px">
                     @match.FirstPlayerSets
                 </th>
-                <th>
-                    @match.FirstPlayerGames
-                </th>
-                <th>
-                    @match.FirstPlayerPoints
-                </th>
+                @foreach (var set in match.Sets)
+                {
+                    <th class="games" width="150px">
+                        @set.FirstPlayerGames
+                    </th>
+                }
             </tr>
             <tr>
-                <th width="50%">
+                <th width="400px">
                     @match.SecondPlayer.FirstName @match.SecondPlayer.LastName
                 </th>
-                <th>
+                <th width="150px">
                     @match.SecondPlayerSets
                 </th>
-                <th>
-                    @match.SecondPlayerGames
-                </th>
-                <th>
-                    @match.SecondPlayerPoints
-                </th>
+                @foreach (var set in match.Sets)
+                {
+                    <th class="games" width="150px">
+                        @set.SecondPlayerGames
+                    </th>
+                }
             </tr>
         </tbody>
     </table>
 }
+
+

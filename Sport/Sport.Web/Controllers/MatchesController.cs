@@ -26,7 +26,8 @@
             this.context = context;
             this.mapper = mapper;
         }
-
+        private IHubContext<SportHub> HubContext
+        { get; set; }
 
         [Route(nameof(GetById) + "/{id}")]
         public IActionResult GetById(int id)
@@ -60,6 +61,7 @@
             }
 
             await this.sportHub.Clients.All.SendAsync("ReceiveResult", result);
+
 
             return result;
         }
