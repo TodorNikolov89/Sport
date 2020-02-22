@@ -203,8 +203,7 @@
                         }
                     }
 
-                    TieBreakPoint newTieBreakPoint = tieBreakPoint;
-                    set.TieBreak.TieBreakPoints.Add(newTieBreakPoint);
+                    AddTieBreakPoint(tieBreakPoint, tieBreak);
                 }
             }
 
@@ -318,7 +317,7 @@
                            .TieBreaks
                            .Include(t => t.TieBreakPoints)
                            .FirstOrDefaultAsync(t => t.SetId == set.Id);
-        
+
                     tieBreakPoint = tieBreak.TieBreakPoints.ToList().LastOrDefault(p => p.TieBreakId == tieBreak.Id);
 
                     tieBreakPoint.SecondPlayerPoint++;
@@ -344,8 +343,7 @@
                         }
                     }
 
-                    TieBreakPoint newTieBreakPoint = tieBreakPoint;
-                    set.TieBreak.TieBreakPoints.Add(newTieBreakPoint);
+                    AddTieBreakPoint(tieBreakPoint, tieBreak);
                 }
             }
 
@@ -355,7 +353,20 @@
 
             return r;
 
-        }            
+        }
+
+        private static void AddTieBreakPoint(TieBreakPoint tieBreakPoint, TieBreak tieBreak)
+        {
+            TieBreakPoint newTieBreakPoint = new TieBreakPoint()
+            {
+                FirstPlayerPoint = tieBreakPoint.FirstPlayerPoint,
+                SecondPlayerPoint = tieBreakPoint.SecondPlayerPoint,
+                TieBreak = tieBreakPoint.TieBreak,
+                TieBreakId = tieBreakPoint.TieBreakId
+            };
+
+            tieBreak.TieBreakPoints.Add(newTieBreakPoint);
+        }
 
         /// <summary>
         /// This method gets user by the given userId and adds it as an umpiree to the given match by matchId
@@ -429,16 +440,19 @@
         {
             var dbMatch = await this.context
                .Matches
-               .Include(m => m.Tournament)
                .Include(m => m.FirstPlayer)
                .Include(m => m.SecondPlayer)
                .Include(m => m.Umpire)
+               .Include(m => m.Tournament)
                .Include(m => m.Sets)
-               .ThenInclude(a => a.Games)
+               .ThenInclude(t => t.TieBreak)
+               .ThenInclude(p => p.TieBreakPoints)
+               .Include(s => s.Sets)
+               .ThenInclude(g => g.Games)
                .ThenInclude(p => p.Points)
                .FirstOrDefaultAsync(m => m.Id == matchId);
 
-           // var match = mapper.Map<FinishedMatchDetaisViewModel>(dbMatch);
+            // var match = mapper.Map<FinishedMatchDetaisViewModel>(dbMatch);
 
             return dbMatch;
         }

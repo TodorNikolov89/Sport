@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Sport.Domain
+﻿namespace Sport.Domain
 {
+    using System.Collections.Generic;
+
     public class TieBreak
     {
         public TieBreak()
