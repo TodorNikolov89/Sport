@@ -34,6 +34,6 @@
 
         public bool IsGameFinished { get; set; }
 
-
+        
     }
 }

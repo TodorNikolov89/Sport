@@ -95,5 +95,13 @@
             return RedirectToAction(nameof(GetAllMatches));
         }
 
+        [Route(nameof(GetMatchDetails) + "/{matchId}")]
+        public async Task<IActionResult> GetMatchDetails(int matchId)
+        {
+            var match = await matchService.GetCurentMatchDetais(matchId);
+
+
+            return View(match);
+        }
     }
 }

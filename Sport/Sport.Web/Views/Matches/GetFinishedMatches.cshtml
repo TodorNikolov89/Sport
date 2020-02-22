@@ -58,15 +58,15 @@
                         @set.SecondPlayerGames
                     </th>
                 }
-
             </tr>
+
         </tbody>
     </table>
 }
 
-<button onclick="myFunction()">Open</button>
+<button onclick="myFunction()" value="1">Open</button>
 <script>
-    function myFunction() {
-        window.open("","","width=400,height=400");
+    function myFunction(matchId) {
+        window.open("/Matches/GetMatchDetails/138","","width=400,height=400");
     }
 </script>

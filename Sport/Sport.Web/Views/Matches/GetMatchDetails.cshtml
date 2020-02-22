@@ -1,0 +1,58 @@
+﻿@model Match
+
+@{
+    ViewData["Title"] = "Match Details";
+    Layout = "";
+}
+
+<h1 align="center">@ViewData["Title"]</h1>
+
+
+   @*@var arr = new[] { "0", "15", "30", "40", "Ad" };*@
+
+
+<div class="container">
+    <h2>Dynamic Tabs</h2>
+    <p>To make the tabs toggleable, add the data-toggle="tab" attribute to each link. Then add a .tab-pane class with a unique ID for every tab and wrap them inside a div element with class .tab-content.</p>
+
+    <ul class="nav nav-tabs">
+        @for (int i = 1; i <= Model.Sets.ToList().Count(); i++)
+        {
+            <li><a id="#set-@i" data-toggle="tab" onclick="getInfo(this.id)">Set @i</a></li>
+        }
+    </ul>
+    @foreach (var set in Model.Sets)
+    {
+        var arr = new[] { "0", "15", "30", "40", "Ad" };
+        @foreach (var game in set.Games)
+        {
+            <div>Game </div>
+            var points = game.Points.Select(x => $"{arr[x.FirstPlayerPoints]} - {arr[x.SecondPlayerPoints]}").ToList();
+
+            <div>@string.Join(", ", points)</div>
+        }
+    }
+</div>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+@*<div class="container">
+        <h2>Dynamic Tabs</h2>
+        <p>To make the tabs toggleable, add the data-toggle="tab" attribute to each link. Then add a .tab-pane class with a unique ID for every tab and wrap them inside a div element with class .tab-content.</p>
+
+        <ul class="nav nav-tabs">
+            @for (int i = 1; i <= Model.Sets.ToList().Count(); i++)
+            {
+                <li><a id="#set-@i" data-toggle="tab" onclick="getInfo(this.id)">Set @i</a></li>
+            }
+        </ul>
+        <div class="tab-content">
+            <div id="set-1" class="tab-pane fade">
+                <h3>Set number </h3>
+                <p>Info</p>
+            </div>
+        </div>
+    </div>*@

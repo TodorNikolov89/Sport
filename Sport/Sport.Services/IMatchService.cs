@@ -4,6 +4,7 @@
 
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Sport.Domain;
 
     public interface IMatchService
     {
@@ -20,6 +21,8 @@
         Task<IEnumerable<LiveMatchesViewModel>> GetLiveMatches();
 
         Task<IEnumerable<FinishedMatchesViewModel>> GetFinishedMatches();
+
+        Task<Match> GetCurentMatchDetais(int matchId);
 
     }
 }

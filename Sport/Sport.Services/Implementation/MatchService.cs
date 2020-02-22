@@ -424,6 +424,25 @@
             return result;
         }
 
+
+        public async Task<Match> GetCurentMatchDetais(int matchId)
+        {
+            var dbMatch = await this.context
+               .Matches
+               .Include(m => m.Tournament)
+               .Include(m => m.FirstPlayer)
+               .Include(m => m.SecondPlayer)
+               .Include(m => m.Umpire)
+               .Include(m => m.Sets)
+               .ThenInclude(a => a.Games)
+               .ThenInclude(p => p.Points)
+               .FirstOrDefaultAsync(m => m.Id == matchId);
+
+           // var match = mapper.Map<FinishedMatchDetaisViewModel>(dbMatch);
+
+            return dbMatch;
+        }
+
         /// <summary>
         /// This method checks if last point is null and adds game and game id to the new point or new point gets last point values
         /// </summary>
@@ -494,6 +513,9 @@
             .ThenInclude(p => p.Points)
             .FirstOrDefaultAsync(m => m.Id == matchId);
         }
+
+
+
 
     }
 }

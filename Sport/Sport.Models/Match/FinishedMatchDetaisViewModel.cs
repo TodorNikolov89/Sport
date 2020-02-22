@@ -1,10 +1,12 @@
 ﻿namespace Sport.ViewModels.Match
 {
-    using System.Collections.Generic;
-    using User;
     using Set;
+    using User;
+    using Game;
 
-    public class FinishedMatchesViewModel
+    using System.Collections.Generic;
+
+    public class FinishedMatchDetaisViewModel
     {
         public int Id { get; set; }
 
@@ -19,23 +21,14 @@
 
         public IEnumerable<SetViewModel> Sets { get; set; }
 
-        public int FirstPlayerPoints { get; set; }
-
-        public int SecondPlayerPoints { get; set; }
-
-        public int FirstPlayerGames { get; set; }
-
-        public int SecondPlayerGames { get; set; }
+        public IEnumerable<GameViewModel> Games { get; set; }
 
         public int FirstPlayerSets { get; set; }
 
         public int SecondPlayerSets { get; set; }
 
+
         public bool HasTieBreak { get; set; }
-
-        public int FirstPlayerTieBreakPoints { get; set; }
-
-        public int SecondPlayerTieBreakPoints { get; set; }
 
         public bool IsFinished { get; set; }
     }
