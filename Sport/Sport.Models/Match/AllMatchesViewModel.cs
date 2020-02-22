@@ -18,5 +18,7 @@
 
         public int TournamentId { get; set; }
         public AllTournamentsViewModel Tournament { get; set; }
+
+        public bool IsFinished { get; set; }
     }
 }

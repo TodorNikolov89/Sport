@@ -17,18 +17,18 @@
                 Second Player
             </th>
             <th>
-                Name
+                Tournament
             </th>
             <th>
-                Tournament
+
             </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var match in Model)
         {
-            <tr id="matchRow" class="">
-                <th>    
+            <tr id="matchRow" onclick="window.open(" https: //www.w3schools.com")">
+                <th>
                     @match.FirstPlayer.FirstName
                 </th>
                 <th>
@@ -37,6 +37,7 @@
                 <th>
                     @match.Tournament.Name
                 </th>
+
                 @if (match.Umpire != null && match.Umpire.Id == User.Identity.GetUserId())
                 {
                     <th>
@@ -50,7 +51,9 @@
                         <a href="/matches/BecomeUmpire/@match.Id" class="btn btn-warning btn-sm" title="Click if you wat to be an umpire!">Umpire</a>
                     </th>
                 }
+
             </tr>
+
         }
     </tbody>
 </table>
