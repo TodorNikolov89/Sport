@@ -13,7 +13,7 @@
 <style>
     table {
         border: 1px solid black;
-        width: 100%;
+        width: 70%;
         margin: 5px;
     }
 
@@ -36,33 +36,33 @@
 {
     <table>
         <tbody>
-            <tr>
+            <tr style="width:100%">
                 <td rowspan="2" width="10%">
                     <button onclick="myFunction(@match.Id)" value="1">Details</button>
                 </td>
                 <td width="30%">
                     @match.FirstPlayer.FirstName @match.FirstPlayer.LastName
                 </td>
-                <td width="5%">
+                <td width="15%">
                     @match.FirstPlayerSets
                 </td>
                 @foreach (var set in match.Sets)
                 {
-                    <td class="games" width="10%">
+                    <td class="games" width="15%">
                         @set.FirstPlayerGames
                     </td>
                 }
             </tr>
-            <tr>
+            <tr style="width:100%">
                 <td width="30%">
                     @match.SecondPlayer.FirstName @match.SecondPlayer.LastName
                 </td>
-                <td width="5%">
+                <td width="15%">
                     @match.SecondPlayerSets
                 </td>
                 @foreach (var set in match.Sets)
                 {
-                    <td class="games" width="10%">
+                    <td class="games" width="15%">
                         @set.SecondPlayerGames
                     </td>
                 }
