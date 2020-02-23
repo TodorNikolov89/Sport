@@ -12,13 +12,18 @@
 
 <style>
     table {
-        border-bottom: 1px solid black;
-        width: 1000px;
+        border: 1px solid black;
+        width: 100%;
         margin: 5px;
     }
 
-    tr, th {
-        border: 1px black;
+    tr, th, td {
+        border: solid 1px;
+        align-content: center;
+    }
+
+    td {
+        border: solid 1px;
         align-content: center;
     }
 
@@ -32,41 +37,82 @@
     <table>
         <tbody>
             <tr>
-                <th width="400px">
+                <td rowspan="2" width="10%">
+                    <button onclick="myFunction(@match.Id)" value="1">Details</button>
+                </td>
+                <td width="30%">
                     @match.FirstPlayer.FirstName @match.FirstPlayer.LastName
-                </th>
-                <th width="150px">
+                </td>
+                <td width="5%">
                     @match.FirstPlayerSets
-                </th>
+                </td>
                 @foreach (var set in match.Sets)
                 {
-                    <th class="games" width="150px">
+                    <td class="games" width="10%">
                         @set.FirstPlayerGames
-                    </th>
+                    </td>
                 }
             </tr>
             <tr>
-                <th width="400px">
+                <td width="30%">
                     @match.SecondPlayer.FirstName @match.SecondPlayer.LastName
-                </th>
-                <th width="150px">
+                </td>
+                <td width="5%">
                     @match.SecondPlayerSets
-                </th>
+                </td>
                 @foreach (var set in match.Sets)
                 {
-                    <th class="games" width="150px">
+                    <td class="games" width="10%">
                         @set.SecondPlayerGames
-                    </th>
+                    </td>
                 }
             </tr>
 
         </tbody>
     </table>
 }
+@*@foreach (var match in Model)
+    {
+        <table>
+            <tbody>
+                <tr>
+
+                    <th width="400px">
+                        @match.FirstPlayer.FirstName @match.FirstPlayer.LastName
+                    </th>
+                    <th width="150px">
+                        @match.FirstPlayerSets
+                    </th>
+                    @foreach (var set in match.Sets)
+                    {
+                        <th class="games" width="150px">
+                            @set.FirstPlayerGames
+                        </th>
+                    }
+                </tr>
+                <tr>
+                    <th width="400px">
+                        @match.SecondPlayer.FirstName @match.SecondPlayer.LastName
+                    </th>
+                    <th width="150px">
+                        @match.SecondPlayerSets
+                    </th>
+                    @foreach (var set in match.Sets)
+                    {
+                        <th class="games" width="150px">
+                            @set.SecondPlayerGames
+                        </th>
+                    }
+                </tr>
+
+            </tbody>
+        </table>
+    }*@
 
 <button onclick="myFunction()" value="1">Open</button>
 <script>
     function myFunction(matchId) {
-        window.open("/Matches/GetMatchDetails/144","","width=400,height=400");
+        window.open("/Matches/GetMatchDetails/" + matchId, "", "width=400,height=400");
     }
 </script>
+

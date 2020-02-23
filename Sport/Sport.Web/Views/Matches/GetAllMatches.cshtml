@@ -20,39 +20,54 @@
                 Tournament
             </th>
             <th>
-
+                Scoring or Umpire
+            </th>
+            <th>
+                Status
             </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var match in Model)
         {
-            <tr id="matchRow" onclick="window.open(" https://www.w3schools.com")">
-                <th>
-                    @match.FirstPlayer.FirstName
-                </th>
-                <th>
-                    @match.SecondPlayer.FirstName
-                </th>
-                <th>
-                    @match.Tournament.Name
-                </th>
+        <tr id="matchRow" onclick="window.open(" https: //www.w3schools.com")">
+            <th>
+                @match.FirstPlayer.FirstName
+            </th>
+            <th>
+                @match.SecondPlayer.FirstName
+            </th>
+            <th>
+                @match.Tournament.Name
+            </th>
 
-                @if (match.Umpire != null && match.Umpire.Id == User.Identity.GetUserId())
-                {
-                    <th>
-                        <a href="/matches/GetById/@match.Id" class="btn btn-warning btn-sm" title="You are an umpire for this match. Continue scoring..">Scoring</a>
-                    </th>
-                }
+            @if (match.Umpire != null && match.Umpire.Id == User.Identity.GetUserId())
+            {
+                <th>
+                    <a href="/matches/GetById/@match.Id" class="btn btn-warning btn-sm" title="You are an umpire for this match. Continue scoring..">Scoring</a>
+                </th>
+            }
 
-                @if (User.IsInRole(GlobalConstants.UmpireRole) && match.Umpire == null)
-                {
-                    <th>
-                        <a href="/matches/BecomeUmpire/@match.Id" class="btn btn-warning btn-sm" title="Click if you wat to be an umpire!">Umpire</a>
-                    </th>
-                }
+            @if (User.IsInRole(GlobalConstants.UmpireRole) && match.Umpire == null)
+            {
+                <th>
+                    <a href="/matches/BecomeUmpire/@match.Id" class="btn btn-warning btn-sm" title="Click if you wat to be an umpire!">Umpire</a>
+                </th>
+            }
+            @if (match.IsFinished)
+            {
+                <th>
+                    <a class="text-success" title="Click if you wat to be an umpire!">Finished</a>
+                </th>
+            }
+            else
+            {
+                <th>
+                    <a class="text-primary" title="Click if you wat to be an umpire!">Not Finished</a>
+                </th>
+            }
 
-            </tr>
+        </tr>
 
         }
     </tbody>
