@@ -3,7 +3,7 @@
     ViewData["Title"] = "Finished matches";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 style="text-align:center">@ViewData["Title"]</h1>
 
 
 <script>
@@ -12,18 +12,18 @@
 
 <style>
     table {
-        border: 1px solid black;
-        width: 70%;
+        border-bottom: 1px solid black;
+        table-layout: fixed;
         margin: 5px;
     }
 
     tr, th, td {
-        border: solid 1px;
+        /*border: solid 1px;*/
         align-content: center;
     }
 
     td {
-        border: solid 1px;
+        /*border: solid 1px;*/
         align-content: center;
     }
 
@@ -32,87 +32,57 @@
     }
 </style>
 
-@foreach (var match in Model)
-{
-    <table>
-        <tbody>
-            <tr style="width:100%">
-                <td rowspan="2" width="10%">
-                    <button onclick="myFunction(@match.Id)" value="1">Details</button>
-                </td>
-                <td width="30%">
-                    @match.FirstPlayer.FirstName @match.FirstPlayer.LastName
-                </td>
-                <td width="15%">
-                    @match.FirstPlayerSets
-                </td>
-                @foreach (var set in match.Sets)
-                {
-                    <td class="games" width="15%">
-                        @set.FirstPlayerGames
-                    </td>
-                }
-            </tr>
-            <tr style="width:100%">
-                <td width="30%">
-                    @match.SecondPlayer.FirstName @match.SecondPlayer.LastName
-                </td>
-                <td width="15%">
-                    @match.SecondPlayerSets
-                </td>
-                @foreach (var set in match.Sets)
-                {
-                    <td class="games" width="15%">
-                        @set.SecondPlayerGames
-                    </td>
-                }
-            </tr>
-
-        </tbody>
-    </table>
-}
-@*@foreach (var match in Model)
+<div id="container" class="container">
+    @foreach (var match in Model)
     {
         <table>
+            
             <tbody>
-                <tr>
-
-                    <th width="400px">
+                <tr style="width:auto">
+                    <td rowspan="2" width="90px" align="center">
+                        <button class="btn btn-info btn-sm" onclick="myFunction(@match.Id)" value="1">Details</button>
+                    </td>
+                    <td class="playersName" style="width:auto">
                         @match.FirstPlayer.FirstName @match.FirstPlayer.LastName
-                    </th>
-                    <th width="150px">
+                    </td>
+                    <td class="sets">
                         @match.FirstPlayerSets
-                    </th>
+                    </td>
                     @foreach (var set in match.Sets)
                     {
-                        <th class="games" width="150px">
+                        <td class="games">
                             @set.FirstPlayerGames
-                        </th>
+                        </td>
                     }
                 </tr>
-                <tr>
-                    <th width="400px">
+                <tr style="width:auto">
+                    <td class="playersName" style="width:auto">
                         @match.SecondPlayer.FirstName @match.SecondPlayer.LastName
-                    </th>
-                    <th width="150px">
+                    </td>
+                    <td class="sets">
                         @match.SecondPlayerSets
-                    </th>
+                    </td>
                     @foreach (var set in match.Sets)
                     {
-                        <th class="games" width="150px">
+                        <td class="games">
                             @set.SecondPlayerGames
-                        </th>
+                        </td>
                     }
                 </tr>
-
             </tbody>
         </table>
-    }*@
-
-<button onclick="myFunction()" value="1">Open</button>
+    }
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
+    $(document).ready(function () {
+        $(".container").css("inline-size", "max-content");
+        $(".sets, .games").css("width", 50);
+        $(".playersName").css("min-width", 300);
+        $(".playersName").css("width", "auto");
+    });
+
     function myFunction(matchId) {
         window.open("/Matches/GetMatchDetails/" + matchId, "", "width=400,height=400");
     }
 </script>
-

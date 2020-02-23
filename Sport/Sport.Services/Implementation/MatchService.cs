@@ -496,8 +496,6 @@
         private static void AddNewGame(Set set)
         {
             Game newG = new Game();
-           // Point newP = new Point();
-            //newG.Points.Add(newP);
             set.Games.Add(newG);
         }
 
@@ -527,9 +525,6 @@
             .ThenInclude(p => p.Points)
             .FirstOrDefaultAsync(m => m.Id == matchId);
         }
-
-
-
 
     }
 }
