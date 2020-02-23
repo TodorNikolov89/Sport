@@ -18,12 +18,12 @@
     }
 
     tr, th, td {
-        /*border: solid 1px;*/
+        border: solid 1px;
         align-content: center;
     }
 
     td {
-        /*border: solid 1px;*/
+        border: solid 1px;
         align-content: center;
     }
 
@@ -36,11 +36,11 @@
     @foreach (var match in Model)
     {
         <table>
-            
+
             <tbody>
-                <tr style="width:auto">
+                <tr style="width:auto" class="rowBold">
                     <td rowspan="2" width="90px" align="center">
-                        <button class="btn btn-info btn-sm" onclick="myFunction(@match.Id)" value="1">Details</button>
+                        <button class="btn btn-info btn-sm" onclick="openNewWindow(@match.Id)" value="1">Details</button>
                     </td>
                     <td class="playersName" style="width:auto">
                         @match.FirstPlayer.FirstName @match.FirstPlayer.LastName
@@ -55,7 +55,7 @@
                         </td>
                     }
                 </tr>
-                <tr style="width:auto">
+                <tr style="width:auto" class="rowBold">
                     <td class="playersName" style="width:auto">
                         @match.SecondPlayer.FirstName @match.SecondPlayer.LastName
                     </td>
@@ -75,14 +75,19 @@
 </div>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
-    $(document).ready(function () {
-        $(".container").css("inline-size", "max-content");
-        $(".sets, .games").css("width", 50);
-        $(".playersName").css("min-width", 300);
-        $(".playersName").css("width", "auto");
-    });
+    $(document).ready(
+        function () {
+            $(".container").css("inline-size", "max-content");
+            $(".sets, .games").css("width", 50);
+            $(".playersName").css("min-width", 300);
+            $(".playersName").css("width", "auto");
+        }
+        //$("tr td.sets:contains('2')").each(function () {
+        //    $(this).siblings('td').hide();/*css("visibility", "hidden");*/
+        //});
+    );
 
-    function myFunction(matchId) {
+    function openNewWindow(matchId) {
         window.open("/Matches/GetMatchDetails/" + matchId, "", "width=400,height=400");
     }
 </script>
