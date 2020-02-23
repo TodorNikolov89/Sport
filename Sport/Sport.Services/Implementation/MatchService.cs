@@ -496,8 +496,8 @@
         private static void AddNewGame(Set set)
         {
             Game newG = new Game();
-            Point newP = new Point();
-            newG.Points.Add(newP);
+           // Point newP = new Point();
+            //newG.Points.Add(newP);
             set.Games.Add(newG);
         }
 

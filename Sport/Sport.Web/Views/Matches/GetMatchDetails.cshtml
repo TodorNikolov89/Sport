@@ -14,12 +14,11 @@
 <div class="container">
     <h2>Dynamic Tabs</h2>
 
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs" >
         @for (int i = 1; i <= Model.Sets.ToList().Count(); i++)
         {
-            <li><a id="set-@i" data-toggle="tab" onclick="getInfo(@i)">Set @i</a></li>
-        }
-        @*<li><a id="set-1" data-toggle="tab" onclick="getInfo(1)">Set</a></li>*@
+            <li style="align-content:center"><a id="set-@i" data-toggle="tab" onclick="getInfo(@i)">Set @i</a></li>
+        }       
     </ul>
     <div id="setContent"></div>
 </div>
