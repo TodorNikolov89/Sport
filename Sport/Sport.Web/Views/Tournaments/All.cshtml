@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<AllTournamentsViewModel>
-@using Microsoft.AspNet.Identity; 
+@using Microsoft.AspNet.Identity;
 @{
     ViewData["Title"] = "All Tournaments with signed in players";
 }
 
 <h1>@ViewData["Title"]</h1>
-<a class="btn btn-primary"  asp-controller="tournaments" asp-action="Create">Create</a>
+<a class="btn btn-primary" asp-controller="tournaments" asp-action="Create">Create</a>
 
 <table class="table table-bordered table-hover">
     <thead>
@@ -31,24 +31,24 @@
         @foreach (var tournament in Model)
         {
             <tr>
-                <th>
+                <td>
                     @tournament.Name
-                </th>
-                <th>
+                </td>
+                <td>
                     @tournament.StartDate
-                </th>
-                <th>
+                </td>
+                <td>
                     @tournament.EndDate
-                </th>
-                <th>
+                </td>
+                <td>
                     @tournament.Players.Count/@tournament.NumberOfPlayers
-                </th>
-                <th>
+                </td>
+                <td>
                     @tournament.Place
-                </th>
-                <th>
+                </td>
+                <td>
                     @if (!tournament.Players.Any(p => p.Id == User.Identity.GetUserId())
-            && tournament.Players.Count() < tournament.NumberOfPlayers)
+&& tournament.Players.Count() < tournament.NumberOfPlayers)
                     {
                         <a href="/tournaments/signin/@tournament.Id" class="form-text">Sign in</a>
                     }
@@ -58,36 +58,37 @@
                         <a href="/tournaments/signout/@tournament.Id" class="form-text">Sign out</a>
                     }
                     <a href="/tournaments/TournamentPlayers/@tournament.Id" class="form-text">Signed Players</a>
-                </th>
-                @if (tournament.Players.Count() == tournament.NumberOfPlayers)
-                {
-                    <th>
-                        @if (tournament.CreatorId.Equals(User.Identity.GetUserId()))
+                </td>
+                <td align="center">
+                    @if (tournament.Players.Count() == tournament.NumberOfPlayers)
+                    {
+                        @if (!tournament.IsStarted && tournament.CreatorId.Equals(User.Identity.GetUserId()))
                         {
                             <a href="/tournaments/start/@tournament.Id" class="btn btn-warning btn-sm">Start</a>
                         }
 
                         @if (tournament.IsStarted)
                         {
+                            <a href="/tournaments/start/@tournament.Id" class="btn btn-warning btn-sm disabled">Started</a>
                             <a href="/tournaments/getdraw/@tournament.Id" class="form-text">Draw</a>
                         }
-                    </th>
-                }
-                else
-                {
-                    <th>
+                    }
+                    else
+                    {
+
                         <a href="/tournaments/start/@tournament.Id" class="btn btn-warning btn-sm disabled">Start</a>
                         <a href="/tournaments/getdraw/@tournament.Id" class="form-text">Draw</a>
-                    </th>
-                }
+
+                    }
+                </td>
 
                 @if (User.IsInRole(GlobalConstants.AdministratorRole))
                 {
-                    <th>
+                    <td>
                         <a href="/tournaments/edit/@tournament.Id" class="form-text">Edit</a>
                         <a href="/tournaments/delete/@tournament.Id" class="form-tex">Delete</a>
                         <a href="/tournaments/details/@tournament.Id" class="form-tex">Details</a>
-                    </th>
+                    </td>
                 }
             </tr>
         }
