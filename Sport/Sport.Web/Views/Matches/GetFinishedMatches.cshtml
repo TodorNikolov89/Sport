@@ -9,34 +9,13 @@
 <script>
     var arr = ["0", "15", "30", "40", "Ad"];
 </script>
+<link href="~/css/site.css" rel="stylesheet" />
 
-<style>
-    table {
-        border-bottom: 1px solid black;
-        table-layout: fixed;
-        margin: 5px;
-    }
-
-    tr, th, td {
-        border: solid 1px;
-        align-content: center;
-    }
-
-    td {
-        border: solid 1px;
-        align-content: center;
-    }
-
-    .games {
-        color: gray;
-    }
-</style>
 
 <div id="container" class="container">
     @foreach (var match in Model)
     {
         <table>
-
             <tbody>
                 <tr style="width:auto" class="rowBold">
                     <td rowspan="2" width="90px" align="center">
@@ -74,6 +53,7 @@
     }
 </div>
 <script src="~/lib/jquery/dist/jquery.js"></script>
+
 <script>
     $(document).ready(
         function () {
@@ -82,9 +62,6 @@
             $(".playersName").css("min-width", 300);
             $(".playersName").css("width", "auto");
         }
-        //$("tr td.sets:contains('2')").each(function () {
-        //    $(this).siblings('td').hide();/*css("visibility", "hidden");*/
-        //});
     );
 
     function openNewWindow(matchId) {

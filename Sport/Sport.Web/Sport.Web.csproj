@@ -14,6 +14,7 @@
     <PackageReference Include="jQuery" Version="3.4.1" />
     <PackageReference Include="jQuery.Ajax.Unobtrusive" Version="2.0.20710" />
     <PackageReference Include="jQuery.UI.Combined" Version="1.12.1" />
+    <PackageReference Include="MailKit" Version="2.5.1" />
     <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.3" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.SignalR.Client" Version="2.4.1" />
@@ -37,6 +38,12 @@
     <ProjectReference Include="..\Sport.Domain\Sport.Domain.csproj" />
     <ProjectReference Include="..\Sport.Models\Sport.ViewModels.csproj" />
     <ProjectReference Include="..\Sport.Services\Sport.Services.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Contact\" />
+    <Folder Include="Views\MailSender\" />
   </ItemGroup>
 
 </Project>

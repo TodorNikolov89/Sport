@@ -1,4 +1,4 @@
- namespace Sport.Web
+namespace Sport.Web
 {
     using Hubs;
     using Data;
@@ -20,7 +20,6 @@
     using AutoMapper;
     using Sport.Web.MIddlewares;
 
-
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -32,6 +31,7 @@
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddDbContext<SportDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
