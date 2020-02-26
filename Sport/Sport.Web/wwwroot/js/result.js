@@ -1,11 +1,13 @@
-﻿"use strict";
+﻿//"use strict";
 
-var connection = new signalR.HubConnectionBuilder().withUrl("/sportHub").build();
+connection = new signalR.HubConnectionBuilder()
+    .withUrl("/sportHub")
+    .build();
 
 var arr = ["0", "15", "30", "40", "Ad"];
-console.log("YESSS")
+
 connection.on("ReceiveResult", function (result) {
-    $("#fpp" + "-" + result.id).html(arr[result.firstPlayerPoints]),
+        $("#fpp" + "-" + result.id).html(arr[result.firstPlayerPoints]),
         $("#fpg" + "-" + result.id).html(result.firstPlayerGames),
         $("#fps" + "-" + result.id).html(result.firstPlayerSets),
         $("#fptbp" + "-" + result.id).html(result.firstPlayerTieBreakPoints),
@@ -15,8 +17,8 @@ connection.on("ReceiveResult", function (result) {
         $("#sptbp" + "-" + result.id).html(result.secondPlayerTieBreakPoints)
 });
 
+
 connection.start().then(function () {
 }).catch(function (err) {
-    console.log("NOOOO")
     return console.error(err.toString());
 });

@@ -9,7 +9,7 @@
     {
         public async Task UpdateResult(LiveResultViewModel match)
         {
-            await Clients.All.SendAsync("ReceiveResult", match, Context.ConnectionId);
+            await Clients.All.SendAsync("ReceiveResult", match);
         }
     }
 }

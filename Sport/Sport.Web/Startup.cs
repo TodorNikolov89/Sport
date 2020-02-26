@@ -99,8 +99,9 @@ namespace Sport.Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                //endpoints.MapHub<SportHub>("/chatHub", options => { options.Transports = AspNetCore.Http.Connections.HttpTransportType.LongPolling; });
                 endpoints.MapHub<SportHub>("/sportHub");
+                endpoints.MapRazorPages();
 
                 endpoints.MapControllerRoute(
                     name: "default",

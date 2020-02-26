@@ -26,8 +26,7 @@
             this.context = context;
             this.mapper = mapper;
         }
-        private IHubContext<SportHub> HubContext
-        { get; set; }
+
 
         [Route(nameof(GetById) + "/{id}")]
         public IActionResult GetById(int id)
@@ -44,8 +43,8 @@
             return View(result);
         }
 
-        [Route(nameof(ChangeResult))]
         [HttpPost]
+        [Route(nameof(ChangeResult))]
         public async Task<LiveResultViewModel> ChangeResult(string buttonId, int matchId)
         {
             LiveResultViewModel result = null;
@@ -61,7 +60,6 @@
             }
 
             await this.sportHub.Clients.All.SendAsync("ReceiveResult", result);
-
 
             return result;
         }
