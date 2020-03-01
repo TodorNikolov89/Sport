@@ -67,7 +67,7 @@ namespace Sport.Web
             services.AddRazorPages();
             services.AddSignalR();
 
-            services.AddMvc(option => option.EnableEndpointRouting = false)
+            services.AddMvc(option => option.EnableEndpointRouting = true)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
@@ -96,12 +96,10 @@ namespace Sport.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapHub<SportHub>("/chatHub", options => { options.Transports = AspNetCore.Http.Connections.HttpTransportType.LongPolling; });
-                endpoints.MapHub<SportHub>("/sportHub");
                 endpoints.MapRazorPages();
+                endpoints.MapHub<SportHub>("/sportHub");
 
                 endpoints.MapControllerRoute(
                     name: "default",

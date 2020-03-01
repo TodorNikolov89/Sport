@@ -7,9 +7,9 @@
 
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.SignalR;
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.SignalR;
 
     [Route("matches")]
     public class MatchesController : Controller

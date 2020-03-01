@@ -15,16 +15,16 @@
 <div id="container" class="container">
     @foreach (var match in Model)
     {
-        <table>
+        <table class="match-result-table">
             <tbody>
-                <tr style="width:auto" class="rowBold">
-                    <td rowspan="2" width="90px" align="center">
+                <tr class="rowBold">
+                    <td rowspan="2" class="td-button">
                         <button class="btn btn-info btn-sm" onclick="openNewWindow(@match.Id)" value="1">Details</button>
                     </td>
-                    <td class="playersName" style="width:auto">
+                    <td class="playersName @(match.FirstPlayerSets == 2 ? "bold" : "")">
                         @match.FirstPlayer.FirstName @match.FirstPlayer.LastName
                     </td>
-                    <td class="sets">
+                    <td class="sets @(match.FirstPlayerSets == 2 ? "bold" : "")">
                         @match.FirstPlayerSets
                     </td>
                     @foreach (var set in match.Sets)
@@ -34,11 +34,11 @@
                         </td>
                     }
                 </tr>
-                <tr style="width:auto" class="rowBold">
-                    <td class="playersName" style="width:auto">
+                <tr class="rowBold">
+                    <td class="playersName @(match.SecondPlayerSets == 2 ? "bold" : "")">
                         @match.SecondPlayer.FirstName @match.SecondPlayer.LastName
                     </td>
-                    <td class="sets">
+                    <td class="sets @(match.SecondPlayerSets == 2 ? "bold" : "")">
                         @match.SecondPlayerSets
                     </td>
                     @foreach (var set in match.Sets)
@@ -59,8 +59,6 @@
         function () {
             $(".container").css("inline-size", "max-content");
             $(".sets, .games").css("width", 50);
-            $(".playersName").css("min-width", 300);
-            $(".playersName").css("width", "auto");
         }
     );
 

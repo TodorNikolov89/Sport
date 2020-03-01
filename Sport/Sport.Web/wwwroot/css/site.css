@@ -90,3 +90,25 @@ td {
     color: gray;
 }
 
+.match-result-table {
+    margin: 0 auto;
+    width: 50%;
+}
+
+.playersName {
+    width: 35%;
+}
+
+.td-button {
+    width: 10%;
+}
+
+.bold {
+    font-weight: 900;
+}
+
+@media screen and (max-width: 350px) {
+    .footer {
+        line-height: 25px;
+    }
+}
