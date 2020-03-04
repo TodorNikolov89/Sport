@@ -83,7 +83,7 @@ namespace Sport.Web
                 app.UseDatabaseErrorPage();
             }
 
-            app.UseMiddleware<ErrorHandlingMiddleware>();
+           // app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseStatusCodePagesWithRedirects("/Error/Index?code={0}");
             app.UseExceptionHandler("/Home/Error/");
@@ -96,6 +96,7 @@ namespace Sport.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();

@@ -20,11 +20,11 @@
         }
         public DateTime? DateOfBirth { get; set; }
 
-        [Required]
+        [Required(AllowEmptyStrings =false,ErrorMessage ="Please eneter first name.")]
         [StringLength(50, ErrorMessage = "The FirstName value cannot exceed 25 characters. ")]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please eneter last name.")]
         [StringLength(50, ErrorMessage = "The LastName value cannot exceed 50 characters. ")]
         public string LastName { get; set; }
 

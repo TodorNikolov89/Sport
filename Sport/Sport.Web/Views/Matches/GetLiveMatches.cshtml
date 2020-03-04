@@ -31,10 +31,11 @@
     }
 </style>
 
+<link href="~/css/site.css" rel="stylesheet" />
 
 @foreach (var match in Model)
 {
-    <table align="center" id=@match.Id>
+    <table class="teble-live" id=@match.Id>
         <tbody>
             <tr>
                 <th class="playerName">

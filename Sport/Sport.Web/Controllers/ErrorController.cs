@@ -15,7 +15,7 @@
             switch (code)
             {
                 case "404":
-                    errorMessage = "Page cannot be found!";
+                    errorMessage = "The page you are looking for might have been removed, had its name changed or is temporarily unavailable.";
                     break;
                 default:
                     break;
@@ -24,7 +24,8 @@
             return View(new ErrorViewModel
             {
                 StatusCode = int.Parse(code),
-                Url = HttpContext.Features.Get<IHttpRequestFeature>().RawTarget,
+                //Url = HttpContext.Features.Get<IHttpRequestFeature>().RawTarget,           
+
                 Message = errorMessage
             });
         }

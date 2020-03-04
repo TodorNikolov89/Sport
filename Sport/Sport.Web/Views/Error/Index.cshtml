@@ -3,8 +3,8 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">@Model.Message</h2>
+<h1 class="text-danger">Error @Model.StatusCode</h1>
+<h2 class="text">@Model.Message</h2>
 
 @if (Model.ShowRequestId)
 {
@@ -12,9 +12,4 @@
         <strong>Request ID:</strong> <code>@Model.RequestId</code>
     </p>
 }
-
-
-<span>@Model.StatusCode</span>
-<span>@Model.Url</span>
-<span>@Model.Message</span>
 

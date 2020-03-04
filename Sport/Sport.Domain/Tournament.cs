@@ -18,21 +18,21 @@
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(AllowEmptyStrings =false, ErrorMessage ="Please eneter tournament name.")]
         [StringLength(50, ErrorMessage = "The Tournament Name value cannot exceed 50 characters. ")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(AllowEmptyStrings =false,ErrorMessage ="Please select number of players.")]
         public int NumberOfPlayers { get; set; }
 
         public ICollection<UserTournament> Players { get; set; }
 
-        [Required]
+        [Required(AllowEmptyStrings =false,ErrorMessage ="Please select start date.")]
         public DateTime? StartDate { get; set; }
              
         public DateTime? EndDate { get; set; }
 
-        [Required]
+        [Required(AllowEmptyStrings =false,ErrorMessage ="Please select tournament type.")]
         public TournamentType Type { get; set; }
 
         public string Place { get; set; }

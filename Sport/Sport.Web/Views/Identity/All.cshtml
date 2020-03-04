@@ -5,18 +5,16 @@
     ViewData["Title"] = "All Users";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h1>@ViewData["Title"]</h1>
 
 @if (TempData["SuccessMessage"] != null)
 {
     <h2 class="text-success">@TempData["SuccessMessage"]</h2>
 }
 
-@*<div>
-        <a href="/Identity/create" class="btn btn-primary">Add User</a>
-    </div>*@
-<br />
+<link href="~/css/site.css" rel="stylesheet" />
 
+<br />
 <table class="table table-bordered table-hover">
     <tr>
         <th>
