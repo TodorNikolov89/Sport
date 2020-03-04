@@ -1,6 +1,6 @@
 namespace Sport.Web
 {
-    using Hubs;
+    using Sport.Web.Hubs;
     using Data;
     using Domain;
     using Profiles;
@@ -18,7 +18,6 @@ namespace Sport.Web
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using AutoMapper;
-    using Sport.Web.MIddlewares;
 
     public class Startup
     {

@@ -11,12 +11,12 @@
     </div>
     <div class="form-group">
         <label asp-for="StartDate"></label>
-        <input asp-for="StartDate" min="0" class="form-control" type="date" />
+        <input asp-for="StartDate" id="startDate" min="0" class="form-control" type="date" />
         <span asp-validation-for="StartDate" class="form-text text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="EndDate"></label>
-        <input asp-for="EndDate" min="0" class="form-control" type="date" />
+        <input asp-for="EndDate" id="endDate" min="0" class="form-control" type="date" />
         <span asp-validation-for="EndDate" class="form-text text-danger"></span>
     </div>
     <div class="form-group">
@@ -53,3 +53,4 @@
         <input class="btn btn-success" type="submit" value="Add Tournament" />
     </div>
 </form>
+

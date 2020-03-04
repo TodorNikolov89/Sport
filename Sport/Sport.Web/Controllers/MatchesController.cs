@@ -59,7 +59,7 @@
                 result = await matchService.AddSecondPlayerPoint(matchId);
             }
 
-            await this.sportHub.Clients.All.SendAsync("ReceiveResult", result);
+            await sportHub.Clients.All.SendAsync("UpdateResult", result);
 
             return result;
         }
