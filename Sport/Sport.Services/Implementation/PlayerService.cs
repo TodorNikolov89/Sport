@@ -8,6 +8,8 @@
     using Data;
     using Domain;
     using ViewModels.Player;
+    using Sport.Services.Paging;
+    using System.Linq;
 
     public class PlayerService : IPlayerService
     {
@@ -27,8 +29,10 @@
             var allPlayers = await userManager.GetUsersInRoleAsync("Player");
 
             var result = mapper.Map<IEnumerable<AllPlayersViewModel>>(allPlayers);
+           // var querableResult = result.AsQueryable();
+           // var paginatedResult = await PaginatedList<AllPlayersViewModel>.CreateAsync(querableResult, 1, 3);
 
             return result;
-        }       
+        }
     }
 }

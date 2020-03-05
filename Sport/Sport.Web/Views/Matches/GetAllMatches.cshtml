@@ -6,71 +6,60 @@
 }
 
 <h1>@ViewData["Title"]</h1>
+<link href="~/css/site.css" rel="stylesheet" />
 
-
-<table class="table table-bordered table-hover">
-    <thead>
+@foreach (var match in Model)
+{
+    <table class="match-result-table">
         <tr>
-            <th>
-                First Player
-            </th>
-            <th>
-                Second Player
-            </th>
-            <th>
-                Tournament
-            </th>
-            <th>
-                Scoring or Umpire
-            </th>
-            <th>
-                Status
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var match in Model)
-        {
-        <tr id="matchRow">
-            <th>
-                @match.FirstPlayer.FirstName
-            </th>
-            <th>
-                @match.SecondPlayer.FirstName
-            </th>
-            <th>
+            <td>
+                @match.FirstPlayer.FirstName @match.FirstPlayer.LastName
+            </td>
+            <td rowspan="2">
                 @match.Tournament.Name
-            </th>
+            </td>
+            <td rowspan="2">
+                @if (match.Umpire != null && match.Umpire.Id == User.Identity.GetUserId())
+                {
 
-            @if (match.Umpire != null && match.Umpire.Id == User.Identity.GetUserId())
-            {
-                <th>
                     <a href="/matches/GetById/@match.Id" class="btn btn-warning btn-sm" title="You are an umpire for this match. Continue scoring..">Scoring</a>
-                </th>
-            }
 
-            @if (User.IsInRole(GlobalConstants.UmpireRole) && match.Umpire == null)
-            {
-                <th>
+                }
+
+                @if (User.IsInRole(GlobalConstants.UmpireRole) && match.Umpire == null)
+                {
+
                     <a href="/matches/BecomeUmpire/@match.Id" class="btn btn-warning btn-sm" title="Click if you wat to be an umpire!">Umpire</a>
-                </th>
-            }
-            @if (match.IsFinished)
-            {
-                <th>
+
+                }
+            </td>
+            <td rowspan="2">
+                Chair: @match.Umpire.FirstName @match.Umpire.LastName
+            </td>
+            <td rowspan="2">
+                @if (match.IsFinished)
+                {
+
                     <a class="text-success" title="Click if you wat to be an umpire!">Finished</a>
-                </th>
-            }
-            else
-            {
-                <th>
+
+                }
+                else
+                {
+
                     <a class="text-primary" title="Click if you wat to be an umpire!">Not Finished</a>
-                </th>
-            }
+
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @match.SecondPlayer.FirstName @match.SecondPlayer.LastName
+            </td>
 
         </tr>
+    </table>
 
-        }
-    </tbody>
-</table>
+}
+
+
 

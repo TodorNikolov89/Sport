@@ -81,11 +81,14 @@ namespace Sport.Web
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
-
+            else
+            {
+                app.UseStatusCodePagesWithRedirects("/Error/Index?code={0}");
+                app.UseExceptionHandler("/Home/Error/");
+            }
            // app.UseMiddleware<ErrorHandlingMiddleware>();
 
-            app.UseStatusCodePagesWithRedirects("/Error/Index?code={0}");
-            app.UseExceptionHandler("/Home/Error/");
+          
 
 
             app.UseHttpsRedirection();

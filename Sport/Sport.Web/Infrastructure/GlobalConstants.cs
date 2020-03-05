@@ -9,5 +9,6 @@
         public const string UmpireRole = "Umpire";
 
         public const string SuperAdministrator = "SuperAdministrator";
+
     }
 }

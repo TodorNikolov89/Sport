@@ -452,7 +452,7 @@
                .ThenInclude(p => p.Points)
                .FirstOrDefaultAsync(m => m.Id == matchId);
 
-            // var match = mapper.Map<FinishedMatchDetaisViewModel>(dbMatch);
+             //var match = mapper.Map<FinishedMatchDetaisViewModel>(dbMatch);
 
             return dbMatch;
         }

@@ -46,9 +46,7 @@
             CreateMap<Match, FinishedMatchDetaisViewModel>()
                .ForMember(dest => dest.FirstPlayerSets, opt => opt.MapFrom(src => src.FirstPlayerSets))
                .ForMember(dest => dest.SecondPlayerSets, opt => opt.MapFrom(src => src.SecondPlayerSets))
-               .ForMember(dest => dest.HasTieBreak, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().HasTieBreak))
                .ForMember(dest => dest.Sets, opt => opt.MapFrom(src => src.Sets));
-
 
 
             CreateMap<Match, LiveResultViewModel>()
@@ -76,12 +74,7 @@
                 .ForMember(dest => dest.FirstPlayerTieBreakPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().TieBreak.TieBreakPoints.ToList().LastOrDefault().FirstPlayerPoint))
                 .ForMember(dest => dest.SecondPlayerTieBreakPoints, opt => opt.MapFrom(src => src.Sets.ToList().LastOrDefault().TieBreak.TieBreakPoints.ToList().LastOrDefault().SecondPlayerPoint))
                 .ForMember(dest => dest.Sets, opt => opt.MapFrom(src => src.Sets));
-
-
-            //.ForMember(dest => dest.FirstPlayer, opt => opt.MapFrom(src => src.FirstPlayer))
-            //.ForMember(dest => dest.SecondPlayer, opt => opt.MapFrom(src => src.SecondPlayer))
-            //.ForMember(dest => dest.Sets, opt => opt.MapFrom(src => src.Sets));
-
+            
 
 
             CreateMap<Point, PointViewModel>().ReverseMap();

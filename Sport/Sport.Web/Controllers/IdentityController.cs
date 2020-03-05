@@ -8,12 +8,13 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;  
+    using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Sport.Services.Paging;
 
-    [Authorize(Roles = GlobalConstants.AdministratorRole)]
+    [Authorize(Roles = GlobalConstants.AdministratorRole + "," + GlobalConstants.SuperAdministrator)]
     [Route("identity")]
     public class IdentityController : Controller
     {
@@ -117,9 +118,9 @@
                 })
                 .ToList();
 
-
             return View(users);
         }
+
 
         [Route(nameof(Roles) + "/{id}")]
         public async Task<IActionResult> Roles(string id)
