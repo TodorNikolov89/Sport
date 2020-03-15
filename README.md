@@ -1,2 +1,2 @@
 ## Sport
-Sport Tournaments
+Sport Tournament
