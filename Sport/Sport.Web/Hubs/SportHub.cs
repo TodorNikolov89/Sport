@@ -7,9 +7,9 @@
 
     public class SportHub : Hub
     {
-        public async Task UpdateResult(LiveResultViewModel match)
+        public async Task UpdateResult(LiveResultViewModel result)
         {
-            await Clients.All.SendAsync("UpdateResult", match);
+            await Clients.All.SendAsync("NewResult", result);
         }
     }
 }

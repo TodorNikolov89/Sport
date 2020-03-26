@@ -18,6 +18,7 @@ namespace Sport.Web
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using AutoMapper;
+    using Microsoft.AspNetCore.SignalR;
 
     public class Startup
     {
@@ -68,7 +69,7 @@ namespace Sport.Web
 
             services.AddMvc(option => option.EnableEndpointRouting = true)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);           
         }
 
 
@@ -86,10 +87,8 @@ namespace Sport.Web
                 app.UseStatusCodePagesWithRedirects("/Error/Index?code={0}");
                 app.UseExceptionHandler("/Home/Error/");
             }
-           // app.UseMiddleware<ErrorHandlingMiddleware>();
-
-          
-
+            // app.UseMiddleware<ErrorHandlingMiddleware>();          
+           
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -102,7 +101,11 @@ namespace Sport.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-                endpoints.MapHub<SportHub>("/sportHub");
+                endpoints.MapHub<SportHub>("/sportHub", options =>
+                {
+                    // 30Kb message buffer
+                    options.ApplicationMaxBufferSize = 30 * 1024;
+                });
 
                 endpoints.MapControllerRoute(
                     name: "default",

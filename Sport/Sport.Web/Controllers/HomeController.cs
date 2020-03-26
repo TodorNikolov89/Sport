@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
+using Sport.Web.Hubs;
 using Sport.Web.Models;
 
 namespace Sport.Web.Controllers
@@ -15,10 +18,11 @@ namespace Sport.Web.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public  IActionResult Index()
         {
-            
+
             return View();
+
         }
 
         public IActionResult Privacy()
