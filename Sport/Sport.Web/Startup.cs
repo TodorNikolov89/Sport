@@ -31,7 +31,6 @@ namespace Sport.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddDbContext<SportDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
